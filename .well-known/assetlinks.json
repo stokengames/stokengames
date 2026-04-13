@@ -2,7 +2,7 @@
   "relation": ["delegate_permission/common.handle_all_urls"],
   "target": {
     "namespace": "android_app",
-    "package_name": "com.example.crowdqueue",
+    "package_name": "com.blend.app",
     "sha256_cert_fingerprints": [
       "23:DE:7E:E5:27:76:4A:4B:6C:D0:CE:82:D3:A0:1D:27:A9:27:04:27:F4:4F:35:3F:C5:BE:51:C6:B0:DB:5B:75"
     ]
