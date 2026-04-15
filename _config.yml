@@ -1,2 +1,10 @@
 include:
   - .well-known
+
+defaults:
+  - scope:
+      path: ".well-known"
+    values:
+      layout: null
+
+plugins: []
