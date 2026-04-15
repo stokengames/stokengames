@@ -4,7 +4,8 @@
     "namespace": "android_app",
     "package_name": "com.blend.app",
     "sha256_cert_fingerprints": [
-      "23:DE:7E:E5:27:76:4A:4B:6C:D0:CE:82:D3:A0:1D:27:A9:27:04:27:F4:4F:35:3F:C5:BE:51:C6:B0:DB:5B:75"
+      "23:DE:7E:E5:27:76:4A:4B:6C:D0:CE:82:D3:A0:1D:27:A9:27:04:27:F4:4F:35:3F:C5:BE:51:C6:B0:DB:5B:75",
+      "9E:BE:C2:00:7F:4D:33:B4:68:EF:54:59:E7:57:3A:6B:38:EC:33:E6:FD:91:65:71:B5:2C:7C:77:40:84:8D:20"
     ]
   }
 }]
