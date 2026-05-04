@@ -141,17 +141,8 @@
     gap: 24px;
   }
 
-  .brand { display: flex; align-items: center; gap: 12px; }
-  .brand img { height: 36px; width: auto; }
-  .brand-mark {
-    font-family: var(--font-display);
-    font-size: 22px;
-    font-weight: 900;
-    font-style: italic;
-    letter-spacing: -0.02em;
-    color: var(--stoken-blue);
-    text-transform: uppercase;
-  }
+  .brand { display: flex; align-items: center; }
+  .brand img { height: 40px; width: auto; }
 
   .nav-links { display: flex; gap: 32px; align-items: center; list-style: none; }
   .nav-links a {
@@ -383,12 +374,16 @@
   }
 
   .game-card {
+    display: block;
     background: var(--surface-container-low);
     border: 1px solid rgba(255,255,255,0.06);
     padding: 32px;
     transition: transform 0.5s ease, box-shadow 0.5s ease, border-color 0.5s ease;
     box-shadow: 0 0 40px -10px rgba(0, 229, 255, 0.1);
+    color: inherit;
+    text-decoration: none;
   }
+  a.game-card { cursor: pointer; }
 
   .game-card:hover {
     transform: translateY(-8px);
@@ -827,7 +822,7 @@
     .section-head { flex-direction: column; align-items: flex-start; }
     .section-meta { text-align: left; max-width: none; }
     .footer-inner { flex-direction: column; text-align: center; }
-    .brand-mark { font-size: 18px; }
+    .brand img { height: 32px; }
   }
 
   @media (max-width: 520px) {
@@ -844,8 +839,7 @@
 <nav class="topbar">
   <div class="topbar-inner">
     <a href="#home" class="brand" aria-label="Stoken Games">
-      <img src="images/icon.png" alt="Stoken Games">
-      <span class="brand-mark">Stoken Games</span>
+      <img src="images/logo.png" alt="Stoken Games">
     </a>
     <ul class="nav-links">
       <li><a href="#games" data-nav>Games</a></li>
@@ -892,8 +886,7 @@
     </div>
     <div class="why-body">
       <p class="t-body-lg">
-        Most corporate training is a chore. We believe it should be a contest. By merging
-        <strong>tactile tabletop mechanics</strong> with
+        By merging <strong>tactile tabletop mechanics</strong> with
         <strong>digital precision</strong>, we create high-stakes environments where teams don't just learn—they evolve through competition.
       </p>
     </div>
@@ -928,7 +921,7 @@
       </article>
 
       <!-- Emergent -->
-      <article class="game-card reveal reveal-delay-1">
+      <a class="game-card reveal reveal-delay-1" href="https://supply-unchained.fly.dev" target="_blank" rel="noopener">
         <div class="game-card-art">
           <img src="images/emergent-box.png" alt="Emergent box art">
           <span class="game-card-badge">Digital</span>
@@ -939,13 +932,13 @@
           <span class="t-label-caps game-card-outcome-label">Outcome:</span>
           <p class="t-body-md game-card-outcome-text">Improves crisis communication and rapid decision making.</p>
         </div>
-      </article>
+      </a>
 
       <!-- Ladders -->
       <article class="game-card reveal reveal-delay-2">
         <div class="game-card-art">
           <img src="images/ladders-box.png" alt="#Ladders box art">
-          <span class="game-card-badge is-silver">Hybrid</span>
+          <span class="game-card-badge">Tabletop</span>
         </div>
         <h3 class="t-h2">#Ladders</h3>
         <p class="t-body-md game-card-tagline">Navigating corporate hierarchy and social capital.</p>
