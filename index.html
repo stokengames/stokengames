@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Stoken Games — We're Stoked to Play</title>
-<meta name="description" content="Stoken Games designs tabletop and digital games that turn team learning into high-stakes play. Greenfield, Emergent, #Ladders, and the Blend app.">
+<meta name="description" content="Stoken Games designs tabletop and digital games that turn team learning into high-stakes play. Greenfield, Emergent, #Ladders, and what's next.">
 <link rel="icon" type="image/png" href="images/icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -31,9 +31,9 @@
 
     /* Accents */
     --stoken-blue: #00E5FF;
+    --stoken-blue-deep: #0066ff;
     --stoken-silver: #c9c6c5;
-    --blend-purple: #6C63FF;
-    --blend-green: #1DB954;
+    --success-green: #1DB954;
     --accent-warmth: #D97706;
 
     /* Spacing */
@@ -443,16 +443,27 @@
     margin-top: 4px;
   }
 
-  /* ============= BLEND ============= */
-  .blend {
+  /* ============= APPS / KINTERPRET ============= */
+  .apps {
     position: relative;
-    background: linear-gradient(to bottom right, rgba(0, 229, 255, 0.10), var(--bg) 50%, rgba(201, 198, 197, 0.05));
+    background: linear-gradient(to bottom right, rgba(0, 102, 255, 0.12), var(--bg) 55%, rgba(201, 198, 197, 0.04));
     border-top: 1px solid rgba(255,255,255,0.05);
     border-bottom: 1px solid rgba(255,255,255,0.05);
     overflow: hidden;
   }
 
-  .blend-grid {
+  .apps::before {
+    content: '';
+    position: absolute;
+    top: -200px; left: -200px;
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(0, 102, 255, 0.18) 0%, transparent 65%);
+    filter: blur(40px);
+    pointer-events: none;
+  }
+
+  .apps-grid {
+    position: relative;
     max-width: var(--container-max);
     margin: 0 auto;
     padding: 0 24px;
@@ -460,61 +471,97 @@
     grid-template-columns: 1fr 1fr;
     gap: 96px;
     align-items: center;
+    z-index: 1;
   }
 
-  .blend-heading-row {
-    display: flex;
+  .apps-eyebrow {
+    display: inline-flex;
     align-items: center;
-    gap: 12px;
+    gap: 8px;
+    color: var(--stoken-blue-deep);
+    margin-bottom: var(--stack-md);
+    letter-spacing: 0.25em;
+  }
+  .apps-eyebrow::before {
+    content: '';
+    width: 24px;
+    height: 1px;
+    background: var(--stoken-blue-deep);
+  }
+
+  .apps-wordmark {
+    display: block;
+    font-family: var(--font-display);
+    font-size: clamp(48px, 7vw, 72px);
+    font-weight: 800;
+    line-height: 1.0;
+    letter-spacing: -0.02em;
+    color: var(--stoken-blue-deep);
+    text-transform: uppercase;
     margin-bottom: var(--stack-md);
   }
 
-  .blend-icon-tile {
-    width: 56px;
-    height: 56px;
-    border-radius: 14px;
-    background: var(--stoken-blue);
-    box-shadow: 0 0 20px rgba(0, 229, 255, 0.4);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-  }
-  .blend-icon-tile img { width: 100%; height: 100%; object-fit: cover; }
-
-  .blend-wordmark {
+  .apps-title {
     color: var(--text-primary);
-    font-family: var(--font-display);
-    font-size: 32px;
-    font-weight: 700;
-    letter-spacing: -0.01em;
-    text-transform: uppercase;
+    margin-bottom: var(--stack-md);
   }
 
-  .blend-title { color: var(--text-primary); margin-bottom: var(--stack-md); }
-  .blend-desc {
+  .apps-desc {
     color: var(--on-surface-variant);
     margin-bottom: var(--stack-lg);
-    max-width: 540px;
+    max-width: 560px;
   }
 
-  .blend-stats { display: flex; flex-wrap: wrap; gap: 32px; }
-  .blend-stat-num {
+  .apps-modes {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+
+  .apps-mode {
+    background: #161616;
+    border-left: 2px solid var(--stoken-blue-deep);
+    padding: 16px 18px;
+    transition: background 0.25s ease, border-left-color 0.25s ease;
+  }
+  .apps-mode:hover {
+    background: #1c1c1c;
+    border-left-color: #4d8eff;
+  }
+
+  .apps-mode-name {
     display: block;
     font-family: var(--font-display);
-    font-size: 32px;
+    font-size: 16px;
     font-weight: 700;
-    line-height: 1.0;
-    color: var(--stoken-blue);
-  }
-  .blend-stat-num.is-silver { color: var(--stoken-silver); }
-  .blend-stat-label {
-    font-family: var(--font-display);
-    font-size: 10px;
-    color: rgba(201, 198, 197, 0.6);
-    letter-spacing: 0.15em;
+    letter-spacing: 0.04em;
     text-transform: uppercase;
-    margin-top: 4px;
+    color: var(--text-primary);
+    margin-bottom: 4px;
+  }
+
+  .apps-mode-desc {
+    display: block;
+    font-family: var(--font-body);
+    font-size: 14px;
+    line-height: 1.5;
+    color: rgba(201, 198, 197, 0.75);
+  }
+
+  @media (max-width: 600px) {
+    .apps-modes { grid-template-columns: 1fr; }
+  }
+
+  /* Apps section uses Stoken brand blue (#0066ff) for accents */
+  .apps .waitlist-tag {
+    background: var(--stoken-blue-deep);
+    color: #fff;
+  }
+  .apps .input-bare:focus { border-bottom-color: var(--stoken-blue-deep); }
+  .apps .btn-submit {
+    background: var(--stoken-blue-deep);
+    color: #fff;
+    box-shadow: 0 0 30px rgba(0, 102, 255, 0.35);
   }
 
   .waitlist-card {
@@ -594,7 +641,7 @@
   .form-success {
     background: rgba(29, 185, 84, 0.1);
     border: 1px solid rgba(29, 185, 84, 0.3);
-    color: var(--blend-green);
+    color: var(--success-green);
     padding: 16px;
     text-align: center;
     font-size: 14px;
@@ -800,7 +847,7 @@
   /* ============= RESPONSIVE ============= */
   @media (max-width: 1024px) {
     :root { --section-padding: 80px; }
-    .blend-grid { grid-template-columns: 1fr; gap: 56px; }
+    .apps-grid { grid-template-columns: 1fr; gap: 56px; }
     .waitlist-card { padding: 40px; }
   }
 
@@ -837,7 +884,7 @@
     <ul class="nav-links">
       <li><a href="#games" data-nav>Games</a></li>
       <li><a href="#why" data-nav>The Why</a></li>
-      <li><a href="#blend" data-nav>Blend</a></li>
+      <li><a href="#apps" data-nav>Apps</a></li>
       <li><a href="#contact" data-nav>Contact</a></li>
     </ul>
     <a href="#contact" class="nav-cta">Let's Play</a>
@@ -944,29 +991,36 @@
   </div>
 </section>
 
-<!-- BLEND -->
-<section class="blend" id="blend">
-  <div class="blend-grid">
+<!-- APPS / KINTERPRET -->
+<section class="apps" id="apps">
+  <div class="apps-grid">
     <div class="reveal">
-      <div class="blend-heading-row">
-        <div class="blend-icon-tile">
-          <img src="images/blend-icon.png" alt="">
-        </div>
-        <span class="blend-wordmark">Blend App</span>
-      </div>
-      <h2 class="t-h1 blend-title">Master the Mix.</h2>
-      <p class="t-body-lg blend-desc">
-        Our companion app for shared listening. When the room gathers, everyone connects their
-        Spotify and Blend's AI weaves a single playlist that genuinely works for the whole group.
+      <span class="t-label-caps apps-eyebrow">In Development</span>
+      <span class="apps-wordmark">Kinterpret</span>
+      <h2 class="t-h2 apps-title">AI that helps you talk across the divide.</h2>
+      <p class="t-body-lg apps-desc">
+        An AI app that translates across political and cultural divides in relationships. Six conversation modes help you understand what someone actually means and respond in a way they can hear.
       </p>
-      <div class="blend-stats">
-        <div>
-          <span class="blend-stat-num">Android</span>
-          <span class="blend-stat-label">Coming First</span>
+      <div class="apps-modes" aria-label="Conversation modes">
+        <div class="apps-mode">
+          <span class="apps-mode-name">Decoded</span>
+          <span class="apps-mode-desc">The unspoken part, surfaced plainly.</span>
         </div>
-        <div>
-          <span class="blend-stat-num is-silver">iOS</span>
-          <span class="blend-stat-label">Shortly After</span>
+        <div class="apps-mode">
+          <span class="apps-mode-name">The Root</span>
+          <span class="apps-mode-desc">Who's underneath the words, and what they want.</span>
+        </div>
+        <div class="apps-mode">
+          <span class="apps-mode-name">Common Ground</span>
+          <span class="apps-mode-desc">The value you actually share underneath.</span>
+        </div>
+        <div class="apps-mode">
+          <span class="apps-mode-name">Honest Disagreement</span>
+          <span class="apps-mode-desc">Where the values actually conflict.</span>
+        </div>
+        <div class="apps-mode">
+          <span class="apps-mode-name">The Bridge</span>
+          <span class="apps-mode-desc">Words you might actually say to start the conversation.</span>
         </div>
       </div>
     </div>
@@ -974,19 +1028,20 @@
     <div class="waitlist-card reveal reveal-delay-1">
       <span class="waitlist-tag">Early Access</span>
       <h3 class="t-h2">Join the Waitlist</h3>
-      <p class="t-body-md waitlist-card-sub">Be the first to know when Blend launches. No spam — just a notification when it's ready.</p>
+      <p class="t-body-md waitlist-card-sub">In development. Be the first to know when Kinterpret launches.</p>
 
       <form class="form-stack" id="waitlist-form" action="https://formspree.io/f/mwvapwld" method="POST">
         <input class="input-bare" type="email" name="email" placeholder="your@email.com" required>
-        <input type="hidden" name="_subject" value="New Blend Waitlist Signup">
+        <input type="hidden" name="app" value="kinterpret">
+        <input type="hidden" name="_subject" value="Kinterpret Waitlist Signup">
         <button type="submit" class="btn-submit">
-          Get Priority Access <span class="material-symbols-outlined">rocket_launch</span>
+          Get Early Access <span class="material-symbols-outlined">arrow_forward</span>
         </button>
-        <p class="form-fineprint">By signing up you agree to our beta terms and privacy policy.</p>
+        <p class="form-fineprint">No spam — just a notification when Kinterpret launches.</p>
       </form>
 
       <div class="form-success" id="waitlist-success">
-        You're on the list. We'll be in touch when Blend launches.
+        You're on the list. We'll be in touch when Kinterpret launches.
       </div>
     </div>
   </div>
@@ -1055,7 +1110,7 @@
     <ul class="footer-links">
       <li><a href="#games">Games</a></li>
       <li><a href="#why">The Studio</a></li>
-      <li><a href="#blend">Blend</a></li>
+      <li><a href="#apps">Apps</a></li>
       <li><a href="#contact">Contact</a></li>
       <li><a href="privacy.html">Privacy Policy</a></li>
     </ul>
