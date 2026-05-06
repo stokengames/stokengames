@@ -31,7 +31,6 @@
 
     /* Accents */
     --stoken-blue: #00E5FF;
-    --stoken-blue-deep: #0066ff;
     --stoken-silver: #c9c6c5;
     --success-green: #1DB954;
     --accent-warmth: #D97706;
@@ -446,7 +445,7 @@
   /* ============= APPS / KINTERPRET ============= */
   .apps {
     position: relative;
-    background: linear-gradient(to bottom right, rgba(0, 102, 255, 0.12), var(--bg) 55%, rgba(201, 198, 197, 0.04));
+    background: linear-gradient(to bottom right, rgba(0, 229, 255, 0.10), var(--bg) 55%, rgba(201, 198, 197, 0.04));
     border-top: 1px solid rgba(255,255,255,0.05);
     border-bottom: 1px solid rgba(255,255,255,0.05);
     overflow: hidden;
@@ -457,7 +456,7 @@
     position: absolute;
     top: -200px; left: -200px;
     width: 600px; height: 600px;
-    background: radial-gradient(circle, rgba(0, 102, 255, 0.18) 0%, transparent 65%);
+    background: radial-gradient(circle, rgba(0, 229, 255, 0.16) 0%, transparent 65%);
     filter: blur(40px);
     pointer-events: none;
   }
@@ -478,7 +477,7 @@
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    color: var(--stoken-blue-deep);
+    color: var(--stoken-blue);
     margin-bottom: var(--stack-md);
     letter-spacing: 0.25em;
   }
@@ -486,7 +485,7 @@
     content: '';
     width: 24px;
     height: 1px;
-    background: var(--stoken-blue-deep);
+    background: var(--stoken-blue);
   }
 
   .apps-wordmark {
@@ -496,7 +495,7 @@
     font-weight: 800;
     line-height: 1.0;
     letter-spacing: -0.02em;
-    color: var(--stoken-blue-deep);
+    color: var(--stoken-blue);
     text-transform: uppercase;
     margin-bottom: var(--stack-md);
   }
@@ -520,13 +519,13 @@
 
   .apps-mode {
     background: #161616;
-    border-left: 2px solid var(--stoken-blue-deep);
+    border-left: 2px solid var(--stoken-blue);
     padding: 16px 18px;
     transition: background 0.25s ease, border-left-color 0.25s ease;
   }
   .apps-mode:hover {
     background: #1c1c1c;
-    border-left-color: #4d8eff;
+    border-left-color: #66efff;
   }
 
   .apps-mode-name {
@@ -550,18 +549,6 @@
 
   @media (max-width: 600px) {
     .apps-modes { grid-template-columns: 1fr; }
-  }
-
-  /* Apps section uses Stoken brand blue (#0066ff) for accents */
-  .apps .waitlist-tag {
-    background: var(--stoken-blue-deep);
-    color: #fff;
-  }
-  .apps .input-bare:focus { border-bottom-color: var(--stoken-blue-deep); }
-  .apps .btn-submit {
-    background: var(--stoken-blue-deep);
-    color: #fff;
-    box-shadow: 0 0 30px rgba(0, 102, 255, 0.35);
   }
 
   .waitlist-card {
