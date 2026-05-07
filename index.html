@@ -445,9 +445,7 @@
   /* ============= APPS / KINTERPRET ============= */
   .apps {
     position: relative;
-    background: linear-gradient(to bottom right, rgba(0, 229, 255, 0.10), var(--bg) 55%, rgba(201, 198, 197, 0.04));
-    border-top: 1px solid rgba(255,255,255,0.05);
-    border-bottom: 1px solid rgba(255,255,255,0.05);
+    background: var(--bg);
     overflow: hidden;
   }
 
@@ -456,7 +454,7 @@
     position: absolute;
     top: -200px; left: -200px;
     width: 600px; height: 600px;
-    background: radial-gradient(circle, rgba(0, 229, 255, 0.16) 0%, transparent 65%);
+    background: radial-gradient(circle, rgba(0, 229, 255, 0.10) 0%, transparent 65%);
     filter: blur(40px);
     pointer-events: none;
   }
@@ -518,14 +516,16 @@
   }
 
   .apps-mode {
-    background: #161616;
+    background: var(--surface-container-low);
+    border: 1px solid rgba(255, 255, 255, 0.06);
     border-left: 2px solid var(--stoken-blue);
     padding: 16px 18px;
-    transition: background 0.25s ease, border-left-color 0.25s ease;
+    transition: background 0.25s ease, border-color 0.25s ease;
   }
   .apps-mode:hover {
-    background: #1c1c1c;
-    border-left-color: #66efff;
+    background: var(--surface-container);
+    border-color: rgba(0, 229, 255, 0.25);
+    border-left-color: var(--stoken-blue);
   }
 
   .apps-mode-name {
