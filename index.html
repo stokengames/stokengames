@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Stoken Games — We're Stoked to Play</title>
-<meta name="description" content="Stoken Games designs tabletop and digital games that turn team learning into high-stakes play. Greenfield, Emergent, #Ladders, and what's next.">
+<meta name="description" content="Stoken Games designs board games and builds custom team experiences worth getting hyped about.">
 <link rel="icon" type="image/png" href="images/icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -442,14 +442,14 @@
     margin-top: 4px;
   }
 
-  /* ============= APPS / KINTERPRET ============= */
-  .apps {
+  /* ============= CUSTOM BUILDS ============= */
+  .custom-builds {
     position: relative;
     background: var(--bg);
     overflow: hidden;
   }
 
-  .apps::before {
+  .custom-builds::before {
     content: '';
     position: absolute;
     top: -200px; left: -200px;
@@ -459,97 +459,109 @@
     pointer-events: none;
   }
 
-  .apps-grid {
-    position: relative;
-    max-width: var(--container-max);
+  .custom-builds .container { position: relative; z-index: 1; }
+
+  .custom-builds-head {
+    text-align: center;
+    max-width: 720px;
     margin: 0 auto;
-    padding: 0 24px;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 96px;
-    align-items: center;
-    z-index: 1;
   }
 
-  .apps-eyebrow {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
+  .custom-builds-eyebrow {
+    display: inline-block;
     color: var(--stoken-blue);
-    margin-bottom: var(--stack-md);
     letter-spacing: 0.25em;
-  }
-  .apps-eyebrow::before {
-    content: '';
-    width: 24px;
-    height: 1px;
-    background: var(--stoken-blue);
-  }
-
-  .apps-wordmark {
-    display: block;
-    font-family: var(--font-display);
-    font-size: clamp(48px, 7vw, 72px);
-    font-weight: 800;
-    line-height: 1.0;
-    letter-spacing: -0.02em;
-    color: var(--stoken-blue);
-    text-transform: uppercase;
     margin-bottom: var(--stack-md);
   }
 
-  .apps-title {
+  .custom-builds-title {
     color: var(--text-primary);
     margin-bottom: var(--stack-md);
   }
 
-  .apps-desc {
+  .custom-builds-tagline {
     color: var(--on-surface-variant);
-    margin-bottom: var(--stack-lg);
-    max-width: 560px;
   }
 
-  .apps-modes {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 12px;
+  .custom-builds-team {
+    margin: 64px auto 56px;
+    max-width: 1100px;
   }
 
-  .apps-mode {
-    background: var(--surface-container-low);
-    border: 1px solid rgba(255, 255, 255, 0.06);
-    border-left: 2px solid var(--stoken-blue);
-    padding: 16px 18px;
-    transition: background 0.25s ease, border-color 0.25s ease;
-  }
-  .apps-mode:hover {
-    background: var(--surface-container);
-    border-color: rgba(0, 229, 255, 0.25);
-    border-left-color: var(--stoken-blue);
-  }
-
-  .apps-mode-name {
+  .custom-builds-team img {
+    width: 100%;
+    height: auto;
     display: block;
-    font-family: var(--font-display);
-    font-size: 16px;
-    font-weight: 700;
-    letter-spacing: 0.04em;
-    text-transform: uppercase;
-    color: var(--text-primary);
-    margin-bottom: 4px;
   }
 
-  .apps-mode-desc {
-    display: block;
-    font-family: var(--font-body);
-    font-size: 14px;
-    line-height: 1.5;
-    color: rgba(201, 198, 197, 0.75);
+  .custom-builds-copy {
+    max-width: 680px;
+    margin: 0 auto 64px;
+    display: flex;
+    flex-direction: column;
+    gap: var(--stack-md);
   }
 
-  @media (max-width: 600px) {
-    .apps-modes { grid-template-columns: 1fr; }
+  .custom-builds-copy p { color: var(--on-surface-variant); }
+
+  .custom-builds-demo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--stack-md);
+    margin: 0 auto 64px;
   }
+
+  .custom-builds-card-caption {
+    color: rgba(201, 198, 197, 0.55);
+    text-align: center;
+    max-width: 420px;
+  }
+
+  .custom-builds-cta { text-align: center; }
+
+  /* Flip card */
+  .card-flip {
+    width: 100%;
+    max-width: 380px;
+    aspect-ratio: 5 / 7;
+    perspective: 1200px;
+    background: transparent;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .card-flip:focus-visible { outline: 2px solid var(--stoken-blue); outline-offset: 8px; }
+
+  .card-flip-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transition: transform 500ms ease;
+    transform-style: preserve-3d;
+  }
+
+  .card-flip.is-flipped .card-flip-inner { transform: rotateY(180deg); }
+
+  @media (hover: hover) {
+    .card-flip:hover .card-flip-inner { transform: rotateY(180deg); }
+    .card-flip:hover.is-flipped .card-flip-inner { transform: rotateY(0deg); }
+  }
+
+  .card-face {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    object-fit: cover;
+    border-radius: 14px;
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.5);
+  }
+
+  .card-face-back { transform: rotateY(180deg); }
 
   .waitlist-card {
     position: relative;
@@ -834,7 +846,6 @@
   /* ============= RESPONSIVE ============= */
   @media (max-width: 1024px) {
     :root { --section-padding: 80px; }
-    .apps-grid { grid-template-columns: 1fr; gap: 56px; }
     .waitlist-card { padding: 40px; }
   }
 
@@ -871,7 +882,7 @@
     <ul class="nav-links">
       <li><a href="#games" data-nav>Games</a></li>
       <li><a href="#why" data-nav>The Why</a></li>
-      <li><a href="#apps" data-nav>Apps</a></li>
+      <li><a href="#custom-builds" data-nav>Custom Builds</a></li>
       <li><a href="#contact" data-nav>Contact</a></li>
     </ul>
     <a href="#contact" class="nav-cta">Let's Play</a>
@@ -978,58 +989,55 @@
   </div>
 </section>
 
-<!-- APPS / KINTERPRET -->
-<section class="apps" id="apps">
-  <div class="apps-grid">
-    <div class="reveal">
-      <span class="t-label-caps apps-eyebrow">In Development</span>
-      <span class="apps-wordmark">Kinterpret</span>
-      <h2 class="t-h2 apps-title">AI that helps you talk across the divide.</h2>
-      <p class="t-body-lg apps-desc">
-        An AI app that translates across political and cultural divides in relationships. Six conversation modes help you understand what someone actually means and respond in a way they can hear.
+<!-- CUSTOM BUILDS -->
+<section class="custom-builds" id="custom-builds">
+  <div class="container">
+    <div class="custom-builds-head reveal">
+      <span class="t-label-caps custom-builds-eyebrow">Bespoke commissions</span>
+      <h2 class="t-h1 custom-builds-title">Custom Builds</h2>
+      <p class="t-body-lg custom-builds-tagline">
+        Bespoke games where every teammate is the main character. Designed to print, built to keep.
       </p>
-      <div class="apps-modes" aria-label="Conversation modes">
-        <div class="apps-mode">
-          <span class="apps-mode-name">Decoded</span>
-          <span class="apps-mode-desc">The unspoken part, surfaced plainly.</span>
-        </div>
-        <div class="apps-mode">
-          <span class="apps-mode-name">The Root</span>
-          <span class="apps-mode-desc">Who's underneath the words, and what they want.</span>
-        </div>
-        <div class="apps-mode">
-          <span class="apps-mode-name">Common Ground</span>
-          <span class="apps-mode-desc">The value you actually share underneath.</span>
-        </div>
-        <div class="apps-mode">
-          <span class="apps-mode-name">Honest Disagreement</span>
-          <span class="apps-mode-desc">Where the values actually conflict.</span>
-        </div>
-        <div class="apps-mode">
-          <span class="apps-mode-name">The Bridge</span>
-          <span class="apps-mode-desc">Words you might actually say to start the conversation.</span>
-        </div>
-      </div>
     </div>
 
-    <div class="waitlist-card reveal reveal-delay-1">
-      <span class="waitlist-tag">Early Access</span>
-      <h3 class="t-h2">Join the Waitlist</h3>
-      <p class="t-body-md waitlist-card-sub">In development. Be the first to know when Kinterpret launches.</p>
+    <div class="custom-builds-team reveal">
+      <img src="images/card-battle-team.png"
+           alt="A custom illustration of 20 chibi characters in varied poses and outfits — the cast of an Analytics Card Battle deck."
+           loading="lazy">
+    </div>
 
-      <form class="form-stack" id="waitlist-form" action="https://formspree.io/f/mwvapwld" method="POST">
-        <input class="input-bare" type="email" name="email" placeholder="your@email.com" required>
-        <input type="hidden" name="app" value="kinterpret">
-        <input type="hidden" name="_subject" value="Kinterpret Waitlist Signup">
-        <button type="submit" class="btn-submit">
-          Get Early Access <span class="material-symbols-outlined">arrow_forward</span>
-        </button>
-        <p class="form-fineprint">No spam — just a notification when Kinterpret launches.</p>
-      </form>
+    <div class="custom-builds-copy reveal">
+      <p class="t-body-lg">
+        Analytics Card Battle is a custom trading card game built for a 20-person enterprise analytics team. Every teammate gets their own card — custom chibi art, real stats sourced from a short survey, two signature "powers," and a fun fact.
+      </p>
+      <p class="t-body-lg">
+        During the live event, scenarios project on screen and players pair up to combine cards. Bonus points trigger automatically when a scenario keyword matches one of a player's powers, so the storyteller and the supply-chain expert pull different value from the same crisis.
+      </p>
+      <p class="t-body-lg">
+        Cards print on professional trading-card stock at the standard 2.5×3.5 inch size — the kind that keeps showing up in someone's desk drawer two years later. The format flexes: built here for analytics, just as easily a sales kickoff, an onboarding ritual, or an off-site that needs a centerpiece.
+      </p>
+    </div>
 
-      <div class="form-success" id="waitlist-success">
-        You're on the list. We'll be in touch when Kinterpret launches.
-      </div>
+    <div class="custom-builds-demo reveal">
+      <button type="button" class="card-flip" aria-label="Sample trading card. Click or tap to flip between front and back.">
+        <span class="card-flip-inner">
+          <img class="card-face card-face-front"
+               src="images/card-battle-brandon-front.png"
+               alt="Front of Brandon Stoker's Analytics Card Battle card: chibi character art filling the card with a stat bar across the bottom."
+               loading="lazy">
+          <img class="card-face card-face-back"
+               src="images/card-battle-brandon-back.png"
+               alt="Back of Brandon Stoker's Analytics Card Battle card showing stats, hobbies, two signature powers, and a fun fact."
+               loading="lazy">
+        </span>
+      </button>
+      <p class="custom-builds-card-caption t-label-caps">
+        One teammate's card from a 20-card deck · Hover or tap to flip
+      </p>
+    </div>
+
+    <div class="custom-builds-cta reveal">
+      <a href="#contact" class="btn btn-primary">Interested in a deck for your team?</a>
     </div>
   </div>
 </section>
@@ -1097,7 +1105,7 @@
     <ul class="footer-links">
       <li><a href="#games">Games</a></li>
       <li><a href="#why">The Studio</a></li>
-      <li><a href="#apps">Apps</a></li>
+      <li><a href="#custom-builds">Custom Builds</a></li>
       <li><a href="#contact">Contact</a></li>
       <li><a href="privacy.html">Privacy Policy</a></li>
     </ul>
@@ -1183,8 +1191,12 @@
       }
     });
   }
-  asyncSubmit(document.getElementById('waitlist-form'), document.getElementById('waitlist-success'));
   asyncSubmit(document.getElementById('contact-form-el'), document.getElementById('contact-success'));
+
+  // Card flip toggle (tap on touch, click also works on hover devices)
+  document.querySelectorAll('.card-flip').forEach(card => {
+    card.addEventListener('click', () => card.classList.toggle('is-flipped'));
+  });
 
   // Contact path → prefill subject
   document.querySelectorAll('[data-fill-subject]').forEach(link => {
