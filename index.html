@@ -564,6 +564,159 @@
 
   .card-face-back { transform: rotateY(180deg); }
 
+  /* ============= THE BLOG ============= */
+  .blog-grid {
+    display: grid;
+    grid-template-columns: 3fr 2fr;
+    gap: var(--gutter);
+    align-items: stretch;
+  }
+
+  .blog-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    background: var(--surface-container-low);
+    border: 1px solid rgba(255,255,255,0.06);
+    padding: 32px;
+    transition: transform 0.5s ease, box-shadow 0.5s ease, border-color 0.5s ease;
+    box-shadow: 0 0 40px -10px rgba(0, 229, 255, 0.1);
+    color: inherit;
+  }
+
+  .blog-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 0 50px -5px rgba(0, 229, 255, 0.25);
+    border-color: rgba(0, 229, 255, 0.4);
+  }
+
+  .blog-card-pill {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    background: var(--accent-warmth);
+    color: #000;
+    font-family: var(--font-display);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 4px 8px;
+  }
+
+  .blog-card-typo {
+    font-family: var(--font-display);
+    font-weight: 800;
+    line-height: 0.88;
+    letter-spacing: -0.02em;
+    text-transform: uppercase;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 32px;
+  }
+
+  .blog-card-typo-fp { font-size: clamp(64px, 8.5vw, 120px); }
+  .blog-card-typo-bgs { font-size: clamp(44px, 5.5vw, 80px); }
+
+  .blog-card-typo-line {
+    display: block;
+    color: var(--text-primary);
+  }
+
+  .blog-card-typo-accent {
+    background: linear-gradient(to right, #00E5FF, #c9c6c5, #00E5FF);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .blog-card:hover .blog-card-typo-accent {
+    animation: shine 5s linear infinite;
+  }
+
+  .blog-card-body {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    gap: 12px;
+  }
+
+  .blog-card-body h3 { color: var(--text-primary); }
+
+  .blog-card-tagline {
+    font-style: italic;
+    color: var(--on-surface-variant);
+    font-size: 16px;
+  }
+
+  .blog-card-desc { color: var(--on-surface-variant); }
+
+  .blog-card-categories {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    list-style: none;
+    padding: 0;
+    margin: 4px 0 0;
+  }
+
+  .blog-card-categories li {
+    font-family: var(--font-display);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--stoken-silver);
+    background: rgba(201, 198, 197, 0.05);
+    border: 1px solid rgba(201, 198, 197, 0.12);
+    padding: 4px 10px;
+    border-radius: 100px;
+  }
+
+  .blog-card-cta {
+    margin-top: auto;
+    align-self: flex-start;
+  }
+
+  /* ============= FOOTER PUBLICATION BLOCK ============= */
+  .footer-publication {
+    margin-top: 40px;
+    padding-top: 32px;
+    border-top: 1px solid rgba(255,255,255,0.05);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    text-align: center;
+  }
+
+  .footer-publication-label {
+    font-family: var(--font-display);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: rgba(201, 198, 197, 0.5);
+  }
+
+  .footer-publication-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-family: var(--font-display);
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--stoken-blue);
+    transition: filter 0.2s ease;
+  }
+
+  .footer-publication-link:hover { filter: brightness(1.2); }
+  .footer-publication-link .material-symbols-outlined { font-size: 16px; }
+
   .waitlist-card {
     position: relative;
     background: var(--surface-container);
@@ -854,6 +1007,7 @@
     .nav-links { display: none; }
     .topbar-inner { padding: 14px 20px; }
     .games-grid { grid-template-columns: 1fr; }
+    .blog-grid { grid-template-columns: 1fr; }
     .why-inner { grid-template-columns: 1fr; gap: 24px; }
     .why-body { border-left: none; border-top: 2px solid rgba(201, 198, 197, 0.2); padding-left: 0; padding-top: 24px; }
     .contact-paths { grid-template-columns: 1fr; }
@@ -884,6 +1038,7 @@
       <li><a href="#games" data-nav>Games</a></li>
       <li><a href="#why" data-nav>The Why</a></li>
       <li><a href="#custom-builds" data-nav>Custom Builds</a></li>
+      <li><a href="#blog" data-nav>The Blog</a></li>
       <li><a href="#contact" data-nav>Contact</a></li>
     </ul>
     <a href="#contact" class="nav-cta">Let's Play</a>
@@ -925,7 +1080,7 @@
     <div class="why-body">
       <p class="t-body-lg">
         By merging <strong>tactile tabletop mechanics</strong> with
-        <strong>digital precision</strong>, we create high-stakes environments where teams don't just learn—they evolve through competition.
+        <strong>digital precision</strong>, we create high-stakes environments where teams don't just learn—they evolve through competition. We also publish <em>Board Game Strategy</em>, a publication for people who want to outthink the table.
       </p>
     </div>
   </div>
@@ -1043,6 +1198,72 @@
   </div>
 </section>
 
+<!-- THE BLOG -->
+<section id="blog">
+  <div class="container">
+    <div class="section-head">
+      <div class="section-title-wrap">
+        <h2 class="t-h1">The Blog</h2>
+        <div class="section-title-rule"></div>
+      </div>
+      <p class="section-meta t-label-caps">A Stoken Games Publication</p>
+    </div>
+
+    <div class="blog-grid">
+
+      <!-- First Pick (featured) -->
+      <article class="blog-card blog-card-featured reveal">
+        <span class="blog-card-pill">AI-Powered</span>
+        <div class="blog-card-typo blog-card-typo-fp" aria-hidden="true">
+          <span class="blog-card-typo-line blog-card-typo-accent">First</span>
+          <span class="blog-card-typo-line">Pick</span>
+        </div>
+        <div class="blog-card-body">
+          <h3 class="t-h2">First Pick</h3>
+          <p class="blog-card-tagline">AI-powered board game recommendations.</p>
+          <p class="t-body-md blog-card-desc">
+            Tell it three to eight games you love, or take a five-round taste quiz. Get five recommendations tuned to how you actually play.
+          </p>
+          <a href="https://boardgamestrategy.blog/first-pick/"
+             class="btn btn-primary blog-card-cta"
+             target="_blank" rel="noopener noreferrer">
+            Try First Pick <span class="material-symbols-outlined">arrow_forward</span>
+          </a>
+        </div>
+      </article>
+
+      <!-- Publication (supporting) -->
+      <article class="blog-card blog-card-publication reveal reveal-delay-1">
+        <div class="blog-card-typo blog-card-typo-bgs" aria-hidden="true">
+          <span class="blog-card-typo-line">Board</span>
+          <span class="blog-card-typo-line">Game</span>
+          <span class="blog-card-typo-line blog-card-typo-accent">Strategy</span>
+        </div>
+        <div class="blog-card-body">
+          <p class="blog-card-tagline">Outthink the table.</p>
+          <p class="t-body-md blog-card-desc">
+            Strategy, theory, design, and reviews from a Stoken Games publication. Plus a career section that applies game thinking to professional growth.
+          </p>
+          <ul class="blog-card-categories" aria-label="Publication sections">
+            <li>Strategy</li>
+            <li>Game Night</li>
+            <li>Theory</li>
+            <li>Design</li>
+            <li>Reviews</li>
+            <li>Career</li>
+          </ul>
+          <a href="https://boardgamestrategy.blog/"
+             class="btn btn-outline blog-card-cta"
+             target="_blank" rel="noopener noreferrer">
+            Read the Blog <span class="material-symbols-outlined">arrow_forward</span>
+          </a>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
 <!-- CONTACT -->
 <section id="contact">
   <div class="container-narrow">
@@ -1107,6 +1328,7 @@
       <li><a href="#games">Games</a></li>
       <li><a href="#why">The Studio</a></li>
       <li><a href="#custom-builds">Custom Builds</a></li>
+      <li><a href="#blog">The Blog</a></li>
       <li><a href="#contact">Contact</a></li>
       <li><a href="privacy.html">Privacy Policy</a></li>
     </ul>
@@ -1116,6 +1338,16 @@
       </a>
     </div>
   </div>
+
+  <div class="footer-publication">
+    <span class="footer-publication-label">A Stoken Games Publication</span>
+    <a href="https://boardgamestrategy.blog/"
+       class="footer-publication-link"
+       target="_blank" rel="noopener noreferrer">
+      Board Game Strategy <span class="material-symbols-outlined">arrow_outward</span>
+    </a>
+  </div>
+
   <p class="footer-copy">© 2026 Stoken Games LLC. Meticulously crafted for play.</p>
 </footer>
 
