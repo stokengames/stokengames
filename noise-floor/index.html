@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>NOISE FLOOR</title>
+  <meta name="description" content="Keep listening. A short browser horror experience. Headphones required." />
+
+  <!-- Open Graph / social preview. Absolute URLs (live domain) so link cards resolve. -->
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="NOISE FLOOR" />
+  <meta property="og:title" content="NOISE FLOOR" />
+  <meta property="og:description" content="Keep listening. A short browser horror experience. Headphones required." />
+  <meta property="og:url" content="https://stoken.games/noise-floor/" />
+  <meta property="og:image" content="https://stoken.games/noise-floor/assets/textures/poster.png" />
+  <meta property="og:image:width" content="896" />
+  <meta property="og:image:height" content="1344" />
+  <meta property="og:image:alt" content="NOISE FLOOR — a civil-defense poster from the experience" />
+
+  <!-- Twitter card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="NOISE FLOOR" />
+  <meta name="twitter:description" content="Keep listening. A short browser horror experience. Headphones required." />
+  <meta name="twitter:image" content="https://stoken.games/noise-floor/assets/textures/poster.png" />
+
+  <link rel="stylesheet" href="./styles.css" />
+
+  <!-- Three.js pinned via CDN import map. No build step, no npm install. -->
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://unpkg.com/three@0.169.0/build/three.module.js",
+      "three/addons/": "https://unpkg.com/three@0.169.0/examples/jsm/"
+    }
+  }
+  </script>
+</head>
+<body>
+  <!-- Title gate. The Begin click is the user gesture that unlocks audio AND
+       enters fullscreen. -->
+  <div id="title" class="overlay">
+    <div class="panel">
+      <h1>NOISE&nbsp;FLOOR</h1>
+      <p class="note">For the best experience: headphones on, lights off, fullscreen.</p>
+      <p class="note controls">Move: WASD, arrow keys, or keypad&nbsp; · &nbsp;Look: mouse or IJKL keys&nbsp; · &nbsp;Interact: Spacebar</p>
+      <p class="note controls">On a laptop trackpad? Look with the IJKL keys — no mouse needed.</p>
+      <label class="rails-toggle" id="rails-toggle-row" style="display:none">
+        <input id="rails-toggle" type="checkbox" />
+        <span>On Rails — the game walks for you; you only look around. Best if first-person movement feels hard.</span>
+      </label>
+      <label class="field">
+        Your name
+        <input id="name-input" type="text" maxlength="24" autocomplete="off" spellcheck="false" />
+      </label>
+      <button id="start-btn">Begin</button>
+    </div>
+  </div>
+
+  <!-- Desktop-only gate. Shown instead of the game on touch / small-screen
+       devices (pointer lock + positional audio don't work on phones). -->
+  <div id="mobile-block" class="overlay hidden">
+    <div class="panel">
+      <h1>NOISE&nbsp;FLOOR</h1>
+      <p class="note">Noise Floor needs a desktop browser and headphones.<br />
+        Open this on a computer, in the dark, with the volume up.</p>
+    </div>
+  </div>
+
+  <!-- Asset preload screen. Shown after Begin while audio + textures decode, so
+       the game never starts with missing whispers. -->
+  <div id="loading" class="overlay hidden">
+    <div class="panel">
+      <h1>NOISE&nbsp;FLOOR</h1>
+      <p class="note">Loading…</p>
+    </div>
+  </div>
+
+  <!-- Shown whenever pointer lock drops mid-session, so Esc never strands the camera. -->
+  <div id="resume" class="overlay hidden">
+    <div class="panel">
+      <p>Click to resume</p>
+    </div>
+  </div>
+
+  <!-- Proximity vignette (placeholder; real shader vignette is Phase 4). -->
+  <div id="vignette"></div>
+
+  <!-- Fade-to-black for the scripted stair climb transition. -->
+  <div id="fade"></div>
+
+  <!-- Phone battery readout. Minimal now; styled phone HUD is Phase 5. -->
+  <div id="battery" class="hidden"></div>
+
+  <!-- Interact prompt. -->
+  <div id="prompt" class="hidden"></div>
+
+  <!-- Idle control hint: fades in bottom-left if the player isn't moving early on. -->
+  <div id="control-hint">Move: WASD / arrows / keypad&nbsp; ·&nbsp; Look: mouse or IJKL&nbsp; ·&nbsp; Interact: Spacebar</div>
+
+  <!-- Subtitle captions for every whispered line (accessibility). -->
+  <div id="caption"></div>
+
+  <!-- Ending title card. -->
+  <div id="title-card" class="overlay hidden">
+    <div class="panel"><h1>NOISE&nbsp;FLOOR</h1></div>
+  </div>
+
+  <!-- Credits roll. -->
+  <div id="credits" class="overlay hidden">
+    <div id="credits-scroll"></div>
+  </div>
+
+  <!-- Phase 1 dev-only readout. Replaced by the real HUD in Phase 5. -->
+  <div id="debug-hud"></div>
+
+  <script type="module" src="./src/main.js"></script>
+</body>
+</html>

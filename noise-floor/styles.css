@@ -1,0 +1,208 @@
+/* Phase 1 is intentionally unstyled past the bare minimum: the title screen
+   can stay ugly until the Phase 5 polish pass. These rules only make the
+   overlays legible and keep the canvas full-bleed. */
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  height: 100%;
+  background: #000;
+  color: #cdd;
+  font-family: ui-monospace, "Cascadia Code", Menlo, Consolas, monospace;
+  overflow: hidden;
+}
+
+canvas { display: block; }
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.92);
+}
+
+/* The desktop-only block sits above everything (title, game, all overlays). */
+#mobile-block { z-index: 20; background: #000; }
+
+.overlay.hidden { display: none; }
+
+.panel {
+  text-align: center;
+  padding: 2rem 2.5rem;
+  border: 1px solid #2a3a3a;
+}
+
+.panel h1 {
+  margin: 0 0 0.75rem;
+  letter-spacing: 0.35em;
+  font-weight: 400;
+}
+
+.note { color: #6a8a8a; margin: 0 0 1.5rem; font-size: 0.85rem; }
+
+.field { display: block; margin: 0 0 1.5rem; font-size: 0.85rem; color: #8aa; }
+
+#name-input {
+  display: block;
+  margin: 0.4rem auto 0;
+  width: 16rem;
+  padding: 0.5rem;
+  background: #0a1010;
+  border: 1px solid #2a3a3a;
+  color: #cdd;
+  font: inherit;
+  text-align: center;
+}
+
+#start-btn {
+  padding: 0.6rem 2rem;
+  background: #14201f;
+  border: 1px solid #3a5a5a;
+  color: #cdd;
+  font: inherit;
+  letter-spacing: 0.2em;
+  cursor: pointer;
+}
+#start-btn:hover { background: #1c2c2b; }
+
+#debug-hud {
+  position: fixed;
+  left: 8px;
+  bottom: 8px;
+  z-index: 5;
+  font-size: 12px;
+  color: #5a7a7a;
+  pointer-events: none;
+  white-space: pre;
+}
+
+#battery {
+  position: fixed;
+  right: 18px;
+  top: 16px;
+  z-index: 5;
+  font-size: 22px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  color: #9ad0c8;
+  text-shadow: 0 1px 6px #000;
+  pointer-events: none;
+}
+#battery.hidden { display: none; }
+#battery.low { color: #e0a060; }
+#battery.critical { color: #d05a4a; }
+
+/* Captions: bottom-center, unobtrusive. Whispered lines (the name) read a touch
+   brighter than environmental cues. */
+#caption {
+  position: fixed;
+  left: 50%;
+  bottom: 12%;
+  transform: translateX(-50%);
+  z-index: 11; /* above the fade AND the credits overlay, so "Hello" shows over the crawl */
+  max-width: 80vw;
+  text-align: center;
+  font-size: 18px;
+  color: #cfe8e2;
+  text-shadow: 0 1px 6px #000, 0 0 12px #000;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.6s ease;
+}
+#caption.show { opacity: 1; }
+#caption.env { font-style: italic; color: #8fb4ad; font-size: 16px; }
+#caption.whisper { letter-spacing: 0.08em; }
+
+/* Proximity vignette: darkens the edges as a whisper closes in. Placeholder for
+   the Phase 4 shader pass. Opacity is driven from JS. */
+#vignette {
+  position: fixed;
+  inset: 0;
+  z-index: 4;
+  pointer-events: none;
+  opacity: 0;
+  background: radial-gradient(ellipse at center,
+    rgba(0,0,0,0) 35%, rgba(0,0,0,0.55) 78%, rgba(0,0,0,0.9) 100%);
+  transition: opacity 0.25s linear;
+}
+
+#fade {
+  position: fixed;
+  inset: 0;
+  z-index: 8;
+  background: #000;
+  opacity: 0;
+  pointer-events: none;
+}
+
+#prompt {
+  position: fixed;
+  left: 50%;
+  bottom: 22%;
+  transform: translateX(-50%);
+  z-index: 6;
+  color: #bfe3db;
+  font-size: 15px;
+  letter-spacing: 0.12em;
+  padding: 0.3rem 0.8rem;
+  border: 1px solid #2a3a3a;
+  background: rgba(0,0,0,0.4);
+  pointer-events: none;
+}
+#prompt.hidden { display: none; }
+
+.note.controls { font-size: 0.78rem; color: #7a9a96; margin-top: -0.6rem; }
+
+/* On Rails toggle — title screen. Hidden until a path is recorded (JS sets it). */
+.rails-toggle {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  max-width: 22rem;
+  margin: 0 auto 1.5rem;
+  text-align: left;
+  font-size: 0.8rem;
+  line-height: 1.4;
+  color: #9bd0c8;
+  cursor: pointer;
+}
+.rails-toggle input { margin-top: 0.15rem; cursor: pointer; flex: none; }
+
+/* Idle control hint — bottom-left, fades in only when a player seems stuck. */
+#control-hint {
+  position: fixed;
+  left: 16px;
+  bottom: 14px;
+  z-index: 6;
+  font-size: 13px;
+  letter-spacing: 0.04em;
+  color: #8fb4ad;
+  text-shadow: 0 1px 6px #000;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.8s ease;
+}
+#control-hint.show { opacity: 0.85; }
+
+#title-card { background: #000; transition: opacity 2s ease; }
+#title-card h1 { letter-spacing: 0.4em; font-weight: 400; }
+
+#credits { background: #000; overflow: hidden; }
+#credits-scroll {
+  position: absolute;
+  top: 100%;
+  width: 100%;
+  text-align: center;
+  color: #9ab;
+  line-height: 2.2;
+  font-size: 15px;
+}
+#credits-scroll.roll { animation: credits-roll 60s linear forwards; }
+@keyframes credits-roll {
+  from { top: 100%; }
+  to { top: -120%; }
+}
