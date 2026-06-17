@@ -594,17 +594,24 @@
     display: grid;
     grid-template-columns: minmax(260px, 0.9fr) 1.1fr;
     gap: 40px;
-    align-items: start;
+    align-items: stretch;
   }
 
+  /* Poster cell: absolute image lets the body content drive row height,
+     then object-fit: contain shrinks the poster to match. */
   .experiment-card-poster {
     position: relative;
+    overflow: hidden;
     background: var(--bg);
   }
 
   .experiment-card-poster img {
+    position: absolute;
+    inset: 0;
     width: 100%;
-    height: auto;
+    height: 100%;
+    object-fit: contain;
+    object-position: center top;
     display: block;
   }
 
@@ -1105,6 +1112,8 @@
     .games-grid { grid-template-columns: 1fr; }
     .blog-grid { grid-template-columns: 1fr; }
     .experiment-card--featured { grid-template-columns: 1fr; gap: 24px; }
+    .experiment-card-poster { position: static; }
+    .experiment-card-poster img { position: static; width: 100%; height: auto; object-fit: initial; }
     .why-inner { grid-template-columns: 1fr; gap: 24px; }
     .why-body { border-left: none; border-top: 2px solid rgba(201, 198, 197, 0.2); padding-left: 0; padding-top: 24px; }
     .contact-paths { grid-template-columns: 1fr; }
