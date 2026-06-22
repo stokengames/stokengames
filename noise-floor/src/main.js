@@ -150,7 +150,7 @@ const CREDITS_LINES = [
   'NOISE FLOOR', '',
   'A Stoken Games experiment', '', '',
   'Voices', 'Brandon · Eli · Anna · Josh · Mal · Isaac · Luke', '', '',
-  '“Don’t Go Quiet”', 'by The Noise', '', '',
+  '“Don’t Go Quiet”', 'by Amber Noise', '', '',
   'Built with Three.js + Web Audio', '', '',
   'Headphones. Always.', '', '', '',
   'Thank you for listening.',
