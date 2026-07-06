@@ -611,8 +611,23 @@
     width: 100%;
     height: 100%;
     object-fit: contain;
-    object-position: center top;
+    object-position: center;
     display: block;
+  }
+
+  /* Standard (non-featured) cards show a cropped poster thumb above the body */
+  .experiment-card-thumb {
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    background: var(--bg);
+    margin-bottom: 20px;
+  }
+
+  .experiment-card-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
   }
 
   .experiment-card-body {
@@ -1318,9 +1333,33 @@
 
     <div class="experiments-grid">
 
-      <!-- Noise Floor (featured) -->
+      <!-- Cardwright (featured) -->
       <article class="experiment-card experiment-card--featured reveal">
         <div class="experiment-card-poster">
+          <img src="images/cardwright-hero.png"
+               alt="Cardwright launch screen: four enchanted cards fanned on warm parchment."
+               loading="lazy">
+        </div>
+        <div class="experiment-card-body">
+          <h3 class="t-h2">Cardwright</h3>
+          <p class="experiment-card-tagline">Open packs. Build decks. Duel for the crown of Drafthollow.</p>
+          <p class="t-body-md experiment-card-desc">
+            A free browser-based collectible card game. Arrive in the town of Drafthollow, crack packs, build 10-card decks, and duel your way to town Champion.
+          </p>
+          <ul class="experiment-card-chips" aria-label="Requirements">
+            <li>Free</li>
+            <li>Desktop Browser</li>
+            <li>45–75 min</li>
+          </ul>
+          <a href="/cardwright/" class="btn btn-primary experiment-card-cta">
+            Play Now <span class="material-symbols-outlined">arrow_forward</span>
+          </a>
+        </div>
+      </article>
+
+      <!-- Noise Floor -->
+      <article class="experiment-card reveal reveal-delay-1">
+        <div class="experiment-card-thumb">
           <img src="/noise-floor/assets/textures/poster.png"
                alt="Noise Floor poster: a faceless figure in headphones, oxblood red on bone white."
                loading="lazy">
@@ -1329,15 +1368,14 @@
           <h3 class="t-h2">Noise Floor</h3>
           <p class="experiment-card-tagline">Silence invites them. Keep listening.</p>
           <p class="t-body-md experiment-card-desc">
-            A short first-person horror experience for the browser. Everyone keeps sound playing at all times, and no one remembers why. When the music stops, you hear what the noise was hiding.
+            A short first-person horror experience for the browser. When the music stops, you hear what the noise was hiding.
           </p>
           <ul class="experiment-card-chips" aria-label="Requirements">
             <li>Desktop</li>
             <li>Headphones</li>
             <li>5–8 min</li>
           </ul>
-          <p class="experiment-card-atmosphere">Dark, quiet room. Headphones on.</p>
-          <a href="/noise-floor/" class="btn btn-primary experiment-card-cta">
+          <a href="/noise-floor/" class="btn btn-outline experiment-card-cta">
             Enter <span class="material-symbols-outlined">arrow_forward</span>
           </a>
         </div>
