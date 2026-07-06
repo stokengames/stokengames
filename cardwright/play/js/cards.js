@@ -1,4 +1,4 @@
-/* The Cardwright — card database. 60 original cards, 4 factions, 4 rarities.
+/* Cardwright — card database. 60 original cards, 4 factions, 4 rarities.
  *
  * Effect ops (used by on-play effects and instants):
  *   {k:'dmg', t:'any'|'face'|'ecreature'|'allEnemy', n}   damage

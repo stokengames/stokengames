@@ -1,4 +1,4 @@
-/* The Cardwright — Drafthollow's duelists and shopkeepers. */
+/* Cardwright — Drafthollow's duelists and shopkeepers. */
 (function (root) {
   'use strict';
   const CW = root.CW || (root.CW = {});

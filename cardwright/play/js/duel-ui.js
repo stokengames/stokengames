@@ -1,4 +1,4 @@
-/* The Cardwright — duel screen controller.
+/* Cardwright — duel screen controller.
  * Player is always players[0]; the NPC (players[1]) is driven by CW.ai*. */
 (function () {
   'use strict';

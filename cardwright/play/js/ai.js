@@ -1,4 +1,4 @@
-/* The Cardwright — duel AI. Per spec: play highest-value legal card,
+/* Cardwright — duel AI. Per spec: play highest-value legal card,
  * attack when favorable. Shared by NPC opponents and the sim harness. */
 (function (root) {
   'use strict';

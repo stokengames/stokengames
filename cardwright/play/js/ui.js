@@ -1,4 +1,4 @@
-/* The Cardwright — UI shell: title, town, shops, packs, binder, builder, victory. */
+/* Cardwright — UI shell: title, town, shops, packs, binder, builder, victory. */
 (function () {
   'use strict';
   const CW = window.CW;
@@ -111,7 +111,7 @@
     tb.style.display = 'flex';
     const owned = Object.values(G.collection).reduce((a, b) => a + b, 0);
     tb.innerHTML = `
-      <span class="logo">The Cardwright<small>a Stoken Games tale</small></span>
+      <span class="logo">Cardwright<small>a Stoken Games tale</small></span>
       <span class="chip">${CW.coinSVG(16)} <b id="coinamt">${G.coins}</b></span>
       <span class="chip" title="Cards in collection">🗃 ${owned}</span>
       <span class="spacer"></span>
@@ -206,7 +206,7 @@
     const showcase = ['solance', 'yewla', 'nocturne', 'grand_orrery'];
     el.innerHTML = `
     <div class="title-screen">
-      <h1>The Cardwright</h1>
+      <h1>Cardwright</h1>
       <div class="sub">The town of Drafthollow duels after supper. Four card shops, five proud locals,
         and one retired legend holding court in the square. You've got a starter deck, fifty coins,
         and a name nobody knows yet.</div>

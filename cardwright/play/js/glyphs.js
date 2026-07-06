@@ -1,4 +1,4 @@
-/* The Cardwright — unique per-card glyphs. Each is a function (m, a) => SVG
+/* Cardwright — unique per-card glyphs. Each is a function (m, a) => SVG
  * inner markup in a 24x24 viewBox. m = main color, a = accent color.
  * Faction color still comes from the card frame; the glyph tells you WHAT it is. */
 (function (root) {

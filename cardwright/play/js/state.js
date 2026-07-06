@@ -1,4 +1,4 @@
-/* The Cardwright — run state, economy, save/export.
+/* Cardwright — run state, economy, save/export.
  * Core play never touches localStorage; export/import is JSON text.
  * (Autosave to localStorage exists as a convenience, wrapped in try/catch.) */
 (function (root) {

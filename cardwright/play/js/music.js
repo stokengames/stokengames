@@ -1,4 +1,4 @@
-/* The Cardwright — background music manager.
+/* Cardwright — background music manager.
  *
  * HTML5 Audio (works from file:// where fetch/decodeAudioData cannot),
  * one track at a time, ~1s crossfades, ducking under sound effects, and

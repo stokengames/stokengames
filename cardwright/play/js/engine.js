@@ -1,4 +1,4 @@
-/* The Cardwright — duel engine. Pure logic, no DOM.
+/* Cardwright — duel engine. Pure logic, no DOM.
  *
  * Duel flow per turn:
  *   startTurn -> (draw, mana, upkeep) -> play phase (any cards mana allows) ->

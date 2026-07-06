@@ -1,4 +1,4 @@
-/* The Cardwright — utilities. Runs in browser and Node. */
+/* Cardwright — utilities. Runs in browser and Node. */
 (function (root) {
   'use strict';
 

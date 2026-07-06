@@ -1,4 +1,4 @@
-/* The Cardwright — procedural SVG art: cards, faction icons, NPC portraits. */
+/* Cardwright — procedural SVG art: cards, faction icons, NPC portraits. */
 (function (root) {
   'use strict';
   const CW = root.CW || (root.CW = {});
