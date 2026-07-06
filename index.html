@@ -567,7 +567,7 @@
   /* ============= EXPERIMENTS ============= */
   .experiments-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
     gap: var(--gutter);
   }
 
@@ -588,36 +588,9 @@
     border-color: rgba(0, 229, 255, 0.4);
   }
 
-  /* Featured variant: spans the full grid row with internal poster/content layout */
-  .experiment-card--featured {
-    grid-column: 1 / -1;
-    display: grid;
-    grid-template-columns: minmax(260px, 0.9fr) 1.1fr;
-    gap: 40px;
-    align-items: stretch;
-  }
-
-  /* Poster cell: absolute image lets the body content drive row height,
-     then object-fit: contain shrinks the poster to match. */
-  .experiment-card-poster {
-    position: relative;
-    overflow: hidden;
-    background: var(--bg);
-  }
-
-  .experiment-card-poster img {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-    object-position: center;
-    display: block;
-  }
-
-  /* Standard (non-featured) cards show a cropped poster thumb above the body */
+  /* Cards show a cropped poster thumb above the body */
   .experiment-card-thumb {
-    aspect-ratio: 1 / 1;
+    aspect-ratio: 4 / 3;
     overflow: hidden;
     background: var(--bg);
     margin-bottom: 20px;
@@ -634,6 +607,7 @@
     display: flex;
     flex-direction: column;
     gap: 14px;
+    flex: 1;
   }
 
   .experiment-card-body h3 { color: var(--text-primary); }
@@ -678,7 +652,8 @@
 
   .experiment-card-cta {
     align-self: flex-start;
-    margin-top: 8px;
+    margin-top: auto;
+    padding-top: 8px;
   }
 
   /* ============= THE BLOG ============= */
@@ -1126,9 +1101,6 @@
     .topbar-inner { padding: 14px 20px; }
     .games-grid { grid-template-columns: 1fr; }
     .blog-grid { grid-template-columns: 1fr; }
-    .experiment-card--featured { grid-template-columns: 1fr; gap: 24px; }
-    .experiment-card-poster { position: static; }
-    .experiment-card-poster img { position: static; width: 100%; height: auto; object-fit: initial; }
     .why-inner { grid-template-columns: 1fr; gap: 24px; }
     .why-body { border-left: none; border-top: 2px solid rgba(201, 198, 197, 0.2); padding-left: 0; padding-top: 24px; }
     .contact-paths { grid-template-columns: 1fr; }
@@ -1333,9 +1305,9 @@
 
     <div class="experiments-grid">
 
-      <!-- Cardwright (featured) -->
-      <article class="experiment-card experiment-card--featured reveal">
-        <div class="experiment-card-poster">
+      <!-- Cardwright -->
+      <article class="experiment-card reveal">
+        <div class="experiment-card-thumb">
           <img src="images/cardwright-hero.png"
                alt="Cardwright launch screen: four enchanted cards fanned on warm parchment."
                loading="lazy">
