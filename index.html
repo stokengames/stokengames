@@ -567,7 +567,7 @@
   /* ============= EXPERIMENTS ============= */
   .experiments-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: var(--gutter);
   }
 
@@ -1329,8 +1329,32 @@
         </div>
       </article>
 
-      <!-- Noise Floor -->
+      <!-- Glasswright -->
       <article class="experiment-card reveal reveal-delay-1">
+        <div class="experiment-card-thumb">
+          <img src="/glasswright/assets/triad.png"
+               alt="Glasswright: The Triad, a many-faced Artisan rendered in stained glass."
+               loading="lazy">
+        </div>
+        <div class="experiment-card-body">
+          <h3 class="t-h2">Glasswright</h3>
+          <p class="experiment-card-tagline">Draft glass dice. Commit your hands. Face the Iconoclast.</p>
+          <p class="t-body-md experiment-card-desc">
+            A free browser roguelite. Draft glass dice against Artisans who announce every move before they make it, commit hands that score Light × Prism, and survive four masters. Wins unlock new Artisans, dice, and relics.
+          </p>
+          <ul class="experiment-card-chips" aria-label="Requirements">
+            <li>Free</li>
+            <li>Desktop Browser</li>
+            <li>~15 min runs</li>
+          </ul>
+          <a href="/glasswright/" class="btn btn-primary experiment-card-cta">
+            Play Now <span class="material-symbols-outlined">arrow_forward</span>
+          </a>
+        </div>
+      </article>
+
+      <!-- Noise Floor -->
+      <article class="experiment-card reveal reveal-delay-2">
         <div class="experiment-card-thumb">
           <img src="/noise-floor/assets/textures/poster.png"
                alt="Noise Floor poster: a faceless figure in headphones, oxblood red on bone white."
