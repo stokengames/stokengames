@@ -1067,6 +1067,37 @@
     color: rgba(201, 198, 197, 0.3);
   }
 
+  /* ============= PIP ACCENTS ============= */
+  /* Ornamental mascot corner accents. Hosts get position: relative; content
+     wrappers get z-index: 1 so Pip always sits behind cards and text. */
+  #games, #experiments, #blog { position: relative; }
+  #games > .container,
+  #experiments > .container,
+  #blog > .container { position: relative; z-index: 1; }
+
+  .pip-accent {
+    position: absolute;
+    width: 150px;
+    pointer-events: none;
+    /* z-index 1 keeps Pip above adjacent sections' opaque backgrounds when he
+       sits on a section seam, while the later-in-DOM z-index 1 content
+       wrappers still paint over him. */
+    z-index: 1;
+  }
+
+  .pip-accent--games { bottom: -8px; left: 16px; }
+  /* Sits beside the heading in its grid cell's empty space; z-index -1 keeps
+     the heading text above him where the column gets narrow. */
+  .why-heading { position: relative; }
+  .pip-accent--why {
+    top: 50%;
+    right: -8px;
+    transform: translateY(-50%);
+    z-index: -1;
+  }
+  .pip-accent--experiments { bottom: -8px; left: 16px; }
+  .pip-accent--blog { bottom: -8px; right: 16px; }
+
   /* ============= MOTION ============= */
   .reveal {
     opacity: 0;
@@ -1094,10 +1125,16 @@
     :root { --section-padding: 80px; }
     .nav-links { gap: 20px; }
     .waitlist-card { padding: 40px; }
+    /* Section padding shrinks to 80px here; drop Pip into the section seam
+       so he stays clear of the cards. */
+    .pip-accent--games,
+    .pip-accent--experiments,
+    .pip-accent--blog { bottom: -72px; }
   }
 
   @media (max-width: 768px) {
     .nav-links { display: none; }
+    .pip-accent { display: none; }
     .topbar-inner { padding: 14px 20px; }
     .games-grid { grid-template-columns: 1fr; }
     .blog-grid { grid-template-columns: 1fr; }
@@ -1168,8 +1205,9 @@
 <section class="why" id="why">
   <img src="images/logo.png" alt="" class="why-bg-mark" aria-hidden="true">
   <div class="why-inner">
-    <div>
+    <div class="why-heading">
       <h2 class="t-h1 why-title">The Why.</h2>
+      <img src="images/pip-default.png" class="pip-accent pip-accent--why" alt="" aria-hidden="true" loading="lazy">
     </div>
     <div class="why-body">
       <p class="t-body-lg">
@@ -1182,6 +1220,7 @@
 
 <!-- GAMES -->
 <section id="games">
+  <img src="images/pip-dice.png" class="pip-accent pip-accent--games" alt="" aria-hidden="true" loading="lazy">
   <div class="container">
     <div class="section-head">
       <div class="section-title-wrap">
@@ -1294,6 +1333,7 @@
 
 <!-- EXPERIMENTS -->
 <section id="experiments">
+  <img src="images/pip-happy.png" class="pip-accent pip-accent--experiments" alt="" aria-hidden="true" loading="lazy">
   <div class="container">
     <div class="section-head">
       <div class="section-title-wrap">
@@ -1383,6 +1423,7 @@
 
 <!-- THE BLOG -->
 <section id="blog">
+  <img src="images/pip-content.png" class="pip-accent pip-accent--blog" alt="" aria-hidden="true" loading="lazy">
   <div class="container">
     <div class="section-head">
       <div class="section-title-wrap">

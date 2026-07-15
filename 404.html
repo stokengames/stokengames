@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>404 — Stoken Games</title>
+<meta name="robots" content="noindex">
+<link rel="icon" type="image/png" href="/images/icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,600;0,700;0,800;0,900;1,900&family=Nunito:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    /* Tokens mirrored from the main site */
+    --bg: #0a0a0a;
+    --on-surface-variant: #c2c6d8;
+    --text-primary: #ffffff;
+    --stoken-blue: #00E5FF;
+    --stoken-silver: #c9c6c5;
+    --font-display: 'Barlow Condensed', system-ui, sans-serif;
+    --font-body: 'Nunito', system-ui, sans-serif;
+  }
+
+  .page-404 {
+    background: var(--bg);
+    color: var(--on-surface-variant);
+    font-family: var(--font-body);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 24px;
+    text-align: center;
+    padding: 48px 24px;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .page-404 ::selection { background: var(--stoken-blue); color: #000; }
+
+  .page-404 .home-logo img { height: 48px; width: auto; display: block; }
+
+  .page-404 video,
+  .page-404 video img {
+    width: 100%;
+    max-width: 360px;
+    height: auto;
+    display: block;
+  }
+
+  .page-404 h1 {
+    font-family: var(--font-display);
+    font-size: clamp(72px, 14vw, 128px);
+    font-weight: 800;
+    line-height: 1.0;
+    letter-spacing: -0.02em;
+    color: var(--text-primary);
+  }
+
+  .page-404 .subline {
+    font-size: 18px;
+    line-height: 1.6;
+    max-width: 420px;
+  }
+
+  .page-404 .btn-home {
+    display: inline-flex;
+    align-items: center;
+    padding: 16px 36px;
+    font-family: var(--font-display);
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-decoration: none;
+    background: var(--stoken-blue);
+    color: #000;
+    transition: box-shadow 0.25s ease;
+  }
+  .page-404 .btn-home:hover { box-shadow: 0 0 35px rgba(0, 229, 255, 0.6); }
+</style>
+</head>
+<body class="page-404">
+
+  <a href="/" class="home-logo" aria-label="Stoken Games home">
+    <img src="/images/logo.png" alt="Stoken Games">
+  </a>
+
+  <video autoplay loop muted playsinline poster="/images/pip-404.png">
+    <source src="/images/pip-404.mp4" type="video/mp4">
+    <img src="/images/pip-404.png" alt="Pip the Stoken Games mascot, sitting alone and crying.">
+  </video>
+
+  <h1>404</h1>
+  <p class="subline">This page doesn't exist. Pip is taking it pretty hard.</p>
+
+  <a href="/" class="btn-home">Take me home</a>
+
+</body>
+</html>
