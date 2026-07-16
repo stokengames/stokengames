@@ -42,12 +42,33 @@
 
   .page-404 .home-logo img { height: 48px; width: auto; display: block; }
 
+  .page-404 .pip-link {
+    display: block;
+    width: 100%;
+    max-width: 360px;
+    cursor: pointer;
+  }
+
   .page-404 video,
   .page-404 video img {
     width: 100%;
-    max-width: 360px;
     height: auto;
     display: block;
+    transition: filter 180ms ease;
+  }
+
+  .page-404 .pip-link:hover video,
+  .page-404 .pip-link:focus-visible video {
+    filter: drop-shadow(0 0 12px rgba(0, 229, 255, 0.45));
+  }
+
+  .page-404 .pip-link:focus-visible {
+    outline: 2px solid var(--stoken-blue);
+    outline-offset: 4px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .page-404 video { transition: none; }
   }
 
   .page-404 h1 {
@@ -88,10 +109,12 @@
     <img src="/images/logo.png" alt="Stoken Games">
   </a>
 
-  <video autoplay loop muted playsinline poster="/images/pip-404.png">
-    <source src="/images/pip-404.mp4" type="video/mp4">
-    <img src="/images/pip-404.png" alt="Pip the Stoken Games mascot, sitting alone and crying.">
-  </video>
+  <a href="/pip/" class="pip-link" aria-label="Pip's personnel file">
+    <video autoplay loop muted playsinline poster="/images/pip-404.png">
+      <source src="/images/pip-404.mp4" type="video/mp4">
+      <img src="/images/pip-404.png" alt="Pip the Stoken Games mascot, sitting alone and crying.">
+    </video>
+  </a>
 
   <h1>404</h1>
   <p class="subline">This page doesn't exist. Pip is taking it pretty hard.</p>
