@@ -656,6 +656,52 @@
     padding-top: 8px;
   }
 
+  /* ============= THE STACK ============= */
+  .stack-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 24px;
+  }
+
+  .stack-card {
+    display: block;
+    background: var(--surface-container-low);
+    border: 1px solid rgba(255,255,255,0.06);
+    overflow: hidden;
+    transition: transform 0.5s ease, box-shadow 0.5s ease, border-color 0.5s ease;
+    box-shadow: 0 0 40px -10px rgba(0, 229, 255, 0.1);
+    color: inherit;
+  }
+
+  .stack-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 0 50px -5px rgba(0, 229, 255, 0.25);
+    border-color: rgba(0, 229, 255, 0.4);
+  }
+
+  .stack-card img {
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    object-fit: cover;
+  }
+
+  .stack-card-body { padding: 16px 18px 20px; }
+
+  .stack-card h3 {
+    font-family: var(--font-display);
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 1.2;
+    text-transform: uppercase;
+    color: var(--text-primary);
+  }
+
+  .stack-card-sub {
+    color: var(--on-surface-variant);
+    font-size: 14px;
+    margin-top: 2px;
+  }
+
   /* ============= THE BLOG ============= */
   .blog-grid {
     display: grid;
@@ -1444,6 +1490,63 @@
           </a>
         </div>
       </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- THE STACK -->
+<section id="stack">
+  <div class="container">
+    <div class="section-head">
+      <div class="section-title-wrap">
+        <h2 class="t-h1">The Stack</h2>
+        <div class="section-title-rule"></div>
+      </div>
+      <p class="section-meta t-label-caps">Five artifacts for exploring Magic: the Gathering data.</p>
+    </div>
+
+    <div class="stack-grid">
+
+      <a class="stack-card reveal" href="/stack/card-atlas.html">
+        <img src="/stack/hero-endless-atlas.png" alt="Endless Atlas hero art" loading="lazy">
+        <div class="stack-card-body">
+          <h3>Endless Atlas</h3>
+          <p class="stack-card-sub">The map of every card.</p>
+        </div>
+      </a>
+
+      <a class="stack-card reveal" href="/stack/stokengames-dashboard.html">
+        <img src="/stack/hero-apex-observatory.png" alt="Apex Observatory hero art" loading="lazy">
+        <div class="stack-card-body">
+          <h3>Apex Observatory</h3>
+          <p class="stack-card-sub">The data dashboard.</p>
+        </div>
+      </a>
+
+      <a class="stack-card reveal reveal-delay-1" href="/stack/mtg-timeline.html">
+        <img src="/stack/hero-time-vault.png" alt="Time Vault hero art" loading="lazy">
+        <div class="stack-card-body">
+          <h3>Time Vault</h3>
+          <p class="stack-card-sub">The set timeline.</p>
+        </div>
+      </a>
+
+      <a class="stack-card reveal reveal-delay-1" href="/stack/playbook.html">
+        <img src="/stack/hero-tome-of-legends.png" alt="Tome of Legends hero art" loading="lazy">
+        <div class="stack-card-body">
+          <h3>Tome of Legends</h3>
+          <p class="stack-card-sub">The Commander playbook.</p>
+        </div>
+      </a>
+
+      <a class="stack-card reveal reveal-delay-2" href="/stack/mirage.html">
+        <img src="/stack/hero-mirror-gallery.png" alt="Mirror Gallery hero art" loading="lazy">
+        <div class="stack-card-body">
+          <h3>Mirror Gallery</h3>
+          <p class="stack-card-sub">The card-art mosaic.</p>
+        </div>
+      </a>
 
     </div>
   </div>
