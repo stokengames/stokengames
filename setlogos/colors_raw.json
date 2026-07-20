@@ -1,0 +1,1382 @@
+{
+ "10th Edition.png": {
+  "size": 11742,
+  "color": "#adafa6"
+ },
+ "4th Edition.png": {
+  "size": 1066,
+  "color": "#000000"
+ },
+ "5th Edition.png": {
+  "size": 6693,
+  "color": "#caa150"
+ },
+ "6th Edition.png": {
+  "size": 12088,
+  "color": "#a5b1a3"
+ },
+ "7th Edition.png": {
+  "size": 12780,
+  "color": "#90949b"
+ },
+ "8th Edition.png": {
+  "size": 12379,
+  "color": "#3d3e4b"
+ },
+ "9th Edition.png": {
+  "size": 12374,
+  "color": "#9f9cb1"
+ },
+ "APAC Lands.png": {
+  "size": 2263,
+  "color": "#cd876d"
+ },
+ "Aether Revolt.png": {
+  "size": 7983,
+  "color": "#ced9dd"
+ },
+ "Aetherdrift.png": {
+  "size": 6523,
+  "color": "#f3c600"
+ },
+ "Ajani vs. Nicol Bolas.png": {
+  "size": 10109,
+  "color": "#9a9a99"
+ },
+ "Alara Reborn.png": {
+  "size": 9490,
+  "color": "#683b2f"
+ },
+ "Alchemy Horizons- Baldur's Gate.png": {
+  "size": 8599,
+  "color": "#68583f"
+ },
+ "Alchemy- Exclusive Cards.png": {
+  "size": 17477,
+  "color": "#cabc93"
+ },
+ "Alliances.png": {
+  "size": 13199,
+  "color": "#5892c9"
+ },
+ "Amonkhet Invocations.png": {
+  "size": 11268,
+  "color": "#0057a9"
+ },
+ "Amonkhet Remastered.png": {
+  "size": 14480,
+  "color": "#ffb100"
+ },
+ "Amonkhet.png": {
+  "size": 9633,
+  "color": "#005caa"
+ },
+ "Anthologies.png": {
+  "size": 11183,
+  "color": "#6c7c88"
+ },
+ "Antiquities.png": {
+  "size": 3023,
+  "color": "#000000"
+ },
+ "Apocalypse.png": {
+  "size": 16709,
+  "color": "#867a68"
+ },
+ "Arabian Nights.png": {
+  "size": 4564,
+  "color": "#3e3e3e"
+ },
+ "Archenemy - decks.png": {
+  "size": 8410,
+  "color": "#9a7f49"
+ },
+ "Archenemy - schemes.png": {
+  "size": 8400,
+  "color": "#9a7f49"
+ },
+ "Archenemy- Nicol Bolas decks.png": {
+  "size": 10910,
+  "color": "#b67545"
+ },
+ "Archenemy- Nicol Bolas.png": {
+  "size": 11011,
+  "color": "#b67545"
+ },
+ "Arena Beginner Set.png": {
+  "size": 13781,
+  "color": "#404143"
+ },
+ "Assassin\u0092s Creed.png": {
+  "size": 10692,
+  "color": "#a71b23"
+ },
+ "Avacyn Restored.png": {
+  "size": 11215,
+  "color": "#585b5b"
+ },
+ "Avatar- The Last Airbender Eternal-Legal.png": {
+  "size": 9666,
+  "color": "#ffffff"
+ },
+ "Avatar- The Last Airbender.png": {
+  "size": 6993,
+  "color": "#ffffff"
+ },
+ "Battle Royale.png": {
+  "size": 13443,
+  "color": "#7d7868"
+ },
+ "Battle for Zendikar.png": {
+  "size": 8530,
+  "color": "#2e333d"
+ },
+ "Battlebond.png": {
+  "size": 8124,
+  "color": "#f7bd6d"
+ },
+ "Beatdown.png": {
+  "size": 10744,
+  "color": "#8a5d5e"
+ },
+ "Betrayers of Kamigawa.png": {
+  "size": 8600,
+  "color": "#dedede"
+ },
+ "Blessed vs. Cursed.png": {
+  "size": 10976,
+  "color": "#bbc2c7"
+ },
+ "Bloomburrow.png": {
+  "size": 10988,
+  "color": "#ffffff"
+ },
+ "Born of the Gods Challenge Deck - Battle the Horde.png": {
+  "size": 9345,
+  "color": "#d0b87c"
+ },
+ "Born of the Gods.png": {
+  "size": 8386,
+  "color": "#d7ba7d"
+ },
+ "Challenger Decks 2019 Japan.png": {
+  "size": 4346,
+  "color": "#000000"
+ },
+ "Challenger Decks 2019.png": {
+  "size": 11043,
+  "color": "#bfc1c1"
+ },
+ "Challenger Decks 2020.png": {
+  "size": 16326,
+  "color": "#dd693b"
+ },
+ "Challenger Decks 2021.png": {
+  "size": 16091,
+  "color": "#dd693b"
+ },
+ "Challenger Decks 2022.png": {
+  "size": 16094,
+  "color": "#dd693b"
+ },
+ "Challenger Decks.png": {
+  "size": 8182,
+  "color": "#c1c2c2"
+ },
+ "Champions of Kamigawa.png": {
+  "size": 9125,
+  "color": "#a37b67"
+ },
+ "Chronicles.png": {
+  "size": 6305,
+  "color": "#8e4922"
+ },
+ "Coldsnap Theme Decks.png": {
+  "size": 13334,
+  "color": "#3f647a"
+ },
+ "Coldsnap.png": {
+  "size": 11000,
+  "color": "#436578"
+ },
+ "Commander 2013.png": {
+  "size": 7194,
+  "color": "#c7c9c7"
+ },
+ "Commander 2014.png": {
+  "size": 7192,
+  "color": "#c7c9c7"
+ },
+ "Commander 2015.png": {
+  "size": 2803,
+  "color": "#000008"
+ },
+ "Commander 2016.png": {
+  "size": 2766,
+  "color": "#000008"
+ },
+ "Commander 2017.png": {
+  "size": 2733,
+  "color": "#000008"
+ },
+ "Commander 2018.png": {
+  "size": 2759,
+  "color": "#000008"
+ },
+ "Commander 2019.png": {
+  "size": 3970,
+  "color": "#000008"
+ },
+ "Commander 2020.png": {
+  "size": 4050,
+  "color": "#000008"
+ },
+ "Commander 2021.png": {
+  "size": 3636,
+  "color": "#000008"
+ },
+ "Commander Anthology Volume II.png": {
+  "size": 3344,
+  "color": "#000000"
+ },
+ "Commander Anthology.png": {
+  "size": 4748,
+  "color": "#cd5a00"
+ },
+ "Commander Collection- Black.png": {
+  "size": 12365,
+  "color": "#70609a"
+ },
+ "Commander Collection- Green.png": {
+  "size": 10270,
+  "color": "#bac948"
+ },
+ "Commander Legends- Battle for Baldur's Gate.png": {
+  "size": 5475,
+  "color": "#e31d26"
+ },
+ "Commander Legends.png": {
+  "size": 10530,
+  "color": "#9fd5d9"
+ },
+ "Commander Masters.png": {
+  "size": 14286,
+  "color": "#ffffff"
+ },
+ "Commander's Arsenal.png": {
+  "size": 9517,
+  "color": "#b4b0b6"
+ },
+ "Conflux.png": {
+  "size": 11626,
+  "color": "#9a7d46"
+ },
+ "Conspiracy- Take the Crown.png": {
+  "size": 9687,
+  "color": "#cab493"
+ },
+ "Conspiracy.png": {
+  "size": 7968,
+  "color": "#f7f1df"
+ },
+ "Core Set 2020.png": {
+  "size": 7278,
+  "color": "#bc1111"
+ },
+ "Core Set 2021.png": {
+  "size": 8771,
+  "color": "#eb511c"
+ },
+ "Dark Ascension.png": {
+  "size": 8656,
+  "color": "#999ea0"
+ },
+ "Darksteel.png": {
+  "size": 7225,
+  "color": "#575757"
+ },
+ "Deckmasters.png": {
+  "size": 16388,
+  "color": "#413932"
+ },
+ "Dissension.png": {
+  "size": 11439,
+  "color": "#74787b"
+ },
+ "Divine vs. Demonic.png": {
+  "size": 14371,
+  "color": "#9a9a99"
+ },
+ "Doctor Who.png": {
+  "size": 9865,
+  "color": "#585568"
+ },
+ "Dominaria Remastered.png": {
+  "size": 15555,
+  "color": "#c5723a"
+ },
+ "Dominaria United.png": {
+  "size": 12313,
+  "color": "#fdfbfa"
+ },
+ "Dominaria.png": {
+  "size": 10791,
+  "color": "#43bbcc"
+ },
+ "Double Masters 2022.png": {
+  "size": 13791,
+  "color": "#738734"
+ },
+ "Double Masters.png": {
+  "size": 12247,
+  "color": "#ffe55c"
+ },
+ "Dragon's Maze.png": {
+  "size": 8687,
+  "color": "#8e9eb2"
+ },
+ "Dragons of Tarkir.png": {
+  "size": 9945,
+  "color": "#ffffff"
+ },
+ "Duel Decks - Anthology.png": {
+  "size": 8140,
+  "color": "#a0c1d2"
+ },
+ "Duels of the Planeswalkers.png": {
+  "size": 13201,
+  "color": "#876b36"
+ },
+ "Dungeons & Dragons- Adventures in the Forgotten Realms.png": {
+  "size": 8677,
+  "color": "#ec2525"
+ },
+ "Duskmourn- House of Horrors.png": {
+  "size": 14840,
+  "color": "#ffffff"
+ },
+ "Edge of Eternities - Stellar Sights.png": {
+  "size": 17354,
+  "color": "#ffffff"
+ },
+ "Edge of Eternities.png": {
+  "size": 19338,
+  "color": "#ffffff"
+ },
+ "Eldritch Moon.png": {
+  "size": 9017,
+  "color": "#c39ebb"
+ },
+ "Elspeth vs. Kiora.png": {
+  "size": 11647,
+  "color": "#c0c9cd"
+ },
+ "Elspeth vs. Tezzeret.png": {
+  "size": 14339,
+  "color": "#9a9a98"
+ },
+ "Elves vs. Goblins.png": {
+  "size": 11398,
+  "color": "#9c9c9b"
+ },
+ "Elves vs. Inventors.png": {
+  "size": 12712,
+  "color": "#b9c0c4"
+ },
+ "Enchanted Tales.png": {
+  "size": 9710,
+  "color": "#eebf4b"
+ },
+ "Eternal Masters.png": {
+  "size": 6677,
+  "color": "#daa56e"
+ },
+ "Euro Lands.png": {
+  "size": 2256,
+  "color": "#d8a582"
+ },
+ "Eventide.png": {
+  "size": 9455,
+  "color": "#5f7e86"
+ },
+ "Exodus.png": {
+  "size": 14646,
+  "color": "#d7df6a"
+ },
+ "Explorer Anthology 1.png": {
+  "size": 3577,
+  "color": "#d13a1c"
+ },
+ "Explorer Anthology 2.png": {
+  "size": 3602,
+  "color": "#d33a1c"
+ },
+ "Explorer Anthology 3.png": {
+  "size": 3739,
+  "color": "#ce391a"
+ },
+ "Explorers of Ixalan.png": {
+  "size": 10225,
+  "color": "#fff300"
+ },
+ "Fallen Empires.png": {
+  "size": 5464,
+  "color": "#b97b72"
+ },
+ "Fallout.png": {
+  "size": 5307,
+  "color": "#ffffff"
+ },
+ "Fate Reforged.png": {
+  "size": 9698,
+  "color": "#ffffff"
+ },
+ "Fifth Dawn.png": {
+  "size": 12829,
+  "color": "#6e6f59"
+ },
+ "Final Fantasy - Through the Ages.png": {
+  "size": 10461,
+  "color": "#c6c6c6"
+ },
+ "Final Fantasy.png": {
+  "size": 5150,
+  "color": "#bababa"
+ },
+ "Foundations- Commander.png": {
+  "size": 10153,
+  "color": "#ffffff"
+ },
+ "Foundations.png": {
+  "size": 7476,
+  "color": "#ffffff"
+ },
+ "From the Vault - Angels.png": {
+  "size": 11916,
+  "color": "#9ca4a7"
+ },
+ "From the Vault - Annihilation.png": {
+  "size": 11638,
+  "color": "#614e23"
+ },
+ "From the Vault - Dragons.png": {
+  "size": 10312,
+  "color": "#403e3f"
+ },
+ "From the Vault - Exiled.png": {
+  "size": 11105,
+  "color": "#3d3b3c"
+ },
+ "From the Vault - Legends.png": {
+  "size": 11476,
+  "color": "#f7e47a"
+ },
+ "From the Vault - Lore.png": {
+  "size": 6276,
+  "color": "#00456f"
+ },
+ "From the Vault - Realms.png": {
+  "size": 11562,
+  "color": "#473c2f"
+ },
+ "From the Vault - Relics.png": {
+  "size": 10370,
+  "color": "#3d3b3c"
+ },
+ "From the Vault - Twenty.png": {
+  "size": 12088,
+  "color": "#c2a330"
+ },
+ "From the Vault- Transform.png": {
+  "size": 11662,
+  "color": "#0d4e65"
+ },
+ "Future Sight.png": {
+  "size": 9900,
+  "color": "#afaeb0"
+ },
+ "GURU Lands.png": {
+  "size": 6615,
+  "color": "#b44740"
+ },
+ "Game Night 2019.png": {
+  "size": 9050,
+  "color": "#ff6a47"
+ },
+ "Game Night free-for-all.png": {
+  "size": 4956,
+  "color": "#ffffff"
+ },
+ "Game Night.png": {
+  "size": 7558,
+  "color": "#a7beca"
+ },
+ "Garruk vs. Liliana.png": {
+  "size": 9669,
+  "color": "#9d9d9c"
+ },
+ "Gatecrash.png": {
+  "size": 8428,
+  "color": "#9c9da0"
+ },
+ "Gateway.png": {
+  "size": 8932,
+  "color": "#3d394b"
+ },
+ "Global Series Jiang Yanggu & Mu Yanling.png": {
+  "size": 4297,
+  "color": "#050303"
+ },
+ "Guildpact.png": {
+  "size": 12615,
+  "color": "#736c6c"
+ },
+ "Guilds of Ravnica - Guild Kits.png": {
+  "size": 10867,
+  "color": "#ffffff"
+ },
+ "Guilds of Ravnica - Mythic Edition.png": {
+  "size": 11086,
+  "color": "#ffffff"
+ },
+ "Guilds of Ravnica.png": {
+  "size": 10678,
+  "color": "#e0dabc"
+ },
+ "Heroes vs. Monsters.png": {
+  "size": 10769,
+  "color": "#9a9a99"
+ },
+ "Historic Anthology 1.png": {
+  "size": 3631,
+  "color": "#c7371b"
+ },
+ "Historic Anthology 2.png": {
+  "size": 3645,
+  "color": "#c7371b"
+ },
+ "Historic Anthology 3.png": {
+  "size": 3649,
+  "color": "#c7371b"
+ },
+ "Historic Anthology 4.png": {
+  "size": 3664,
+  "color": "#c7371b"
+ },
+ "Historic Anthology 5.png": {
+  "size": 3639,
+  "color": "#c7371b"
+ },
+ "Historic Anthology 6.png": {
+  "size": 3662,
+  "color": "#ce391a"
+ },
+ "Historic Anthology 7.png": {
+  "size": 3769,
+  "color": "#c7371b"
+ },
+ "Homelands.png": {
+  "size": 8247,
+  "color": "#523643"
+ },
+ "Hour of Devastation.png": {
+  "size": 11490,
+  "color": "#983a12"
+ },
+ "Ice Age.png": {
+  "size": 5138,
+  "color": "#e6e9eb"
+ },
+ "Iconic Masters.png": {
+  "size": 6924,
+  "color": "#874c1a"
+ },
+ "Ikoria Lair of Behemoths.png": {
+  "size": 13819,
+  "color": "#bae7e8"
+ },
+ "Innistrad Remastered.png": {
+  "size": 12995,
+  "color": "#e6feff"
+ },
+ "Innistrad- Crimson Vow.png": {
+  "size": 15106,
+  "color": "#ffffff"
+ },
+ "Innistrad- Double Feature.png": {
+  "size": 9644,
+  "color": "#ffffff"
+ },
+ "Innistrad- Midnight Hunt.png": {
+  "size": 10286,
+  "color": "#d25521"
+ },
+ "Innistrad.png": {
+  "size": 9043,
+  "color": "#989796"
+ },
+ "Introductory Two-Player Set.png": {
+  "size": 1818,
+  "color": "#000000"
+ },
+ "Invasion.png": {
+  "size": 12366,
+  "color": "#721d1d"
+ },
+ "Ixalan.png": {
+  "size": 9794,
+  "color": "#ffee00"
+ },
+ "Izzet vs. Golgari.png": {
+  "size": 10750,
+  "color": "#9a9a99"
+ },
+ "Jace vs. Chandra.png": {
+  "size": 11532,
+  "color": "#9c9c9b"
+ },
+ "Jace vs. Vraska.png": {
+  "size": 11016,
+  "color": "#9b9b99"
+ },
+ "Journey into Nyx Challenge Deck - Defeat a God.png": {
+  "size": 8706,
+  "color": "#a28f63"
+ },
+ "Journey into Nyx.png": {
+  "size": 10516,
+  "color": "#a58d5b"
+ },
+ "Judgment.png": {
+  "size": 12299,
+  "color": "#ffffff"
+ },
+ "Jumpstart 2022.png": {
+  "size": 9575,
+  "color": "#ffffff"
+ },
+ "Jumpstart 2025.png": {
+  "size": 11445,
+  "color": "#ffffff"
+ },
+ "Jumpstart- Historic Horizons.png": {
+  "size": 10195,
+  "color": "#ffffff"
+ },
+ "Jumpstart.png": {
+  "size": 7608,
+  "color": "#ffffff"
+ },
+ "Jurassic World.png": {
+  "size": 16919,
+  "color": "#d8dadc"
+ },
+ "Kaladesh Inventions.png": {
+  "size": 12191,
+  "color": "#da9f28"
+ },
+ "Kaladesh Remastered.png": {
+  "size": 16808,
+  "color": "#eb7d25"
+ },
+ "Kaladesh.png": {
+  "size": 10729,
+  "color": "#da9f28"
+ },
+ "Kaldheim.png": {
+  "size": 9791,
+  "color": "#c3dde9"
+ },
+ "Kamigawa- Neon Dynasty.png": {
+  "size": 16640,
+  "color": "#9787c7"
+ },
+ "Khans of Tarkir.png": {
+  "size": 9135,
+  "color": "#ffffff"
+ },
+ "Knights vs. Dragons.png": {
+  "size": 14715,
+  "color": "#9a9a98"
+ },
+ "Legends.png": {
+  "size": 6595,
+  "color": "#434465"
+ },
+ "Legions.png": {
+  "size": 13974,
+  "color": "#c7993d"
+ },
+ "Limited (Alpha).png": {
+  "size": 1382,
+  "color": "#000000"
+ },
+ "Limited (Beta).png": {
+  "size": 1201,
+  "color": "#000000"
+ },
+ "Lorwyn Eclipsed.png": {
+  "size": 21082,
+  "color": "#ffffff"
+ },
+ "Lorwyn.png": {
+  "size": 9561,
+  "color": "#b18029"
+ },
+ "MTG Arena- Rebalanced Cards.png": {
+  "size": 15262,
+  "color": "#4e4f51"
+ },
+ "MTG Arena.png": {
+  "size": 13340,
+  "color": "#3b3d3f"
+ },
+ "MTG Commander.png": {
+  "size": 6636,
+  "color": "#c7c9c7"
+ },
+ "Magic 2010.png": {
+  "size": 6679,
+  "color": "#4b443b"
+ },
+ "Magic 2011.png": {
+  "size": 11094,
+  "color": "#989a96"
+ },
+ "Magic 2012.png": {
+  "size": 9987,
+  "color": "#ecece9"
+ },
+ "Magic 2013.png": {
+  "size": 10779,
+  "color": "#403e3f"
+ },
+ "Magic 2014.png": {
+  "size": 12490,
+  "color": "#4a5967"
+ },
+ "Magic 2015.png": {
+  "size": 9636,
+  "color": "#4b484b"
+ },
+ "Magic 2019.png": {
+  "size": 7828,
+  "color": "#9d9eb5"
+ },
+ "Magic 30th Anniversary Edition.png": {
+  "size": 7495,
+  "color": "#4e4e4e"
+ },
+ "Magic Origins.png": {
+  "size": 14057,
+  "color": "#ac5a23"
+ },
+ "Magic Premiere Shop.png": {
+  "size": 2935,
+  "color": "#000000"
+ },
+ "March of the Machine- The Aftermath.png": {
+  "size": 16632,
+  "color": "#ecc500"
+ },
+ "March of the Machine.png": {
+  "size": 17697,
+  "color": "#f8ed00"
+ },
+ "Marvel Super Heroes.png": {
+  "size": 11537,
+  "color": "#feed6a"
+ },
+ "Marvel's Spider-Man Eternal-Legal.png": {
+  "size": 12860,
+  "color": "#ffffff"
+ },
+ "Marvel's Spider-Man.png": {
+  "size": 12028,
+  "color": "#ffffff"
+ },
+ "Marvel.png": {
+  "size": 10806,
+  "color": "#ffffff"
+ },
+ "Masters 25.png": {
+  "size": 7085,
+  "color": "#49819b"
+ },
+ "Masters Edition II.png": {
+  "size": 17263,
+  "color": "#44361e"
+ },
+ "Masters Edition III.png": {
+  "size": 12508,
+  "color": "#686b6f"
+ },
+ "Masters Edition IV.png": {
+  "size": 12458,
+  "color": "#686a6e"
+ },
+ "Masters Edition.png": {
+  "size": 17526,
+  "color": "#5a544c"
+ },
+ "Mercadian Masques.png": {
+  "size": 12273,
+  "color": "#e24f16"
+ },
+ "Merfolks vs. Goblins.png": {
+  "size": 12954,
+  "color": "#c0c8cd"
+ },
+ "Mind vs. Might.png": {
+  "size": 10776,
+  "color": "#b9c0c4"
+ },
+ "Mirage.png": {
+  "size": 8970,
+  "color": "#ffde61"
+ },
+ "Mirrodin Besieged.png": {
+  "size": 15247,
+  "color": "#4f4334"
+ },
+ "Mirrodin.png": {
+  "size": 9046,
+  "color": "#babbbf"
+ },
+ "Modern Event Deck.png": {
+  "size": 13555,
+  "color": "#889eab"
+ },
+ "Modern Horizons II.png": {
+  "size": 16866,
+  "color": "#8d9fb6"
+ },
+ "Modern Horizons III Retro Reprints.png": {
+  "size": 20408,
+  "color": "#ffffff"
+ },
+ "Modern Horizons III.png": {
+  "size": 17982,
+  "color": "#ffffff"
+ },
+ "Modern Horizons Reprints.png": {
+  "size": 10147,
+  "color": "#6c6c6c"
+ },
+ "Modern Horizons.png": {
+  "size": 14774,
+  "color": "#dc9f2c"
+ },
+ "Modern Masters 2015.png": {
+  "size": 12366,
+  "color": "#9a5e36"
+ },
+ "Modern Masters 2017.png": {
+  "size": 12061,
+  "color": "#8a5e41"
+ },
+ "Modern Masters.png": {
+  "size": 9135,
+  "color": "#d8bf9a"
+ },
+ "Morningtide.png": {
+  "size": 8937,
+  "color": "#805d42"
+ },
+ "Multiverse Legends.png": {
+  "size": 17550,
+  "color": "#424242"
+ },
+ "Murders at Karlov Manor.png": {
+  "size": 20027,
+  "color": "#ffffff"
+ },
+ "Mystery Booster 2.png": {
+  "size": 15153,
+  "color": "#3c3c42"
+ },
+ "Mystery Booster 2021.png": {
+  "size": 13133,
+  "color": "#414141"
+ },
+ "Mystery Booster.png": {
+  "size": 12683,
+  "color": "#414141"
+ },
+ "Nemesis.png": {
+  "size": 10069,
+  "color": "#7c7d85"
+ },
+ "New Phyrexia.png": {
+  "size": 13333,
+  "color": "#ad995d"
+ },
+ "Nissa vs. Ob Nixilis.png": {
+  "size": 11179,
+  "color": "#c0c8cd"
+ },
+ "Oath of the Gatewatch.png": {
+  "size": 8587,
+  "color": "#413f37"
+ },
+ "Odyssey.png": {
+  "size": 14506,
+  "color": "#ae9d89"
+ },
+ "Onslaught.png": {
+  "size": 9496,
+  "color": "#68564a"
+ },
+ "Outlaws of Thunder Junction.png": {
+  "size": 25170,
+  "color": "#ffffff"
+ },
+ "Phyrexia vs. The Coalition.png": {
+  "size": 15127,
+  "color": "#9a9a99"
+ },
+ "Phyrexia- All Will Be One.png": {
+  "size": 16961,
+  "color": "#d7c8b1"
+ },
+ "Pioneer Challenger Decks 2021.png": {
+  "size": 5123,
+  "color": "#000000"
+ },
+ "Pioneer Challenger Decks 2022.png": {
+  "size": 4743,
+  "color": "#ffffff"
+ },
+ "Pioneer Masters.png": {
+  "size": 18784,
+  "color": "#ffffff"
+ },
+ "Planar Chaos.png": {
+  "size": 13602,
+  "color": "#5e5e5e"
+ },
+ "Planechase 2012 decks.png": {
+  "size": 5904,
+  "color": "#9f9f9f"
+ },
+ "Planechase 2012.png": {
+  "size": 5907,
+  "color": "#9f9f9f"
+ },
+ "Planechase Anthology decks.png": {
+  "size": 10424,
+  "color": "#784d23"
+ },
+ "Planechase Anthology.png": {
+  "size": 10385,
+  "color": "#a0631c"
+ },
+ "Planechase decks.png": {
+  "size": 11260,
+  "color": "#9a6e36"
+ },
+ "Planechase.png": {
+  "size": 11275,
+  "color": "#9a6e36"
+ },
+ "Planeshift.png": {
+  "size": 10867,
+  "color": "#aa9873"
+ },
+ "Portal Second Age.png": {
+  "size": 12978,
+  "color": "#e97b12"
+ },
+ "Portal Three Kingdoms.png": {
+  "size": 9338,
+  "color": "#ca0000"
+ },
+ "Portal.png": {
+  "size": 2012,
+  "color": "#cb0000"
+ },
+ "Premium Deck Series- Fire and Lightning.png": {
+  "size": 9850,
+  "color": "#807b78"
+ },
+ "Premium Deck Series- Graveborn.png": {
+  "size": 11210,
+  "color": "#83817d"
+ },
+ "Premium Deck Series- Slivers.png": {
+  "size": 10722,
+  "color": "#aea9a8"
+ },
+ "Prophecy.png": {
+  "size": 11561,
+  "color": "#7c5b49"
+ },
+ "Ravnica Allegiance - Guild Kits.png": {
+  "size": 11708,
+  "color": "#ffffff"
+ },
+ "Ravnica Allegiance - Mythic Edition.png": {
+  "size": 12239,
+  "color": "#a1b3ba"
+ },
+ "Ravnica Allegiance.png": {
+  "size": 11023,
+  "color": "#b9cdd6"
+ },
+ "Ravnica Remastered.png": {
+  "size": 17887,
+  "color": "#667b89"
+ },
+ "Ravnica- City of Guilds.png": {
+  "size": 8618,
+  "color": "#cdc5b2"
+ },
+ "Ravnica- Clue Edition.png": {
+  "size": 6211,
+  "color": "#082747"
+ },
+ "Renaissance.png": {
+  "size": 13823,
+  "color": "#963f4f"
+ },
+ "Return to Ravnica.png": {
+  "size": 10247,
+  "color": "#b8bdc2"
+ },
+ "Revised Edition.png": {
+  "size": 1117,
+  "color": "#000000"
+ },
+ "Rise of the Eldrazi.png": {
+  "size": 11976,
+  "color": "#333c3f"
+ },
+ "Rivals of Ixalan.png": {
+  "size": 11143,
+  "color": "#a01a13"
+ },
+ "Salvat - Hachette 2005.png": {
+  "size": 6585,
+  "color": "#404040"
+ },
+ "Salvat 2011.png": {
+  "size": 5043,
+  "color": "#707070"
+ },
+ "Saviors of Kamigawa.png": {
+  "size": 9076,
+  "color": "#4e2d10"
+ },
+ "Scars of Mirrodin.png": {
+  "size": 11577,
+  "color": "#c09e55"
+ },
+ "Scourge.png": {
+  "size": 11777,
+  "color": "#a9783d"
+ },
+ "Secret Lair Countdown Kit.png": {
+  "size": 6037,
+  "color": "#595959"
+ },
+ "Secret Lair- Ultimate Edition.png": {
+  "size": 5201,
+  "color": "#000000"
+ },
+ "Secret Lair.png": {
+  "size": 16620,
+  "color": "#efd7ac"
+ },
+ "Secrets of Strixhaven.png": {
+  "size": 15876,
+  "color": "#efe700"
+ },
+ "Shadowmoor.png": {
+  "size": 10856,
+  "color": "#b6b8ac"
+ },
+ "Shadows over Innistrad Remastered- Shadows of the Past.png": {
+  "size": 17740,
+  "color": "#ffffff"
+ },
+ "Shadows over Innistrad Remastered.png": {
+  "size": 15797,
+  "color": "#95a3a6"
+ },
+ "Shadows over Innistrad.png": {
+  "size": 8933,
+  "color": "#9fb9be"
+ },
+ "Shards of Alara.png": {
+  "size": 10526,
+  "color": "#8e8e8e"
+ },
+ "Signature Spellbook- Chandra.png": {
+  "size": 13357,
+  "color": "#e73f17"
+ },
+ "Signature Spellbook- Gideon.png": {
+  "size": 13064,
+  "color": "#ffe807"
+ },
+ "Signature Spellbook- Jace.png": {
+  "size": 9786,
+  "color": "#0096c7"
+ },
+ "Sorin vs. Tibalt.png": {
+  "size": 10444,
+  "color": "#9a9a99"
+ },
+ "Special Guests.png": {
+  "size": 5517,
+  "color": "#606060"
+ },
+ "Speed vs. Cunning.png": {
+  "size": 10583,
+  "color": "#bbc2c7"
+ },
+ "Starter 2000.png": {
+  "size": 12349,
+  "color": "#c93318"
+ },
+ "Starter.png": {
+  "size": 12368,
+  "color": "#862214"
+ },
+ "Streets of New Capenna.png": {
+  "size": 15588,
+  "color": "#33655d"
+ },
+ "Strixhaven School of Mages.png": {
+  "size": 13368,
+  "color": "#fede3a"
+ },
+ "Stronghold.png": {
+  "size": 11348,
+  "color": "#90804d"
+ },
+ "Summer Magic.png": {
+  "size": 1554,
+  "color": "#000000"
+ },
+ "Tarkir- Dragonstorm.png": {
+  "size": 16143,
+  "color": "#ffffff"
+ },
+ "Teenage Mutant Ninja Turtles Eternal Legal.png": {
+  "size": 11678,
+  "color": "#a3cf00"
+ },
+ "Teenage Mutant Ninja Turtles Source Material.png": {
+  "size": 11803,
+  "color": "#a3cf00"
+ },
+ "Teenage Mutant Ninja Turtles.png": {
+  "size": 9442,
+  "color": "#7ec030"
+ },
+ "Tempest Remastered.png": {
+  "size": 15388,
+  "color": "#805f70"
+ },
+ "Tempest.png": {
+  "size": 11490,
+  "color": "#7e548d"
+ },
+ "The Brothers' War Retro Artifacts.png": {
+  "size": 15140,
+  "color": "#3d3d3d"
+ },
+ "The Brothers\u0092 War.png": {
+  "size": 14823,
+  "color": "#857b73"
+ },
+ "The Dark.png": {
+  "size": 5732,
+  "color": "#5b585d"
+ },
+ "The List.png": {
+  "size": 3882,
+  "color": "#444444"
+ },
+ "The Lord of the Rings- Tales of Middle-earth.png": {
+  "size": 16053,
+  "color": "#f1dfbd"
+ },
+ "The Lost Caverns of Ixalan.png": {
+  "size": 19130,
+  "color": "#e43948"
+ },
+ "Theros Beyond Death.png": {
+  "size": 11226,
+  "color": "#fff000"
+ },
+ "Theros Challenge Deck - Face the Hydra.png": {
+  "size": 8382,
+  "color": "#e6d3a0"
+ },
+ "Theros Heroes.png": {
+  "size": 8801,
+  "color": "#b39b6c"
+ },
+ "Theros.png": {
+  "size": 8502,
+  "color": "#937a45"
+ },
+ "Throne of Eldraine.png": {
+  "size": 12788,
+  "color": "#ffd566"
+ },
+ "Through the Omenpaths - Bonus sheet.png": {
+  "size": 19347,
+  "color": "#9b9b9b"
+ },
+ "Through the Omenpaths.png": {
+  "size": 16171,
+  "color": "#90ebff"
+ },
+ "Thunder Junction - Breaking News.png": {
+  "size": 11945,
+  "color": "#ffffff"
+ },
+ "Thunder Junction - The Big Score.png": {
+  "size": 11005,
+  "color": "#ffffff"
+ },
+ "Time Spiral Remastered.png": {
+  "size": 15485,
+  "color": "#45461b"
+ },
+ "Time Spiral.png": {
+  "size": 9839,
+  "color": "#313f4a"
+ },
+ "Torment.png": {
+  "size": 14375,
+  "color": "#283e29"
+ },
+ "Transformers.png": {
+  "size": 10726,
+  "color": "#c30e2c"
+ },
+ "Ultimate Box Topper.png": {
+  "size": 11044,
+  "color": "#6fcbcd"
+ },
+ "Ultimate Masters.png": {
+  "size": 10406,
+  "color": "#6fcbcd"
+ },
+ "Ultra Rare Cards.png": {
+  "size": 900,
+  "color": "#000000"
+ },
+ "Unfinity.png": {
+  "size": 18571,
+  "color": "#ffffdb"
+ },
+ "Unglued.png": {
+  "size": 12430,
+  "color": "#f3bd31"
+ },
+ "Unhinged.png": {
+  "size": 13304,
+  "color": "#6a3963"
+ },
+ "Universes Beyond Magic reprints.png": {
+  "size": 10850,
+  "color": "#715e2b"
+ },
+ "Unlimited.png": {
+  "size": 1182,
+  "color": "#000000"
+ },
+ "Unsanctioned.png": {
+  "size": 11495,
+  "color": "#ffffff"
+ },
+ "Unstable.png": {
+  "size": 9362,
+  "color": "#ffffff"
+ },
+ "Urza's Destiny.png": {
+  "size": 12661,
+  "color": "#493a3a"
+ },
+ "Urza's Legacy.png": {
+  "size": 12845,
+  "color": "#4e5255"
+ },
+ "Urza's Saga.png": {
+  "size": 11676,
+  "color": "#aa9f97"
+ },
+ "Vanguard.png": {
+  "size": 12541,
+  "color": "#88221b"
+ },
+ "Venser vs. Koth.png": {
+  "size": 12808,
+  "color": "#9b9b99"
+ },
+ "Vintage Masters.png": {
+  "size": 19153,
+  "color": "#f3dfa6"
+ },
+ "Visions.png": {
+  "size": 10329,
+  "color": "#a49884"
+ },
+ "War of the Spark - Mythic Edition.png": {
+  "size": 14985,
+  "color": "#cccccc"
+ },
+ "War of the Spark.png": {
+  "size": 22506,
+  "color": "#a2cd89"
+ },
+ "Warhammer 40,000.png": {
+  "size": 12320,
+  "color": "#324656"
+ },
+ "Weatherlight.png": {
+  "size": 6296,
+  "color": "#bb9f6c"
+ },
+ "Welcome Deck 2016.png": {
+  "size": 1219,
+  "color": "#000000"
+ },
+ "Welcome Deck 2017.png": {
+  "size": 1250,
+  "color": "#000000"
+ },
+ "Wilds of Eldraine.png": {
+  "size": 21765,
+  "color": "#f1df91"
+ },
+ "Worldwake.png": {
+  "size": 10331,
+  "color": "#919e77"
+ },
+ "Zendikar Expeditions.png": {
+  "size": 11097,
+  "color": "#7e7f82"
+ },
+ "Zendikar Rising Expeditions.png": {
+  "size": 13593,
+  "color": "#ffffff"
+ },
+ "Zendikar Rising.png": {
+  "size": 16308,
+  "color": "#9ed9f3"
+ },
+ "Zendikar vs. Eldrazi.png": {
+  "size": 11790,
+  "color": "#d2dde2"
+ },
+ "Zendikar.png": {
+  "size": 11231,
+  "color": "#857f67"
+ }
+}

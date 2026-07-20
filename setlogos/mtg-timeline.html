@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>33 Years of Magic — a scrolling history · stoken·games</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Nunito:wght@400;700&display=swap');
+:root{--bg:#0a0a0a;--line:#242424;--cyan:#00E5FF;--silver:#c9c6c5;--white:#f5f5f5;
+--disp:'Barlow Condensed',sans-serif;--body:'Nunito',system-ui,sans-serif;}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--white);font-family:var(--body);line-height:1.6;overflow-x:hidden}
+#cloud{position:fixed;inset:-30%;pointer-events:none;z-index:0;opacity:1;
+background:radial-gradient(46% 34% at 28% 18%,rgba(0,229,255,.10),transparent 68%),
+radial-gradient(40% 30% at 78% 55%,rgba(0,229,255,.08),transparent 68%),
+radial-gradient(36% 26% at 40% 92%,rgba(0,229,255,.09),transparent 68%);
+transition:transform .1s linear}
+.hero{position:relative;z-index:1;min-height:86vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;max-width:900px;margin:0 auto;padding:40px 24px}
+.brand{font-family:var(--disp);font-weight:600;font-size:15px;letter-spacing:.14em;text-transform:lowercase;color:var(--silver)}
+.brand b{color:var(--cyan);font-weight:700}
+h1{font-family:var(--disp);font-weight:700;text-transform:uppercase;font-size:clamp(52px,10vw,110px);line-height:.88;margin:14px 0 10px}
+h1 .cy{color:var(--cyan)}
+.sub{color:var(--silver);font-size:15px;max-width:52ch}
+.scrollcue{margin-top:40px;color:var(--cyan);font-family:var(--disp);letter-spacing:.2em;text-transform:uppercase;font-size:12px;animation:bob 1.6s ease-in-out infinite}
+@keyframes bob{50%{transform:translateY(7px)}}
+.tl{position:relative;z-index:1;max-width:1060px;margin:0 auto;padding:20px 24px 60px}
+#track{position:absolute;left:50%;top:0;bottom:0;width:2px;transform:translateX(-50%);background:#182a2d}
+#fill{position:absolute;left:50%;top:0;width:2px;transform:translateX(-50%);height:0;
+background:var(--cyan);box-shadow:0 0 12px rgba(0,229,255,.55)}
+.yr{position:relative;text-align:center;font-family:var(--disp);font-weight:700;font-size:30px;color:var(--cyan);
+padding:22px 0 10px;letter-spacing:.02em;z-index:2}
+.yr span{background:var(--bg);padding:0 16px}
+.ev{position:relative;width:46%;margin:0 0 46px 0;opacity:0;transform:translateY(28px);
+transition:opacity .55s cubic-bezier(.23,1,.32,1),transform .55s cubic-bezier(.23,1,.32,1)}
+.ev.in{opacity:1;transform:none}
+.ev.L{margin-right:auto;text-align:right}
+.ev.R{margin-left:auto;text-align:left}
+.ev .ico{position:absolute;top:6px;width:34px;height:34px;z-index:3;
+filter:invert(92%) sepia(6%) saturate(200%) brightness(102%) drop-shadow(0 0 6px rgba(0,229,255,.45))}
+.ev.L .ico{right:calc(-8.7% - 17px)}
+.ev.R .ico{left:calc(-8.7% - 17px)}
+.banner{position:relative;border:1px solid var(--line);border-radius:12px;overflow:hidden;background:#101010;min-height:86px;display:flex;align-items:flex-end}
+.banner img.art{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.5;
+mask-image:linear-gradient(180deg,rgba(0,0,0,.9),rgba(0,0,0,.55));-webkit-mask-image:linear-gradient(180deg,rgba(0,0,0,.9),rgba(0,0,0,.55))}
+.banner img.logo{position:relative;max-width:86%;max-height:74px;margin:12px auto;filter:drop-shadow(0 3px 8px #000)}
+.banner .nm{position:relative;width:100%;padding:16px 14px 10px;font-family:var(--disp);font-weight:700;
+text-transform:uppercase;font-size:clamp(24px,3.3vw,34px);line-height:.92;color:var(--white);
+text-shadow:0 2px 10px rgba(0,0,0,.95),0 0 26px rgba(0,0,0,.9);letter-spacing:.015em}
+.ev .code{color:#8f8f8f;font-size:10.5px;font-family:var(--disp);letter-spacing:.2em}
+.ev .why{margin-top:8px;color:var(--cyan);font-family:var(--disp);font-weight:600;letter-spacing:.08em;font-size:11.5px;text-transform:uppercase}
+.ev p{margin:4px 0 0;color:#ccc;font-size:14px}
+.outro{position:relative;z-index:1;max-width:900px;margin:0 auto;padding:50px 24px 90px;text-align:center}
+.outro h2{font-family:var(--disp);font-weight:700;text-transform:uppercase;font-size:38px;margin:0 0 8px}
+.outro p{color:var(--silver);font-size:14px}
+.outro img{height:110px;margin-top:18px;filter:drop-shadow(0 0 14px rgba(0,229,255,.4))}
+footer{position:relative;z-index:1;max-width:900px;margin:0 auto;padding:16px 24px 50px;color:#666;font-size:11.5px;border-top:1px solid var(--line)}
+footer a{color:var(--silver)}
+@media(max-width:720px){
+ .tl::before{left:24px}#track,#fill{left:24px}
+ .ev{width:calc(100% - 60px);margin-left:60px!important;text-align:left!important}
+ .ev .ico{left:-53px!important;right:auto!important}
+ .yr{text-align:left;margin-left:60px}}
+@media(prefers-reduced-motion:reduce){.ev{opacity:1;transform:none;transition:none}.scrollcue{animation:none}}
+</style></head>
+<body>
+<div id="cloud"></div>
+<div class="hero">
+  <div class="brand">stoken<b>·</b>games</div>
+  <h1>33 YEARS<br>OF <span class="cy">MAGIC</span></h1>
+  <p class="sub">Every era of Magic: The Gathering, one scroll from Alpha to today. Each stop is a set that changed the game — the rules it broke, the worlds it built, or the cards that never left.</p>
+  <div class="scrollcue">▼ scroll through time</div>
+</div>
+<div class="tl" id="tl"><div id="track"></div><div id="fill"></div></div>
+<div class="outro">
+  <h2>…AND THE NEXT SET IS ALREADY COMING</h2>
+  <p>33 years, ~30,000 unique cards, one game. Explore all of them on the <a href="card-atlas-v6.html" style="color:var(--cyan)">Card Atlas</a> or dig into the numbers on the <a href="stokengames-dashboard.html" style="color:var(--cyan)">Data Dashboard</a>.</p>
+  <a href="https://stoken.games/pip/" target="_blank" title="Pip has been here since 1993 (he has not; do not fact-check the Chief Morale Officer)"><img src="https://stoken.games/images/pip-happy.png" alt="" onerror="this.parentNode.style.display='none'"></a>
+</div>
+<footer>Set symbols &amp; card art © Wizards of the Coast, served via Scryfall. Unofficial Fan Content under the Fan Content Policy. Curated &amp; written by stoken·games · <a href="https://instagram.com/stokengames">@stokengames</a></footer>
+<script>
+const ART={"lea": "Black Lotus", "arn": "Library of Alexandria", "atq": "Mishra's Workshop", "leg": "Karakas", "drk": "Ball Lightning", "ice": "Necropotence", "all": "Force of Will", "mir": "Lion's Eye Diamond", "tmp": "Wasteland", "usg": "Tolarian Academy", "mmq": "Rishadan Port", "inv": "Fact or Fiction", "ody": "Entomb", "ons": "Polluted Delta", "mrd": "Chalice of the Void", "chk": "Sensei's Divining Top", "rav": "Dark Confidant", "tsp": "Ancestral Vision", "lrw": "Thoughtseize", "ala": "Cruel Ultimatum", "zen": "Scalding Tarn", "roe": "Emrakul, the Aeons Torn", "som": "Mox Opal", "isd": "Snapcaster Mage", "cmd": "Kaalia of the Vast", "rtr": "Abrupt Decay", "ths": "Thassa, God of the Sea", "ktk": "Siege Rhino", "bfz": "Ulamog, the Ceaseless Hunger", "soi": "Archangel Avacyn", "kld": "Aetherworks Marvel", "akh": "Approach of the Second Sun", "xln": "Carnage Tyrant", "dom": "Teferi, Hero of Dominaria", "grn": "Assassin's Trophy", "war": "Nicol Bolas, Dragon-God", "mh1": "Urza, Lord High Artificer", "eld": "Oko, Thief of Crowns", "thb": "Uro, Titan of Nature's Wrath", "iko": "Lurrus of the Dream-Den", "cmr": "Jeweled Lotus", "khm": "Esika's Chariot", "stx": "Prismari Command", "mh2": "Ragavan, Nimble Pilferer", "afr": "Portable Hole", "mid": "Wrenn and Seven", "neo": "Fable of the Mirror-Breaker", "snc": "Ledger Shredder", "dmu": "Sheoldred, the Apocalypse", "bro": "Urza, Lord Protector", "one": "Elesh Norn, Mother of Machines", "mom": "Invasion of Ikoria", "ltr": "The One Ring", "woe": "Agatha's Soul Cauldron", "lci": "Cavern of Souls", "mkm": "Leyline of the Guildpact", "otj": "Slickshot Show-Off", "mh3": "Nadu, Winged Wisdom", "blb": "Ygra, Eater of All", "dsk": "Overlord of the Hauntwoods", "fdn": "Llanowar Elves", "dft": "Ketramose, the New Dawn", "tdm": "Elspeth, Storm Slayer", "fin": "Sephiroth", "eoe": "Sothera, the Supervoid", "spm": "Spider-Man", "tla": "Aang", "ecl": ""};
+const T=[
+[1993,"lea","Limited Edition (Alpha)","Where it all starts","2.6 million cards, five colors, and rules held together with hope. The Power Nine were just… in the packs. Every trading card game since is descended from this box."],
+[1993,"arn","Arabian Nights","The first expansion","Proved Magic could visit other worlds — and printed Library of Alexandria. The idea that sets are *places* starts here."],
+[1994,"atq","Antiquities","Artifacts get a story","The Brothers' War between Urza and Mishra — Magic's first real lore arc, still paying off thirty years later."],
+[1994,"leg","Legends","The first legends","Legendary creatures arrive. Nobody in 1994 knew they'd invented the card type an entire format would one day be named after."],
+[1994,"drk","The Dark","Magic learns mood","Weak cards, unforgettable atmosphere. Proof that a set can be remembered for its vibe long after its power level is forgotten."],
+[1995,"ice","Ice Age","The first standalone","Snow lands, Necropotence, and the first set designed to be drafted from its own booster. Necro warped competitive Magic for years."],
+[1996,"all","Alliances","Free spells, first mistakes","Force of Will — the card that made every blue player's arms permanently crossed — arrives in a set about desperate survival."],
+[1996,"mir","Mirage","Modern set design is born","The first true 'block': cohesive world, mechanics that build across three sets. Also: phasing, which took 25 years to become good."],
+[1997,"tmp","Tempest","The Weatherlight saga","Magic goes serialized — an ongoing cast on an ongoing quest. Also home to Wasteland and some of the most pushed creatures of the decade."],
+[1998,"usg","Urza's Saga","The most broken set ever","Combo winter. Academy, Windfall, Time Spiral — banned within months. Every modern conversation about power level is measured against this."],
+[1999,"mmq","Mercadian Masques","The correction","The deliberate power-down after Urza's. Players hated it, designers learned from it: the pendulum swings both ways."],
+[2000,"inv","Invasion","Gold rush","Multicolor as a theme, not a treat. The Phyrexian invasion pays off six years of story, and 'gold matters' sets become a recurring pillar."],
+[2001,"ody","Odyssey","The graveyard is a resource","Threshold and flashback teach players the bin is a second hand — a lesson Commander players never unlearned."],
+[2002,"ons","Onslaught","Tribal, industrialized","Goblins, elves, clerics, wizards — creature type matters everywhere. Also: fetchlands. You may have heard of them."],
+[2003,"mrd","Mirrodin","Affinity breaks Standard","A metal world, an artifact theme, and a ban list massacre. Skullclamp remains the funniest design mistake ever shipped."],
+[2004,"chk","Champions of Kamigawa","Beloved failure","Too parochial, too weak — and so loved that eighteen years later its sequel became one of the best-received sets ever. Patience pays."],
+[2005,"rav","Ravnica: City of Guilds","The guild blueprint","Ten two-color guilds, each a personality. Arguably the most influential world design in the game's history — and shocklands."],
+[2006,"tsp","Time Spiral","Magic about Magic","A nostalgia set before nostalgia was a product line. Suspend, slivers, and a complexity ceiling that taught design its limits."],
+[2007,"lrw","Lorwyn","Planeswalkers arrive","The card type that gave the game its protagonists. Also a fairytale world so charming it got a 2026 return."],
+[2008,"ala","Shards of Alara","Three-color identities","Five shards teach players to say 'Esper' and 'Jund' like they're nationalities. Cascade debuts, then spends 15 years being errata'd."],
+[2009,"zen","Zendikar","Lands matter","Adventure world, landfall, and full-art lands people still chase. Fetch reprints made it the most opened set of its era."],
+[2010,"roe","Rise of the Eldrazi","Big dumb cosmic horror","Annihilator taught the game what a real threat feels like. Battlecruiser Magic gets its patron saints."],
+[2010,"som","Scars of Mirrodin","The heel turn","Phyrexia wins. Infect splits players forever, and Magic proves the villains can just… take a whole plane."],
+[2011,"isd","Innistrad","The best-designed set?","Gothic horror, double-faced cards, graveyard synergy — regularly cited as the gold standard of top-down design."],
+[2011,"cmd","Commander (2011)","WotC blesses the format","The first official Commander product. A fan format becomes the commercial center of gravity for the entire game — see every chart on our dashboard."],
+[2012,"rtr","Return to Ravnica","The sequel that worked","Proof that returning to a beloved world sells even better than inventing one. The modern 'return set' economy starts here."],
+[2013,"ths","Theros","Enchantment mythology","Greek myth, gods, and devotion. Enchantments finally get their world."],
+[2014,"ktk","Khans of Tarkir","The draft set","Wedge clans, morphs, and fetchland reprints — many players' pick for the best draft format ever printed."],
+[2015,"bfz","Battle for Zendikar","Expeditions change everything","The first Masterpiece-style chase cards. The premium-collectible era of boosters begins here, for better and worse."],
+[2016,"soi","Shadows over Innistrad","Madness and mystery","Investigate, delirium, and a plane going insane. Also the year Standard's power problems started simmering."],
+[2016,"kld","Kaladesh","Beautiful, broken","An inventor's paradise with energy — a parasitic mechanic so strong it needed bans, and so isolated it needed a 2024 revival."],
+[2017,"akh","Amonkhet","The God-Pharaoh's trap","Egyptian world, embalm, and a story where the villain already won before you opened a pack."],
+[2017,"xln","Ixalan","Dinosaurs and pirates","Tribal fun in a low-power shell. Sometimes a set's job is just to be a great time."],
+[2018,"dom","Dominaria","The homecoming","Back to the original plane, historic matters, and Teferi, Hero of Dominaria — the fairest unfair card ever printed."],
+[2019,"war","War of the Spark","36 planeswalkers","Every pack, a planeswalker; the story's Avengers-Endgame moment. Also Narset and Teferi proving 'uncommon walker' was a wild idea."],
+[2019,"mh1","Modern Horizons","Direct-to-Modern","Skipping Standard entirely: a supplemental set that reshaped an eternal format overnight. The power valve is now a product line."],
+[2019,"eld","Throne of Eldraine","FIRE design ignites","Fairy tales plus Oko, Once Upon a Time, and food. The set that defined the modern ban era — and modern card power."],
+[2020,"thb","Theros Beyond Death","Escape from the underworld","Uro enters the format. Uro is banned from the format. A one-card summary of 2020 Magic."],
+[2020,"iko","Ikoria: Lair of Behemoths","Companions","Ten cards that broke deckbuilding's most basic rule and forced the fastest emergency rules change in the game's history."],
+[2020,"cmr","Commander Legends","Draftable Commander","The format gets its own booster set — and Jeweled Lotus. The dashboard's legendary% chart bends here for a reason."],
+[2021,"khm","Kaldheim","Viking metal","Ten realms, modal DFC lands, and Tibalt's Trickery memes. Snow returns, finally good."],
+[2021,"stx","Strixhaven","Magic school","Five colleges, the Mystical Archive, and lessons/learn. The Archive quietly previewed how premium reprint treatments would take over."],
+[2021,"mh2","Modern Horizons 2","The format reset","Ragavan, Grief, the evoke elementals — Modern is essentially a different game before and after this set."],
+[2021,"afr","Forgotten Realms","The crossover test","D&D in Standard boosters — the proof of concept for Universes Beyond, one year before it had that name on shelves."],
+[2022,"neo","Kamigawa: Neon Dynasty","Redemption arc","Cyberpunk Kamigawa. The 2004 disappointment becomes one of the most acclaimed sets of the decade. Never delete a world."],
+[2022,"snc","Streets of New Capenna","Art-deco crime families","Three-color demon crime syndicates. A gorgeous world whose sets underperformed — proof world quality and set quality are separate stats."],
+[2022,"dmu","Dominaria United","The invasion begins","Phyrexians return in earnest and Magic commits to a multi-set mega-arc again — the biggest story swing in a decade."],
+[2022,"bro","The Brothers' War","The prequel, finally","The 1994 backstory becomes a 2022 set, with Urza and Mishra as playable meld titans. A 28-year payoff."],
+[2023,"one","Phyrexia: All Will Be One","Compleation","Elesh Norn's masterpiece, toxic, and five planeswalkers falling. The villain arc peaks."],
+[2023,"mom","March of the Machine","The whole multiverse fights","Every plane, one battle, team-up cards. The end of the four-part arc — and the start of the post-block 'omenpath' era."],
+[2023,"ltr","The Lord of the Rings","Universes Beyond arrives","Tales of Middle-earth outsold expectations everywhere and The One Ring became a format staple. The crossover era is not a phase."],
+[2023,"woe","Wilds of Eldraine","Fairy tales, act two","Post-war fallout with enchanting-tales reprints. The 'smaller, cozier' set as recovery beat."],
+[2023,"lci","The Lost Caverns of Ixalan","Descend into the core","Dinosaurs meet deep-earth horror. Discover proves cascade's cousin can be fair(ish)."],
+[2024,"mkm","Murders at Karlov Manor","Magic does Clue","A whodunit on Ravnica. Genre-first sets become the norm rather than the experiment."],
+[2024,"otj","Outlaws of Thunder Junction","The western","Villains as the draft archetype and crimes as a mechanic. Magic's genre tour hits the frontier."],
+[2024,"mh3","Modern Horizons 3","Eldrazi horizons","Flare cycles, double-faced walkers, and another Modern reshuffle. The MH line is now the game's power ceiling, full stop."],
+[2024,"blb","Bloomburrow","The animals win","Redwall-style woodland plane. Instantly beloved, mechanically clean — proof cozy can carry a whole set."],
+[2024,"dsk","Duskmourn","The house is the plane","A haunted house the size of a world. Horror-genre Magic with modern survival-movie energy — rooms, glimmers, and real dread."],
+[2024,"fdn","Foundations","The permanent core","A beginner-focused set legal in Standard for five-plus years. Magic finally builds itself a floor."],
+[2025,"dft","Aetherdrift","The multiverse race","A death-race across planes. Divisive premise, but vehicles and start-your-engines pushed a long-neglected card type."],
+[2025,"tdm","Tarkir: Dragonstorm","The clans return","Back to five three-color clans and dragonstorms. Wedge fans eat again."],
+[2025,"fin","Final Fantasy","The biggest set ever","The Universes Beyond crossover that shattered sales records and pulled an entire JRPG fandom into paper Magic. A before/after moment for who plays this game."],
+[2025,"eoe","Edge of Eternities","Space fantasy","Magic finally goes interstellar. Void, station, and planets as lands — the design space expands, literally."],
+[2025,"spm","Marvel's Spider-Man","Web-slinger Standard","Marvel enters Standard-legal Magic. Whatever your take, the audience math is undeniable."],
+[2025,"tla","Avatar: The Last Airbender","The four nations","Bending in card form, and another beloved fandom onboarded. UB is now half the release calendar."],
+[2026,"ecl","Lorwyn Eclipsed","The fairytale, eclipsed","The 2007 storybook plane returns under a darkened sun — the year's in-multiverse anchor amid the crossover tide."]
+];
+const LOGO={"arn": "Arabian Nights.png", "atq": "Antiquities.png", "leg": "Legends.png", "drk": "The Dark.png", "ice": "Ice Age.png", "all": "Alliances.png", "mir": "Mirage.png", "tmp": "Tempest.png", "usg": "Urza's Saga.png", "mmq": "Mercadian Masques.png", "inv": "Invasion.png", "ody": "Odyssey.png", "ons": "Onslaught.png", "mrd": "Mirrodin.png", "chk": "Champions of Kamigawa.png", "rav": "Ravnica- City of Guilds.png", "tsp": "Time Spiral.png", "lrw": "Lorwyn.png", "ala": "Shards of Alara.png", "zen": "Zendikar.png", "roe": "Rise of the Eldrazi.png", "som": "Scars of Mirrodin.png", "isd": "Innistrad.png", "rtr": "Return to Ravnica.png", "ths": "Theros.png", "ktk": "Khans of Tarkir.png", "bfz": "Battle for Zendikar.png", "soi": "Shadows over Innistrad.png", "kld": "Kaladesh.png", "akh": "Amonkhet.png", "xln": "Ixalan.png", "dom": "Dominaria.png", "war": "War of the Spark.png", "mh1": "Modern Horizons.png", "eld": "Throne of Eldraine.png", "thb": "Theros Beyond Death.png", "cmr": "Commander Legends.png", "khm": "Kaldheim.png", "stx": "Secrets of Strixhaven.png", "mh2": "Modern Horizons II.png", "afr": "Dungeons & Dragons- Adventures in the Forgotten Realms.png", "neo": "Kamigawa- Neon Dynasty.png", "snc": "Streets of New Capenna.png", "dmu": "Dominaria United.png", "bro": "The Brothers' War Retro Artifacts.png", "one": "Phyrexia- All Will Be One.png", "mom": "March of the Machine.png", "ltr": "The Lord of the Rings- Tales of Middle-earth.png", "woe": "Wilds of Eldraine.png", "lci": "The Lost Caverns of Ixalan.png", "mkm": "Murders at Karlov Manor.png", "otj": "Outlaws of Thunder Junction.png", "mh3": "Modern Horizons II.png", "blb": "Bloomburrow.png", "dsk": "Duskmourn- House of Horrors.png", "fdn": "Foundations.png", "dft": "Aetherdrift.png", "tdm": "Tarkir- Dragonstorm.png", "fin": "Final Fantasy.png", "eoe": "Edge of Eternities.png", "spm": "Marvel's Spider-Man.png", "tla": "Avatar- The Last Airbender.png", "ecl": "Lorwyn Eclipsed.png", "lea": "Limited (Alpha).png", "iko": "Ikoria Lair of Behemoths.png", "cmd": "MTG Commander.png"};
+const SC={"arn": "#3e3e3e", "atq": "#c9c6c5", "leg": "#434465", "drk": "#5b585d", "ice": "#e6e9eb", "all": "#5892c9", "mir": "#ffde61", "tmp": "#7e548d", "usg": "#aa9f97", "mmq": "#e24f16", "inv": "#721d1d", "ody": "#ae9d89", "ons": "#68564a", "mrd": "#babbbf", "chk": "#a37b67", "rav": "#cdc5b2", "tsp": "#313f4a", "lrw": "#b18029", "ala": "#8e8e8e", "zen": "#857f67", "roe": "#333c3f", "som": "#c09e55", "isd": "#989796", "rtr": "#b8bdc2", "ths": "#937a45", "ktk": "#ffffff", "bfz": "#c9c6c5", "soi": "#9fb9be", "kld": "#da9f28", "akh": "#005caa", "xln": "#ffee00", "dom": "#43bbcc", "war": "#a2cd89", "mh1": "#dc9f2c", "eld": "#ffd566", "thb": "#fff000", "cmr": "#9fd5d9", "khm": "#c3dde9", "stx": "#efe700", "mh2": "#8d9fb6", "afr": "#ec2525", "neo": "#9787c7", "snc": "#33655d", "dmu": "#fdfbfa", "bro": "#3d3d3d", "one": "#d7c8b1", "mom": "#f8ed00", "ltr": "#f1dfbd", "woe": "#f1df91", "lci": "#e43948", "mkm": "#ffffff", "otj": "#ffffff", "mh3": "#8d9fb6", "blb": "#ffffff", "dsk": "#ffffff", "fdn": "#ffffff", "dft": "#f3c600", "tdm": "#ffffff", "fin": "#bababa", "eoe": "#ffffff", "spm": "#ffffff", "tla": "#ffffff", "ecl": "#ffffff", "lea": "#c9c6c5", "iko": "#bae7e8", "cmd": "#c7c9c7"};
+setTimeout(()=>{
+  document.querySelectorAll('.ev').forEach(e=>{const c=SC[e.dataset.code];
+    if(c){e.querySelector('.why').style.color=c;
+      const i=e.querySelector('.ico');if(i)i.style.filter=`drop-shadow(0 0 7px ${c})`;}});
+},0);
+const tl=document.getElementById('tl');
+let lastY=null,side=0;
+for(const [y,code,name,why,blurb] of T){
+  if(y!==lastY){const h=document.createElement('div');h.className='yr';h.innerHTML='<span>'+y+'</span>';tl.appendChild(h);lastY=y;}
+  const d=document.createElement('div');d.className='ev '+(side%2?'R':'L');d.dataset.code=code;side++;
+  const art=ART[code];
+  const artImg=art?`<img class="art" loading="lazy" alt="" src="https://api.scryfall.com/cards/named?fuzzy=${encodeURIComponent(art)}&set=${code}&format=image&version=art_crop" onerror="this.remove()">`:'';
+  d.innerHTML=`<img class="ico" loading="lazy" src="https://svgs.scryfall.io/sets/${code}.svg" onerror="this.style.display='none'" alt="">
+   <div class="banner">${artImg}
+     <img class="logo" loading="lazy" src="setlogos/${(LOGO[code]||code+".png")}" onerror="this.remove();this.closest&&0" style="display:none">
+     <div class="nm">${name} <span class="code">${code.toUpperCase()}</span></div></div>
+   <div class="why">${why}</div><p>${blurb}</p>`;
+  // prefer local wordmark logo if present
+  const lg=d.querySelector('.logo');
+  lg.style.display='';
+  lg.addEventListener('load',()=>{d.querySelector('.nm').style.display='none';});
+  lg.addEventListener('error',()=>{lg.remove();});
+  tl.appendChild(d);
+}
+const io=new IntersectionObserver(es=>{for(const e of es)if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}},{threshold:.22});
+document.querySelectorAll('.ev').forEach(e=>io.observe(e));
+if(matchMedia('(prefers-reduced-motion: reduce)').matches)document.querySelectorAll('.ev').forEach(e=>e.classList.add('in'));
+// growing line + cloud drift
+const fill=document.getElementById('fill'),cloud=document.getElementById('cloud');
+function onScroll(){
+  const r=tl.getBoundingClientRect();
+  const prog=Math.min(1,Math.max(0,(innerHeight*0.6-r.top)/r.height));
+  fill.style.height=(prog*r.height)+'px';
+  cloud.style.transform=`translateY(${scrollY*-0.08}px) scale(${1+Math.sin(scrollY/900)*0.03})`;
+}
+addEventListener('scroll',onScroll,{passive:true});onScroll();
+</script>
+</body></html>

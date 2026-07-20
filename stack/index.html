@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Stack · stoken·games</title>
+<meta name="description" content="Five artifacts for exploring Magic: the Gathering data, by Stoken Games.">
+<link rel="canonical" href="https://stoken.games/stack/">
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="The Stack">
+<meta property="og:description" content="Five artifacts for exploring Magic: the Gathering data.">
+<meta property="og:url" content="https://stoken.games/stack/">
+<meta property="og:image" content="https://stoken.games/stack/hero-endless-atlas.png">
+
+<link rel="icon" type="image/png" href="/images/icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #0a0a0a;
+    --surface: #14151a;
+    --cyan: #00E5FF;
+    --silver: #c9c6c5;
+    --ink: #e1e2ee;
+    --font-display: 'Barlow Condensed', system-ui, sans-serif;
+    --font-body: 'Nunito', system-ui, sans-serif;
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--font-body);
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  ::selection { background: var(--cyan); color: #000; }
+  a { color: inherit; text-decoration: none; }
+  img { display: block; max-width: 100%; }
+
+  .wrap { max-width: 1180px; margin: 0 auto; padding: 0 24px; width: 100%; }
+
+  header { text-align: center; padding: 72px 24px 56px; }
+
+  .brand-line {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 15px;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--silver);
+  }
+  .brand-line a:hover { color: var(--cyan); }
+
+  h1 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(64px, 10vw, 112px);
+    line-height: 1.0;
+    letter-spacing: -0.01em;
+    text-transform: uppercase;
+    color: #fff;
+    margin: 16px 0 12px;
+  }
+
+  .subtitle {
+    color: var(--silver);
+    font-size: 18px;
+  }
+
+  .cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 28px;
+    padding-bottom: 72px;
+  }
+
+  .tool-card {
+    display: flex;
+    flex-direction: column;
+    background: var(--surface);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 14px;
+    overflow: hidden;
+    transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
+  }
+
+  .tool-card:hover,
+  .tool-card:focus-visible {
+    transform: translateY(-6px);
+    border-color: rgba(0, 229, 255, 0.45);
+    box-shadow: 0 0 40px -6px rgba(0, 229, 255, 0.35);
+  }
+  .tool-card:focus-visible { outline: 2px solid var(--cyan); outline-offset: 3px; }
+
+  .tool-card img {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+  }
+
+  .tool-card-body { padding: 20px 22px 24px; }
+
+  .tool-card h2 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 26px;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    color: #fff;
+  }
+
+  .tool-card p { color: var(--silver); font-size: 15px; margin-top: 4px; }
+
+  footer {
+    margin-top: auto;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 40px 24px 48px;
+    text-align: center;
+  }
+
+  .fan-credit {
+    color: rgba(201, 198, 197, 0.55);
+    font-size: 13px;
+    max-width: 560px;
+    margin: 0 auto 24px;
+  }
+
+  .pip-door { display: inline-block; }
+  .pip-door img {
+    width: 72px;
+    height: auto;
+    margin: 0 auto;
+    transition: filter 0.2s ease;
+  }
+  .pip-door:hover img,
+  .pip-door:focus-visible img { filter: drop-shadow(0 0 12px rgba(0, 229, 255, 0.45)); }
+  .pip-door:focus-visible { outline: 2px solid var(--cyan); outline-offset: 4px; }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { transition-duration: 0.01ms !important; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <p class="brand-line"><a href="/">stoken·games</a></p>
+  <h1>The Stack</h1>
+  <p class="subtitle">Five artifacts for exploring Magic: the Gathering data.</p>
+</header>
+
+<main class="wrap">
+  <div class="cards">
+
+    <a class="tool-card" href="card-atlas.html">
+      <img src="hero-endless-atlas.png" alt="Endless Atlas hero art" loading="lazy">
+      <div class="tool-card-body">
+        <h2>Endless Atlas</h2>
+        <p>The map of every card.</p>
+      </div>
+    </a>
+
+    <a class="tool-card" href="stokengames-dashboard.html">
+      <img src="hero-apex-observatory.png" alt="Apex Observatory hero art" loading="lazy">
+      <div class="tool-card-body">
+        <h2>Apex Observatory</h2>
+        <p>The data dashboard.</p>
+      </div>
+    </a>
+
+    <a class="tool-card" href="mtg-timeline.html">
+      <img src="hero-time-vault.png" alt="Time Vault hero art" loading="lazy">
+      <div class="tool-card-body">
+        <h2>Time Vault</h2>
+        <p>The set timeline.</p>
+      </div>
+    </a>
+
+    <a class="tool-card" href="playbook.html">
+      <img src="hero-tome-of-legends.png" alt="Tome of Legends hero art" loading="lazy">
+      <div class="tool-card-body">
+        <h2>Tome of Legends</h2>
+        <p>The Commander playbook.</p>
+      </div>
+    </a>
+
+    <a class="tool-card" href="mirage.html">
+      <img src="hero-mirror-gallery.png" alt="Mirror Gallery hero art" loading="lazy">
+      <div class="tool-card-body">
+        <h2>Mirror Gallery</h2>
+        <p>The card-art mosaic.</p>
+      </div>
+    </a>
+
+  </div>
+</main>
+
+<footer>
+  <p class="fan-credit">
+    Card data and art © Wizards of the Coast, via Scryfall. Unofficial Fan Content
+    permitted under the Fan Content Policy. Not approved or endorsed by Wizards.
+  </p>
+  <a href="/pip/" class="pip-door" aria-label="Pip's personnel file">
+    <img src="https://stoken.games/images/pip-default.png" alt="" onerror="this.parentNode.style.display='none'">
+  </a>
+</footer>
+
+</body>
+</html>
