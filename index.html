@@ -705,7 +705,8 @@
   /* ============= THE BLOG ============= */
   .blog-grid {
     display: grid;
-    grid-template-columns: 3fr 2fr;
+    grid-template-columns: minmax(0, 640px);
+    justify-content: center;
     gap: var(--gutter);
     align-items: stretch;
   }
@@ -728,20 +729,6 @@
     border-color: rgba(0, 229, 255, 0.4);
   }
 
-  .blog-card-pill {
-    position: absolute;
-    top: 16px;
-    right: 16px;
-    background: var(--accent-warmth);
-    color: #000;
-    font-family: var(--font-display);
-    font-size: 10px;
-    font-weight: 700;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    padding: 4px 8px;
-  }
-
   .blog-card-typo {
     font-family: var(--font-display);
     font-weight: 800;
@@ -753,7 +740,6 @@
     margin-bottom: 32px;
   }
 
-  .blog-card-typo-fp { font-size: clamp(64px, 8.5vw, 120px); }
   .blog-card-typo-bgs { font-size: clamp(44px, 5.5vw, 80px); }
 
   .blog-card-typo-line {
@@ -1568,29 +1554,8 @@
 
     <div class="blog-grid">
 
-      <!-- First Pick (featured) -->
-      <article class="blog-card blog-card-featured reveal">
-        <span class="blog-card-pill">AI-Powered</span>
-        <div class="blog-card-typo blog-card-typo-fp" aria-hidden="true">
-          <span class="blog-card-typo-line blog-card-typo-accent">First</span>
-          <span class="blog-card-typo-line">Pick</span>
-        </div>
-        <div class="blog-card-body">
-          <h3 class="t-h2">First Pick</h3>
-          <p class="blog-card-tagline">AI-powered board game recommendations.</p>
-          <p class="t-body-md blog-card-desc">
-            Tell it three to eight games you love, or take a five-round taste quiz. Get five recommendations tuned to how you actually play.
-          </p>
-          <a href="https://boardgamestrategy.blog/first-pick/"
-             class="btn btn-primary blog-card-cta"
-             target="_blank" rel="noopener noreferrer">
-            Try First Pick <span class="material-symbols-outlined">arrow_forward</span>
-          </a>
-        </div>
-      </article>
-
-      <!-- Publication (supporting) -->
-      <article class="blog-card blog-card-publication reveal reveal-delay-1">
+      <!-- Publication -->
+      <article class="blog-card blog-card-publication reveal">
         <div class="blog-card-typo blog-card-typo-bgs" aria-hidden="true">
           <span class="blog-card-typo-line">Board</span>
           <span class="blog-card-typo-line">Game</span>
