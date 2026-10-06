@@ -85,6 +85,11 @@ button.quiet{background:transparent;color:var(--muted);border-color:var(--line);
 .choice{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px;}
 .choice button{padding:16px 10px;font-size:11px;line-height:1.4;}
 .choice button.fo{background:#d23b2f;border-color:#d23b2f;color:#0a0a0c;}
+.witness{margin-top:22px;padding-top:16px;border-top:1px solid var(--line);}
+.witness .row{align-items:stretch;}
+.witness .row input{flex:1 1 160px;}
+button.close{width:100%;margin-top:12px;padding:16px 10px;font-size:11px;line-height:1.4;background:#d9b36e;border-color:#d9b36e;color:#1a1108;}
+body.resist .card .stamp.gold{border-color:#d9b36e;color:#d9b36e;}
 .choice button.rs{background:transparent;border-color:#5fd3e8;color:#5fd3e8;}
 .card{border:1px solid var(--acc);box-shadow:0 0 0 1px var(--acc-soft),0 0 40px var(--acc-soft);padding:20px 18px;margin:18px 0;position:relative;overflow:hidden;background:linear-gradient(135deg,var(--panel),var(--panel2));}
 .card::after{content:"";position:absolute;right:-30px;top:-30px;width:140px;height:140px;border:1px solid var(--acc-soft);border-radius:50%;}
@@ -233,14 +238,17 @@ footer{margin-top:28px;font-size:13px;color:var(--muted);text-align:center;lette
 <b>&gt; TERMINAL</b> Confidence: high. File ready for disposition.
 <i>&gt; UNKNOWN CHANNEL</i> Before you file that, you should know who you're filing it for. Kreel led the Nadiri raid, and eleven people died there. Three months earlier, the Jedi you just identified had Kreel unarmed and let him walk.
 <i>&gt; UNKNOWN CHANNEL</i> Ask him about it and he'll tell you he'd do it again. He'll also tell you what it cost. Both at once.</div>
-  <p>Nothing gets filed without a witness who is already on file, so enter their code below. If you don't know anyone who is, the captain himself carries one, and he'll give it to anyone who asks.</p>
-  <label class="lbl" for="sponsor">Witness code</label>
-  <input type="text" id="sponsor" placeholder="A word and two digits" autocomplete="off" maxlength="24">
-  <div class="msg" id="m4"></div>
-  <p style="margin-top:14px">Then decide.</p>
+  <p>Decide.</p>
   <div class="choice">
     <button class="fo" id="chooseFO">Claim the bounty<br><span class="mono" style="font-size:10px;letter-spacing:.1em">40,000 credits</span></button>
     <button class="rs" id="chooseRS">Delete the file<br><span class="mono" style="font-size:10px;letter-spacing:.1em">He walks</span></button>
+  </div>
+  <div class="witness">
+    <p>You can file on your own. If someone who is already on file gave you their code, enter it here. Two signatures on record can close a file instead of deleting it, and a closed file stays closed.</p>
+    <label class="lbl" for="sponsor">Witness code (optional)</label>
+    <div class="row"><input type="text" id="sponsor" placeholder="A word and two digits" autocomplete="off" maxlength="24"><button class="ghost" id="checkSponsor" style="flex:0 0 auto">Check</button></div>
+    <div class="msg" id="m4"></div>
+    <button class="close" id="chooseCL" hidden>Close the file<br><span class="mono" style="font-size:10px;letter-spacing:.1em">Two signatures · no match</span></button>
   </div>
 </section>
 
@@ -261,7 +269,7 @@ footer{margin-top:28px;font-size:13px;color:var(--muted);text-align:center;lette
   </div>
   <p>Take a screenshot of the card, then go find the captain and say the line below to him exactly as written. He'll know which way you went.</p>
   <div class="phrase" id="phrase"></div>
-  <p style="margin-top:16px">You're on file now, which means you can witness for the next hunter. Show them this screen. The code goes in their witness field, and the square gets them the file.</p>
+  <p style="margin-top:16px">Share this code with another investigator to unlock additional options.</p>
   <div class="share">
     <div class="code" id="myCode"></div>
     <div class="qrbox"><svg class="qr" width="31mm" height="31mm" version="1.1" viewBox="0 0 31 31" xmlns="http://www.w3.org/2000/svg"><path d="M1,1H2V2H1zM2,1H3V2H2zM3,1H4V2H3zM4,1H5V2H4zM5,1H6V2H5zM6,1H7V2H6zM7,1H8V2H7zM9,1H10V2H9zM14,1H15V2H14zM15,1H16V2H15zM16,1H17V2H16zM19,1H20V2H19zM20,1H21V2H20zM21,1H22V2H21zM23,1H24V2H23zM24,1H25V2H24zM25,1H26V2H25zM26,1H27V2H26zM27,1H28V2H27zM28,1H29V2H28zM29,1H30V2H29zM1,2H2V3H1zM7,2H8V3H7zM9,2H10V3H9zM12,2H13V3H12zM13,2H14V3H13zM14,2H15V3H14zM17,2H18V3H17zM18,2H19V3H18zM21,2H22V3H21zM23,2H24V3H23zM29,2H30V3H29zM1,3H2V4H1zM3,3H4V4H3zM4,3H5V4H4zM5,3H6V4H5zM7,3H8V4H7zM10,3H11V4H10zM11,3H12V4H11zM13,3H14V4H13zM17,3H18V4H17zM19,3H20V4H19zM20,3H21V4H20zM23,3H24V4H23zM25,3H26V4H25zM26,3H27V4H26zM27,3H28V4H27zM29,3H30V4H29zM1,4H2V5H1zM3,4H4V5H3zM4,4H5V5H4zM5,4H6V5H5zM7,4H8V5H7zM9,4H10V5H9zM12,4H13V5H12zM15,4H16V5H15zM16,4H17V5H16zM18,4H19V5H18zM20,4H21V5H20zM23,4H24V5H23zM25,4H26V5H25zM26,4H27V5H26zM27,4H28V5H27zM29,4H30V5H29zM1,5H2V6H1zM3,5H4V6H3zM4,5H5V6H4zM5,5H6V6H5zM7,5H8V6H7zM10,5H11V6H10zM12,5H13V6H12zM13,5H14V6H13zM15,5H16V6H15zM17,5H18V6H17zM20,5H21V6H20zM23,5H24V6H23zM25,5H26V6H25zM26,5H27V6H26zM27,5H28V6H27zM29,5H30V6H29zM1,6H2V7H1zM7,6H8V7H7zM10,6H11V7H10zM12,6H13V7H12zM14,6H15V7H14zM16,6H17V7H16zM17,6H18V7H17zM19,6H20V7H19zM20,6H21V7H20zM21,6H22V7H21zM23,6H24V7H23zM29,6H30V7H29zM1,7H2V8H1zM2,7H3V8H2zM3,7H4V8H3zM4,7H5V8H4zM5,7H6V8H5zM6,7H7V8H6zM7,7H8V8H7zM9,7H10V8H9zM11,7H12V8H11zM13,7H14V8H13zM15,7H16V8H15zM17,7H18V8H17zM19,7H20V8H19zM21,7H22V8H21zM23,7H24V8H23zM24,7H25V8H24zM25,7H26V8H25zM26,7H27V8H26zM27,7H28V8H27zM28,7H29V8H28zM29,7H30V8H29zM9,8H10V9H9zM11,8H12V9H11zM13,8H14V9H13zM16,8H17V9H16zM17,8H18V9H17zM18,8H19V9H18zM20,8H21V9H20zM1,9H2V10H1zM3,9H4V10H3zM4,9H5V10H4zM6,9H7V10H6zM7,9H8V10H7zM8,9H9V10H8zM12,9H13V10H12zM13,9H14V10H13zM14,9H15V10H14zM16,9H17V10H16zM18,9H19V10H18zM19,9H20V10H19zM23,9H24V10H23zM26,9H27V10H26zM28,9H29V10H28zM29,9H30V10H29zM1,10H2V11H1zM8,10H9V11H8zM10,10H11V11H10zM13,10H14V11H13zM14,10H15V11H14zM15,10H16V11H15zM16,10H17V11H16zM19,10H20V11H19zM20,10H21V11H20zM22,10H23V11H22zM23,10H24V11H23zM24,10H25V11H24zM25,10H26V11H25zM29,10H30V11H29zM2,11H3V12H2zM5,11H6V12H5zM6,11H7V12H6zM7,11H8V12H7zM8,11H9V12H8zM10,11H11V12H10zM11,11H12V12H11zM12,11H13V12H12zM14,11H15V12H14zM17,11H18V12H17zM22,11H23V12H22zM25,11H26V12H25zM27,11H28V12H27zM28,11H29V12H28zM3,12H4V13H3zM4,12H5V13H4zM10,12H11V13H10zM11,12H12V13H11zM17,12H18V13H17zM19,12H20V13H19zM22,12H23V13H22zM23,12H24V13H23zM25,12H26V13H25zM29,12H30V13H29zM1,13H2V14H1zM3,13H4V14H3zM7,13H8V14H7zM9,13H10V14H9zM10,13H11V14H10zM11,13H12V14H11zM12,13H13V14H12zM15,13H16V14H15zM16,13H17V14H16zM18,13H19V14H18zM21,13H22V14H21zM26,13H27V14H26zM27,13H28V14H27zM1,14H2V15H1zM3,14H4V15H3zM5,14H6V15H5zM6,14H7V15H6zM8,14H9V15H8zM9,14H10V15H9zM10,14H11V15H10zM11,14H12V15H11zM15,14H16V15H15zM17,14H18V15H17zM19,14H20V15H19zM20,14H21V15H20zM23,14H24V15H23zM27,14H28V15H27zM28,14H29V15H28zM29,14H30V15H29zM1,15H2V16H1zM4,15H5V16H4zM7,15H8V16H7zM10,15H11V16H10zM11,15H12V16H11zM13,15H14V16H13zM14,15H15V16H14zM16,15H17V16H16zM17,15H18V16H17zM20,15H21V16H20zM21,15H22V16H21zM22,15H23V16H22zM24,15H25V16H24zM25,15H26V16H25zM27,15H28V16H27zM28,15H29V16H28zM29,15H30V16H29zM5,16H6V17H5zM6,16H7V17H6zM9,16H10V17H9zM11,16H12V17H11zM12,16H13V17H12zM15,16H16V17H15zM17,16H18V17H17zM21,16H22V17H21zM22,16H23V17H22zM23,16H24V17H23zM24,16H25V17H24zM28,16H29V17H28zM3,17H4V18H3zM5,17H6V18H5zM7,17H8V18H7zM9,17H10V18H9zM10,17H11V18H10zM12,17H13V18H12zM13,17H14V18H13zM15,17H16V18H15zM16,17H17V18H16zM17,17H18V18H17zM19,17H20V18H19zM21,17H22V18H21zM24,17H25V18H24zM25,17H26V18H25zM26,17H27V18H26zM28,17H29V18H28zM3,18H4V19H3zM4,18H5V19H4zM5,18H6V19H5zM6,18H7V19H6zM13,18H14V19H13zM15,18H16V19H15zM17,18H18V19H17zM21,18H22V19H21zM24,18H25V19H24zM26,18H27V19H26zM27,18H28V19H27zM28,18H29V19H28zM1,19H2V20H1zM3,19H4V20H3zM5,19H6V20H5zM7,19H8V20H7zM8,19H9V20H8zM10,19H11V20H10zM12,19H13V20H12zM14,19H15V20H14zM15,19H16V20H15zM16,19H17V20H16zM17,19H18V20H17zM18,19H19V20H18zM19,19H20V20H19zM21,19H22V20H21zM23,19H24V20H23zM25,19H26V20H25zM27,19H28V20H27zM3,20H4V21H3zM4,20H5V21H4zM10,20H11V21H10zM11,20H12V21H11zM13,20H14V21H13zM14,20H15V21H14zM15,20H16V21H15zM18,20H19V21H18zM19,20H20V21H19zM23,20H24V21H23zM27,20H28V21H27zM2,21H3V22H2zM3,21H4V22H3zM7,21H8V22H7zM9,21H10V22H9zM13,21H14V22H13zM14,21H15V22H14zM15,21H16V22H15zM17,21H18V22H17zM18,21H19V22H18zM19,21H20V22H19zM21,21H22V22H21zM22,21H23V22H22zM23,21H24V22H23zM24,21H25V22H24zM25,21H26V22H25zM26,21H27V22H26zM27,21H28V22H27zM9,22H10V23H9zM13,22H14V23H13zM16,22H17V23H16zM17,22H18V23H17zM18,22H19V23H18zM19,22H20V23H19zM21,22H22V23H21zM25,22H26V23H25zM26,22H27V23H26zM27,22H28V23H27zM28,22H29V23H28zM29,22H30V23H29zM1,23H2V24H1zM2,23H3V24H2zM3,23H4V24H3zM4,23H5V24H4zM5,23H6V24H5zM6,23H7V24H6zM7,23H8V24H7zM9,23H10V24H9zM11,23H12V24H11zM15,23H16V24H15zM16,23H17V24H16zM19,23H20V24H19zM20,23H21V24H20zM21,23H22V24H21zM23,23H24V24H23zM25,23H26V24H25zM26,23H27V24H26zM28,23H29V24H28zM1,24H2V25H1zM7,24H8V25H7zM9,24H10V25H9zM10,24H11V25H10zM12,24H13V25H12zM14,24H15V25H14zM15,24H16V25H15zM16,24H17V25H16zM19,24H20V25H19zM21,24H22V25H21zM25,24H26V25H25zM26,24H27V25H26zM1,25H2V26H1zM3,25H4V26H3zM4,25H5V26H4zM5,25H6V26H5zM7,25H8V26H7zM11,25H12V26H11zM18,25H19V26H18zM21,25H22V26H21zM22,25H23V26H22zM23,25H24V26H23zM24,25H25V26H24zM25,25H26V26H25zM27,25H28V26H27zM29,25H30V26H29zM1,26H2V27H1zM3,26H4V27H3zM4,26H5V27H4zM5,26H6V27H5zM7,26H8V27H7zM9,26H10V27H9zM10,26H11V27H10zM11,26H12V27H11zM12,26H13V27H12zM13,26H14V27H13zM20,26H21V27H20zM21,26H22V27H21zM22,26H23V27H22zM25,26H26V27H25zM26,26H27V27H26zM28,26H29V27H28zM1,27H2V28H1zM3,27H4V28H3zM4,27H5V28H4zM5,27H6V28H5zM7,27H8V28H7zM9,27H10V28H9zM12,27H13V28H12zM13,27H14V28H13zM14,27H15V28H14zM18,27H19V28H18zM19,27H20V28H19zM20,27H21V28H20zM24,27H25V28H24zM27,27H28V28H27zM29,27H30V28H29zM1,28H2V29H1zM7,28H8V29H7zM10,28H11V29H10zM11,28H12V29H11zM12,28H13V29H12zM13,28H14V29H13zM14,28H15V29H14zM17,28H18V29H17zM19,28H20V29H19zM21,28H22V29H21zM24,28H25V29H24zM26,28H27V29H26zM28,28H29V29H28zM1,29H2V30H1zM2,29H3V30H2zM3,29H4V30H3zM4,29H5V30H4zM5,29H6V30H5zM6,29H7V30H6zM7,29H8V30H7zM9,29H10V30H9zM10,29H11V30H10zM12,29H13V30H12zM14,29H15V30H14zM16,29H17V30H16zM20,29H21V30H20zM21,29H22V30H21zM22,29H23V30H22zM23,29H24V30H23zM24,29H25V30H24zM26,29H27V30H26zM28,29H29V30H28z" id="qr-path" fill="#000000" fill-opacity="1" fill-rule="nonzero" stroke="none"/></svg><small>stoken.games/halcycon</small></div>
@@ -297,30 +305,33 @@ footer{margin-top:28px;font-size:13px;color:var(--muted);text-align:center;lette
   function render(){
     sections.forEach(function(id,i){$(id).hidden=(i!==state.step);});
     for(var i=1;i<=4;i++){var el=$('s'+i);el.className='step'+(state.step>i?' done':(state.step===i?' active':''));}
-    $('statusBadge').textContent=state.step===5?(state.outcome==='RS'?'Deleted':'Claimed'):(state.step===0?'Open':'In review');
-    document.body.className=(state.step===5&&state.outcome==='RS')?'resist':'';
+    $('statusBadge').textContent=state.step===5?(state.outcome==='RS'?'Deleted':(state.outcome==='CL'?'Closed':'Claimed')):(state.step===0?'Open':'In review');
+    document.body.className=(state.step===5&&state.outcome!=='FO')?'resist':'';
     if(state.step===0&&state.name){$('qname').value=state.name;}
     if(state.step===5){fillDone();}
   }
   function fillDone(){
     var n=(state.name||'UNNAMED HUNTER').toUpperCase();
-    var rs=state.outcome==='RS';
-    $('hdrEyebrow').textContent=rs?'Resistance Logistics Net // Encrypted':'First Order Security Bureau // Bounty Terminal';
-    $('hdrTitle').textContent=rs?'File 7-Kreel: Deleted':'Bounty File 7-Kreel';
-    $('doneTitle').textContent=rs?'File deleted':'Bounty claimed';
-    $('doneScript').innerHTML=rs
-      ?'<b>&gt; TERMINAL</b> File 7-Kreel purged. No record retained.\n<i>&gt; STOKER</i> You had forty thousand reasons to file that, and you didn\'t. I won\'t forget it.\n<i>&gt; STOKER</i> Walk light.'
+    var o=state.outcome, rs=o==='RS', cl=o==='CL';
+    $('hdrEyebrow').textContent=(rs||cl)?'Resistance Logistics Net // Encrypted':'First Order Security Bureau // Bounty Terminal';
+    $('hdrTitle').textContent=rs?'File 7-Kreel: Deleted':(cl?'File 7-Kreel: Closed':'Bounty File 7-Kreel');
+    $('doneTitle').textContent=rs?'File deleted':(cl?'File closed':'Bounty claimed');
+    $('doneScript').innerHTML=cl
+      ?'<b>&gt; TERMINAL</b> Counter-filing accepted with two signatures on record. File 7-Kreel is closed as a non-match. Subject cleared by Bureau review.\n<i>&gt; STOKER</i> Deleting it would have bought me a month. The two of you bought me a year, and you got the Bureau to do the paperwork.\n<i>&gt; STOKER</i> I don\'t know how I pay that back. Walk light.'
+      :rs
+      ?'<b>&gt; TERMINAL</b> File 7-Kreel purged. No record retained.\n<i>&gt; STOKER</i> You had forty thousand reasons to file that, and you didn\'t. That buys me a month, maybe, and it\'s more than most people would give me.\n<i>&gt; STOKER</i> Walk light.'
       :'<b>&gt; TERMINAL</b> Disposition logged. Payment authorized on capture.\n<b>&gt; KREEL</b> Good work. Bring him to me alive and the credits are yours.\n<i>&gt; STOKER</i> So that\'s how it goes. Tell me when.';
-    $('cKind').textContent=rs?'Resistance clearance':'First Order bounty voucher';
-    $('cOutcome').textContent=rs?'FILE DELETED · SUBJECT CLEARED':'MATCH CONFIRMED · 40,000 CR';
+    $('cKind').textContent=rs?'Resistance clearance':(cl?'Bureau counter-filing':'First Order bounty voucher');
+    $('cOutcome').textContent=rs?'FILE DELETED · SUBJECT CLEARED':(cl?'FILE CLOSED · NO MATCH':'MATCH CONFIRMED · 40,000 CR');
     $('cName').textContent=n;
     $('cSponsor').textContent=state.sponsor||'···';
     var d=new Date(state.filedAt||Date.now());
     $('cTime').textContent=d.toLocaleDateString(undefined,{year:'numeric',month:'short',day:'numeric'})+' · '+d.toLocaleTimeString(undefined,{hour:'2-digit',minute:'2-digit'});
-    $('cStamp').textContent=rs?'CLEARED · RELAY 7':'BOUNTY · FOSB';
-    $('phrase').textContent=rs?'"I deleted the file."':'"Kreel sends his regards."';
+    $('cStamp').textContent=rs?'CLEARED · RELAY 7':(cl?'CLOSED · FOSB':'BOUNTY · FOSB');
+    $('cStamp').className='stamp'+(cl?' gold':'');
+    $('phrase').textContent=rs?'"I deleted the file."':(cl?'"Kreel\'s looking in the wrong place."':'"Kreel sends his regards."');
     $('myCode').textContent=codeFor(n);
-    $('foot').textContent=rs?'Walk light.':'Every file has two ends.';
+    $('foot').textContent=(rs||cl)?'Walk light.':'Every file has two ends.';
   }
   function setMsg(id,text,cls){var m=$(id);m.textContent=text;m.className='msg '+(cls||'');}
   function advance(){state.step++;save();render();window.scrollTo({top:0,behavior:'smooth'});}
@@ -360,13 +371,24 @@ footer{margin-top:28px;font-size:13px;color:var(--muted);text-align:center;lette
   $('a3').addEventListener('keydown',function(e){if(e.key==='Enter')$('b3').click();});
   $('h3').onclick=function(){$('hint3').hidden=false;};
 
+  function sponsorOK(){var sp=fmtCode($('sponsor').value);return sp===ROOT||validCode(sp);}
   function file(outcome){
     var sp=fmtCode($('sponsor').value);
-    if(sp!==ROOT&&!validCode(sp)){setMsg('m4','That code isn\'t on file. Find someone who is, or ask the captain.','bad');$('sponsor').focus();return;}
-    state.sponsor=sp;state.outcome=outcome;state.filedAt=Date.now();advance();
+    if(outcome==='CL'&&!sponsorOK()){setMsg('m4','That code isn\'t on file.','bad');$('sponsor').focus();return;}
+    state.sponsor=sponsorOK()?sp:'';state.outcome=outcome;state.filedAt=Date.now();advance();
   }
+  function checkSponsor(){
+    var sp=fmtCode($('sponsor').value);
+    if(!sp){setMsg('m4','Enter a code first.','bad');return;}
+    if(sponsorOK()){setMsg('m4','Witness verified. A third option is open to you.','good');$('chooseCL').hidden=false;}
+    else{setMsg('m4','That code isn\'t on file.','bad');$('chooseCL').hidden=true;}
+  }
+  $('checkSponsor').onclick=checkSponsor;
+  $('sponsor').addEventListener('keydown',function(e){if(e.key==='Enter'){e.preventDefault();checkSponsor();}});
+  $('sponsor').addEventListener('input',function(){if(sponsorOK()){$('chooseCL').hidden=false;setMsg('m4','Witness verified. A third option is open to you.','good');}else{$('chooseCL').hidden=true;}});
   $('chooseFO').onclick=function(){file('FO');};
   $('chooseRS').onclick=function(){file('RS');};
+  $('chooseCL').onclick=function(){file('CL');};
 
   $('copyBtn').onclick=function(){
     var t=$('myCode').textContent;
@@ -378,7 +400,7 @@ footer{margin-top:28px;font-size:13px;color:var(--muted);text-align:center;lette
     state={name:'',step:0,sponsor:'',outcome:''};save();
     ['a1','a2n','a3','qname','sponsor'].forEach(function(i){$(i).value='';});
     $('a2s').value='';$('a2s').disabled=false;$('b2').disabled=false;$('p2b').hidden=true;
-    ['hint1','hint2','hint2n','hint3'].forEach(function(i){$(i).hidden=true;});
+    ['hint1','hint2','hint2n','hint3','chooseCL'].forEach(function(i){$(i).hidden=true;});
     ['m1','m2','m2n','m3','m4','mCopy'].forEach(function(i){setMsg(i,'','');});
     $('hdrEyebrow').textContent='First Order Security Bureau // Bounty Terminal';$('hdrTitle').textContent='Bounty File 7-Kreel';$('foot').textContent='FOSB terminal · relay 7';
     render();
