@@ -1,0 +1,12 @@
+{
+  "name": "Oloro Transition Plan",
+  "short_name": "Oloro",
+  "start_url": "/decks/oloro-transition.html",
+  "display": "standalone",
+  "background_color": "#0A0A0A",
+  "theme_color": "#0A0A0A",
+  "icons": [
+    { "src": "/decks/oloro-icon.png", "sizes": "180x180", "type": "image/png" },
+    { "src": "/decks/oloro-icon-512.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}
