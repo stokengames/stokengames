@@ -1,0 +1,396 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#0b1014">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="MagicCon">
+<link rel="apple-touch-icon" sizes="180x180" href="icons/magiccon-tracker-180.png">
+<link rel="icon" type="image/png" sizes="64x64" href="icons/magiccon-tracker-64.png">
+<link rel="icon" type="image/png" sizes="192x192" href="icons/magiccon-tracker-192.png">
+<title>MagicCon Tracker</title>
+<style>
+:root{
+  --bg:#0b1014; --surface:#121a21; --surface2:#18232c; --line:#22303b;
+  --text:#e8f1f5; --muted:#8aa0ad; --accent:#00E5FF; --accent-ink:#00313a;
+  --ok:#34d399; --sent:#a78bfa; --skip:#64748b; --warn:#f87171;
+  --r:14px;
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--text);font:16px/1.4 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;-webkit-text-size-adjust:100%}
+body{padding:env(safe-area-inset-top) 0 calc(90px + env(safe-area-inset-bottom))}
+header{position:sticky;top:0;z-index:5;background:rgba(11,16,20,.94);backdrop-filter:blur(10px);padding:14px 16px 10px;border-bottom:1px solid var(--line)}
+.top{display:flex;align-items:center;justify-content:space-between;gap:6px 12px;flex-wrap:wrap}
+h1{font-size:20px;margin:0;letter-spacing:.2px;display:flex;align-items:center;gap:9px}
+h1 img{width:30px;height:30px;border-radius:8px;box-shadow:0 0 0 1px rgba(0,229,255,.35)}
+h1 span{color:var(--accent)}
+h1 b{font-weight:700}
+.stats{font-size:13px;color:var(--muted);white-space:nowrap}
+.stats b{color:var(--text)}
+.search{margin-top:10px;width:100%;padding:11px 14px;border-radius:12px;border:1px solid var(--line);background:var(--surface);color:var(--text);font-size:16px}
+.chips{display:flex;gap:8px;margin-top:10px;overflow-x:auto;scrollbar-width:none}
+.chips::-webkit-scrollbar{display:none}
+.chip{flex:0 0 auto;padding:7px 13px;border-radius:999px;border:1px solid var(--line);background:var(--surface);color:var(--muted);font-size:14px;font-weight:600}
+.chip.on{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+main{padding:6px 16px}
+.day{margin:22px 0 6px;font-size:13px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--accent)}
+.slot{margin:14px 0 6px;font-size:13px;color:var(--muted);display:flex;gap:8px;align-items:center}
+.live{background:var(--ok);color:#04261a;font-size:11px;font-weight:800;padding:2px 7px;border-radius:999px;letter-spacing:.5px}
+.card{display:flex;align-items:center;gap:12px;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:12px;margin:8px 0;cursor:pointer}
+.card.target{border-color:rgba(0,229,255,.45)}
+.star{flex:0 0 auto;width:36px;height:36px;border-radius:10px;border:1px solid var(--line);background:var(--surface2);color:var(--muted);font-size:18px;line-height:1}
+.star.on{color:var(--accent);border-color:var(--accent)}
+.info{flex:1;min-width:0}
+.name{font-weight:650;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sub{font-size:13px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pill{flex:0 0 auto;font-size:12px;font-weight:700;padding:4px 9px;border-radius:999px;background:var(--surface2);color:var(--muted);border:1px solid var(--line)}
+.pill.s1{color:var(--text)}
+.pill.s2{color:var(--accent);border-color:var(--accent)}
+.pill.s3{color:var(--sent);border-color:var(--sent)}
+.pill.s4{color:var(--ok);border-color:var(--ok)}
+.pill.s5{color:var(--skip)}
+.empty{color:var(--muted);text-align:center;padding:40px 10px}
+.bar{position:fixed;left:0;right:0;bottom:0;display:flex;gap:8px;padding:10px 16px calc(10px + env(safe-area-inset-bottom));background:rgba(11,16,20,.96);border-top:1px solid var(--line)}
+.btn{flex:1;padding:12px;border-radius:12px;border:1px solid var(--line);background:var(--surface);color:var(--text);font-size:15px;font-weight:650}
+.btn.primary{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.btn.danger{color:var(--warn)}
+dialog{width:min(560px,100%);max-height:92vh;margin:auto auto 0;padding:0;border:1px solid var(--line);border-radius:18px 18px 0 0;background:var(--surface);color:var(--text)}
+dialog::backdrop{background:rgba(0,0,0,.6)}
+@media (min-width:600px){dialog{margin:auto;border-radius:18px}}
+.sheet{padding:18px 16px calc(18px + env(safe-area-inset-bottom))}
+.sheet h2{margin:0 0 2px;font-size:20px}
+.sheet .when{color:var(--muted);font-size:14px;margin-bottom:14px}
+label{display:block;font-size:13px;color:var(--muted);margin:12px 0 5px}
+input[type=text],input[type=url],input[type=date],select,textarea{width:100%;padding:11px 12px;border-radius:10px;border:1px solid var(--line);background:var(--bg);color:var(--text);font-size:16px;font-family:inherit}
+textarea{min-height:84px;resize:vertical}
+.check{display:flex;align-items:center;gap:10px;margin-top:14px;font-size:15px;color:var(--text)}
+.check input{width:22px;height:22px;accent-color:var(--accent)}
+.row{display:flex;gap:10px}
+.row>div{flex:1}
+.actions{display:flex;gap:8px;margin-top:18px;flex-wrap:wrap}
+.actions .btn{flex:1 1 45%}
+.toast{position:fixed;left:50%;bottom:96px;transform:translateX(-50%);background:var(--text);color:var(--bg);padding:9px 14px;border-radius:10px;font-size:14px;font-weight:600;opacity:0;transition:opacity .2s;pointer-events:none}
+.toast.show{opacity:1}
+.hint{font-size:12px;color:var(--muted);margin-top:6px}
+.blurb{font-size:14px;color:var(--text);margin:2px 0 10px}
+.links{display:flex;flex-wrap:wrap;gap:8px;margin:4px 0 6px}
+.links a{font-size:13px;font-weight:650;color:var(--accent);text-decoration:none;padding:6px 10px;border:1px solid var(--line);border-radius:999px;background:var(--bg);max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.unv{display:inline-block;font-size:11px;font-weight:800;letter-spacing:.4px;color:var(--warn);border:1px solid var(--warn);border-radius:999px;padding:1px 7px;margin-left:6px;vertical-align:middle}
+</style>
+</head>
+<body>
+<header>
+  <div class="top">
+    <h1><img src="icons/magiccon-tracker-64.png" alt=""><b>MagicCon <span>ATL</span></b></h1>
+    <div class="stats" id="stats"></div>
+  </div>
+  <input class="search" id="q" type="search" placeholder="Search creators" autocomplete="off">
+  <div class="chips" id="chips">
+    <button class="chip" data-v="now">Now and next</button>
+    <button class="chip" data-v="targets">Targets</button>
+    <button class="chip" data-v="all">All</button>
+    <button class="chip" data-v="met">Met</button>
+    <button class="chip" data-v="follow">Follow up</button>
+  </div>
+</header>
+
+<main id="list"></main>
+
+<div class="bar">
+  <button class="btn primary" id="addBtn">+ Add person</button>
+  <button class="btn" id="backupBtn">Backup</button>
+</div>
+
+<dialog id="detail"><form method="dialog" class="sheet" id="detailForm"></form></dialog>
+
+<dialog id="backup">
+  <form method="dialog" class="sheet">
+    <h2>Backup</h2>
+    <div class="when">Your notes are saved on this phone and nowhere else. Export a backup at the end of each day.</div>
+    <div class="actions">
+      <button type="button" class="btn" id="expJson">Export backup</button>
+      <button type="button" class="btn" id="expCsv">Export CSV</button>
+      <button type="button" class="btn" id="impJson">Import backup</button>
+      <button class="btn">Close</button>
+    </div>
+    <input type="file" id="impFile" accept="application/json,.json" hidden>
+  </form>
+</dialog>
+
+<div class="toast" id="toast"></div>
+
+<script>
+(function(){
+"use strict";
+
+// Creator Connections schedule, MagicCon Atlanta, Nov 13 to 15, 2026. All times Eastern.
+var DAYS = { fri:{label:"Friday, Nov 13",date:"2026-11-13"}, sat:{label:"Saturday, Nov 14",date:"2026-11-14"}, sun:{label:"Sunday, Nov 15",date:"2026-11-15"} };
+var SLOTS = [
+ ["fri","10:30","12:00",[["quips-guac","Quips&Guac",[]],["ryan-inzana","Ryan Inzana",["Ryan Inzana"]],["shivam","Shivam",["Shivam!!"]],["griffin-fly","Griffin Fly MTG",["Griffin Fly MTG"]],["thattcgguy","ThatTCGGuy",["That TCG Guy"]],["steelcity","SteelCityMTG",["SteelCityBrad","SteelCitySteph"]]]],
+ ["fri","12:30","14:00",[["yaminammane","Yaminammane",[]],["van-quigg","Van Quigg Cosplay",["Sofia"]],["lyza","Lyza",["Lyza"]],["kingluke","KingLuke",["KingLukeMTG"]],["queenkenny","QueenKennyhq",["queenkennyhq"]],["elder-dingus","Elder Dingus Highlander",["Elder Dingus Highlander"]]]],
+ ["fri","15:00","16:30",[["jackal","JackalCostuming",["Jackal Costuming"]],["creative-kitty","Creative Kitty Studios",["Creative Kitty Studios"]],["squirenate","SquireNateMTG",["SquireNateMtg"]],["tronisbad","TronisBad",["TronisBad"]],["women-in-magic","Women + in Magic",["Mtg.Lize","Arty Myr"]],["myhandsareblank","MyHandsAreBlank",["MyHandsAreBlank"]]]],
+ ["fri","17:00","18:30",[["bipbips","Bip.Bips",["bip.bips"]],["celtic-warrior","Celtic Warrior Games",["Celtic Warrior Games"]],["livedinlibrary","LivedinLibrary",["Ashley","Grant"]],["sasa","Sasa",["Saša Fornow"]],["baron-misty-kendra","MTG Baron, MistyStepp, KendraPlaysMTG",["MistyStep","MTG_Baron","Kendra Plays MTG"]],["kess","Kess",["Alex \"KessWylie\" Kessler"]]]],
+ ["sat","10:30","12:00",[["one-more-mana","One More Mana",["One More Mana"]],["hedron-archive","The Hedron Archive",["The Hedron Archive"]],["mountain-mage","Mountain Mage MTG",["MountainMage"]],["dix-seraphsix","Dix and SeraphSix",["Logan 'Seraph Six' Isch","Ian 'Dix' Dixon"]],["maverickgirl","TheMaverickGirlMTG",["TheMaverickGirl"]],["urza-redbeard-tea","UrzaWasHere, RobertRedBeard, TheTeaBeard",["UrzaWasHere","RobertRedBeard","TheTeaBeard"]]]],
+ ["sat","12:30","14:00",[["greensuit","GirlWithTheGreenSuit",["GirlWithTheGreenSuit"]],["deadonboard","DeadonBoardMTG",["DeadonBoardMTG"]],["muscles-mtg","Muscles & MTG",["Muscles & MTG"]],["zbexx","Zbexx",["ZBexx"]],["lloyd-meng","Lloyd Meng",["Lloyd Meng"]],["powrdragn","PowrDragn",[]]]],
+ ["sat","15:00","16:30",[["southern-sorcery","Southern Sorcery",["Southern Sorcery"]],["shytwilii","ShyTwilii",["ShyTwilii"]],["rippullrepeat","RipPullRepeat",["RipPullRepeat"]],["yui-tokiwa","Yui Tokiwa",["Yui Tokiwa"]],["mtgrecon","MTGRecon",["MTGRecon"]],["joelaremagic","JoelAreMagic and Garage the Gathering",["Joel Are Magic"]]]],
+ ["sat","17:00","18:30",[["ashlynne-dae","Ashlynne Dae",["Ashlynne Dae"]],["janky-casual-group","TheJankyCasual, MTGDemonicTutor, MJVariant, Mana Flooded",["mtgdemonictutor","MJ Variant","The Janky Casual","Emil Tejada"]],["landon-crispens","Landon Crispens",["Landon Crispens"]],["snap-keep","Snap Keep",["Al","alex.the.brewer.mtg","Jake"]],["andrew-webber","Andrew Webber",["Community Commander Andrew"]],["mtgmalone","MTGMalone",["MTGMalone"]]]],
+ ["sun","10:30","12:00",[["nomadic-nerd","Nomadic Nerd",["Nomadic Nerd"]],["goddessofblundr","GoddessOfBlundr",["Emmara"]],["lord-more-dino","Lord More Dino",["Lord_More_Dino"]],["levdev","LevDev",[]],["kurohitsuki","Kurohitsuki",["Kurohitsuki"]],["ladyfoxglove","LadyFoxglove",["Lady Foxglove"]]]],
+ ["sun","12:30","14:00",[["team-jank","Team Jank",["Jaffer","HeadologyMagic","CarloMTG","HamHocks42"]],["strixhaven-dropout","StrixhavenDropout",["Strixhaven Dropout"]],["tappytoeclaws","TappyToeClaws",["TappyToeClaws"]],["jarvis-moonbeam","Jarvis MoonBeam",["Jarvis Moonbeam"]],["zabracus","Zabracus",["Zabracus"]],["sullivan","Sullivan the Monster",["Sullivan the Monster"]]]],
+ ["sun","15:00","16:30",[["jester-king","Jester King",["Jester King"]],["mtgspecs","MTGSpecsEDH and Spectacles in Blue",["MTGSpecs"]],["grim-tutors","The Grim Tutors",["GrimTutorsMTG","Pez"]],["faerie-conclave","Alec of the Faerie Conclave",["Alec of the Faerie Conclave"]],["anna-thornton","Anna Thornton",["AnnaMT Gaming"]],["magicstory","The Magic Story Podcast",["Harless Snyder","Natalie Kreider"]]]]
+];
+// Research, Oct 9 2026. v=false means Unverified.
+var INFO = {"quips-guac":{"h":"@QuipsAndGuac","l":"https://www.youtube.com/@QuipsAndGuac","l2":"","b":"Commander YouTube channel and Shorts, comedic vibe","v":true},"ryan-inzana":{"h":"","l":"","l2":"","b":"Myths Unbound podcast host on MTG mythology; WUBRG SKY Discord founder","v":false,"n":"Official bio only, no links found"},"shivam":{"h":"Shivam Bhatt (podcasts)","l":"https://open.spotify.com/show/4ng34QAusqc5xHwQoyZLPS","l2":"https://podcasts.apple.com/us/podcast/id1672097570","b":"Podcaster: Shivam and Wheeler Love Magic, Casual Magic","v":true},"griffin-fly":{"h":"@GriffinFlyMTG","l":"https://www.youtube.com/@GriffinFlyMTG","l2":"https://www.instagram.com/griffinflymtg","b":"Father and son, Commander gameplay and deck techs, WotC Ambassadors","v":true},"thattcgguy":{"h":"@thattcgguy","l":"https://www.youtube.com/thattcgguy","l2":"https://www.twitch.tv/thattcgguy","b":"EDH streams Mon and Fri, 90-second Commander deck techs","v":true},"steelcity":{"h":"@steelcitymtg","l":"https://www.twitch.tv/steelcitymtg","l2":"https://instagram.com/steelcitymtg","b":"Married duo streaming 1v1 Sealed; Brad is a rules guru","v":true},"yaminammane":{"h":"","l":"","l2":"","b":"","v":false,"n":"No bio or links on the official listing; nothing found"},"van-quigg":{"h":"@vanquiggcosplay","l":"https://www.instagram.com/vanquiggcosplay","l2":"https://youtube.com/@vanquiggcosplay","b":"Sofia, award-winning cosplayer with elaborate game cosplays","v":true},"lyza":{"h":"@lyzeille","l":"https://www.instagram.com/lyzeille","l2":"","b":"Short-form MTG, fit checks, anime; runs an Atlanta game shop","v":true},"kingluke":{"h":"@kinglukemtg","l":"https://www.youtube.com/@kinglukemtg","l2":"","b":"Short-form MTG combos and skits; The King's Table gameplay","v":true},"queenkenny":{"h":"@queenkennyhq","l":"https://www.instagram.com/queenkennyhq","l2":"https://youtube.com/@queenkennyy","b":"Commander, deckbuilding, pack cracks; welcoming women at the table","v":true},"elder-dingus":{"h":"@elder_dingus","l":"https://www.instagram.com/elder_dingus","l2":"https://youtube.com/@elderdingushighlander","b":"Short and long form Magic content","v":true},"jackal":{"h":"@jackalcostuming","l":"https://www.instagram.com/jackalcostuming","l2":"https://www.twitch.tv/jackalcostuming","b":"Matt and Gin, a Pittsburgh cosplay and prop duo","v":true},"creative-kitty":{"h":"@creativekittystudios","l":"https://www.instagram.com/creativekittystudios/","l2":"https://www.youtube.com/@CreativeKittyStudios","b":"McKenah, Canadian MTG cosplayer, 2025 MagicCon Atlanta cosplay champ","v":true},"squirenate":{"h":"","l":"","l2":"","b":"Short-form skits and combos; cohosts Unglued podcast; KingLuke's partner","v":false,"n":"Official bio only, no links found"},"tronisbad":{"h":"@tronisbad","l":"https://www.youtube.com/@tronisbad","l2":"https://www.twitch.tv/tronisbad","b":"Ryan Nicholas: competitive play, rulings tips, skits","v":true},"women-in-magic":{"h":"@womeninmagic","l":"https://www.instagram.com/womeninmagic","l2":"https://www.instagram.com/artymyr","b":"Inclusive MTG community for women and gender-diverse players","v":true},"myhandsareblank":{"h":"@myhandsareblank","l":"https://www.tiktok.com/@myhandsareblank","l2":"https://bsky.app/profile/myhandsareblank.bsky.social","b":"David: MTG TikToks, character fan art, casual events","v":true},"bipbips":{"h":"@bip.bips","l":"https://www.instagram.com/bip.bips","l2":"https://youtube.com/@firesidemtg","b":"Annie, MTG cosplayer; also FiresideMtG","v":true},"celtic-warrior":{"h":"@celticwarriorgames","l":"https://youtube.com/@celticwarriorgames","l2":"https://www.twitch.tv/celticwarriorgames/","b":"Commander, cEDH, deck techs, news and lore","v":true},"livedinlibrary":{"h":"@livedinlibrary","l":"https://www.instagram.com/livedinlibrary","l2":"https://youtube.com/@livedinlibrary_mtg","b":"Married couple Ash and Grant: MTG skits and trends","v":true},"sasa":{"h":"@sasafornow","l":"https://www.instagram.com/sasafornow","l2":"","b":"European drag queen and MTG community event host","v":true},"baron-misty-kendra":{"h":"@mtg_baron, @mistystep, @angelskiss2007","l":"https://www.tiktok.com/@mtg_baron","l2":"https://www.tiktok.com/@mistystep","b":"WotC multimedia creator, MTG cosplayer, cosplaying store owner","v":true},"kess":{"h":"@kesswylie","l":"https://www.tiktok.com/@kesswylie","l2":"https://www.youtube.com/@KessWylie","b":"Magic and anime creator, MTG lore videos","v":true},"one-more-mana":{"h":"@OneMoreMana","l":"https://www.youtube.com/@OneMoreMana","l2":"https://www.instagram.com/onemoremana/","b":"Commander vlogs, gameplay, and takes on the format","v":true},"hedron-archive":{"h":"@TheHedronArchiveMTG","l":"https://www.youtube.com/@TheHedronArchiveMTG","l2":"https://bsky.app/profile/dyllonfr.bsky.social","b":"Long, lore-driven Commander deck techs","v":true},"mountain-mage":{"h":"@mountainmagemtg","l":"https://mountainmagesigs.com","l2":"https://www.youtube.com/@MountainMage","b":"Matt, rep for 200+ MTG artists: signings, original art","v":true},"dix-seraphsix":{"h":"@seraphsix","l":"https://twitch.tv/seraphsix","l2":"https://bsky.app/profile/seraphsix.com","b":"Seraph Six: Commander streamer, Commander Discord admin","v":false,"n":"Seraph Six confirmed; Dix not found"},"maverickgirl":{"h":"themaverickgirl","l":"https://twitch.tv/themaverickgirl","l2":"https://www.youtube.com/@TheMaverickGirlMTG","b":"Paige Smith, competitive MTG player, streams and videos","v":true},"urza-redbeard-tea":{"h":"@UrzaWasHere, @robertredbeard, @TheTeaBeard","l":"https://www.youtube.com/@TheTeaBeard","l2":"https://www.tiktok.com/@robertredbeard","b":"Commander memes, MTG Ambassador creators","v":true},"greensuit":{"h":"@girlwiththegreensuit","l":"https://www.tiktok.com/@girlwiththegreensuit","l2":"https://www.youtube.com/@GirlWithTheGreenSuit","b":"cEDH player and creator","v":true},"deadonboard":{"h":"@DeadonBoardMTG","l":"https://www.youtube.com/@DeadonBoardMTG","l2":"https://www.tiktok.com/@deadonboardmtg","b":"Commander gameplay and deck techs, cEDH leaning","v":true},"muscles-mtg":{"h":"@Musclesandmtg","l":"https://www.youtube.com/@Musclesandmtg","l2":"https://www.tiktok.com/@musclesandmtg","b":"Bobby Maximus on MTG, TCGs, Legos, TTRPGs","v":true},"zbexx":{"h":"@ZBexx","l":"https://www.youtube.com/@zbexx","l2":"https://www.tiktok.com/@zbexx","b":"Queen of MTG Cosplay: cosplay, EDH tips, set previews, Lorcana","v":true},"lloyd-meng":{"h":"@lloydmengtcg","l":"https://www.youtube.com/@lloydmengtcg","l2":"https://www.instagram.com/lloydmengtcg","b":"Collector: Commander deck audits, MagicCon vlogs, pack rips","v":true},"powrdragn":{"h":"@PowrDragn","l":"https://www.youtube.com/@PowrDragn","l2":"","b":"MTG Arena decks, Magic news, game industry talk","v":true},"southern-sorcery":{"h":"@SouthernSorcery","l":"https://www.youtube.com/@SouthernSorcery","l2":"","b":"Giveaways, box breaks, deck techs, interviews","v":true},"shytwilii":{"h":"@shytwilii","l":"https://www.youtube.com/@ShyTwilii","l2":"","b":"MTG YouTube, Monday videos, Saturday livestreams","v":true},"rippullrepeat":{"h":"@RipPullRepeat","l":"https://www.youtube.com/@RipPullRepeat","l2":"","b":"MTG rules and card interaction explainers","v":true},"yui-tokiwa":{"h":"@Yui_Tokiwa","l":"https://www.youtube.com/@Yui_Tokiwa","l2":"https://www.instagram.com/yui_tokiwa/","b":"Japanese TCG YouTuber, MTG and Flesh and Blood, also sings","v":true},"mtgrecon":{"h":"@MTGRecon","l":"https://www.youtube.com/@MTGRecon","l2":"https://bsky.app/profile/mtgrecon.bsky.social","b":"Michael: Commander, card breakdowns, precon guides, news","v":true},"joelaremagic":{"h":"@JoelareMagic, @GarageTheGathering","l":"https://www.youtube.com/@JoelAreMagic","l2":"https://www.youtube.com/@GarageTheGathering","b":"MTG news, collecting, prices; Garage the Gathering gameplay","v":true},"ashlynne-dae":{"h":"@ashlynnedae","l":"https://www.ashlynnedae.com/","l2":"https://www.twitch.tv/ashlynne_dae","b":"Cosplayer and model","v":false,"n":"Name matches, but no MTG content found"},"janky-casual-group":{"h":"@TheJankyCasual, @mtgdemonictutor, @MJVariant, @ManaFlooded","l":"https://www.youtube.com/@TheJankyCasual","l2":"https://www.youtube.com/@MJVariant","b":"Casual janky Commander, memes, Arena and paper gameplay","v":true},"landon-crispens":{"h":"@MyWeeklyGrind","l":"https://twitter.com/MyWeeklyGrind","l2":"https://edhrec.com/articles/author/landon-crispens","b":"Commander writer for EDHREC and Commander's Herald","v":true},"snap-keep":{"h":"@SnapKeep","l":"https://www.youtube.com/@SnapKeep","l2":"","b":"Casual Commander gameplay and Magic discussion","v":true},"andrew-webber":{"h":"","l":"","l2":"","b":"Founder of a large Commander Facebook group","v":false,"n":"Possible Moxfield profile awebber, could not confirm"},"mtgmalone":{"h":"@mtg_malone","l":"http://youtube.com/c/mtgmalone","l2":"https://www.instagram.com/mtg_malone/","b":"Master of Mono Black; Ultimate Guard team","v":true},"nomadic-nerd":{"h":"@the_nomadic_nerd_","l":"https://www.instagram.com/the_nomadic_nerd_","l2":"https://youtube.com/@nomadicnerd_mtg","b":"MTG Ambassador traveling the country in a camper van","v":true},"goddessofblundr":{"h":"@Goddessofblundr","l":"https://www.youtube.com/@Goddessofblundr","l2":"https://x.com/GoddessOfblundR","b":"Emmara, Grixis Princess of Magic, MTG Ambassador","v":true},"lord-more-dino":{"h":"@lord_more_dino","l":"https://www.tiktok.com/@lord_more_dino","l2":"","b":"MTG TikTok creator, deck videos","v":true},"levdev":{"h":"@LevDev","l":"https://www.youtube.com/@LevDev","l2":"","b":"Experiments in card game design and deckbuilding","v":true},"kurohitsuki":{"h":"Kurohitsuki","l":"https://www.twitch.tv/kurohitsuki","l2":"https://edhrec.com/articles/author/kurohitsuki","b":"Commander streamer with 50+ decks, EDHREC writer","v":true},"ladyfoxglove":{"h":"@LadyFoxglove13","l":"https://www.twitch.tv/foxglovecabaret","l2":"https://commandersherald.com/author/ivy","b":"Ivy Foxglove, Commander's Herald writer and streamer","v":true},"team-jank":{"h":"Jaffer, HeadologyMagic, CarloMTG, HamHocks42","l":"https://www.twitch.tv/jaffer","l2":"https://magicjank.com/","b":"MagicJank streamers: Arena, Limited, jank brews","v":true},"strixhaven-dropout":{"h":"@strixhavendropout","l":"https://bsky.app/profile/strixhavendropout.bsky.social","l2":"https://www.youtube.com/@StrixhavenDropout","b":"Cas Hinds: Commander writer, streamer, podcast host","v":true},"tappytoeclaws":{"h":"@TappyToeClaws","l":"https://www.twitch.tv/tappytoeclaws","l2":"https://bsky.app/profile/tappytoeclaws.bsky.social","b":"Izzet-loving streamer: drafts, Commander, cosplay","v":true},"jarvis-moonbeam":{"h":"@Jarvis_Moonbeam","l":"https://twitch.tv/jarvis_moonbeam","l2":"https://www.youtube.com/@Jarvis_Moonbeam","b":"Commander streamer, Dimir fan, on Generic Commander","v":true},"zabracus":{"h":"@zabracus","l":"https://www.twitch.tv/zabracus","l2":"https://bsky.app/profile/zabracus.bsky.social","b":"Whitney: Twitch Partner, MTG and cosplay, cEDH, voice actor","v":true},"sullivan":{"h":"@sullivanmonstermtg","l":"https://www.tiktok.com/@sullivanmonstermtg","l2":"https://www.youtube.com/@sullivanthemonster","b":"Monster bartender puppet doing MTG comedy","v":true},"jester-king":{"h":"@jesterking42","l":"https://www.youtube.com/@jesterking42","l2":"https://bsky.app/profile/jesterkingdom.bsky.social","b":"MTG sketch comedy, cosplay, streams","v":true},"mtgspecs":{"h":"@mtgspecs","l":"https://www.youtube.com/@mtgspecs","l2":"https://bsky.app/profile/spectaclesinblue.bsky.social","b":"MTG Specs: Commander psychology. Spectacles in Blue: MTG photographer","v":true},"grim-tutors":{"h":"@GrimTutorsMTG","l":"https://www.youtube.com/@GrimTutorsMTG","l2":"https://linktr.ee/grimtutorsmtg","b":"Oblivion and Pez teach Magic to players at every level","v":true},"faerie-conclave":{"h":"@tfc_mtg","l":"https://www.youtube.com/@tfc_mtg","l2":"https://bsky.app/profile/thefaerieconclave.bsky.social","b":"Podcast interviewing players about favorite Commander decks","v":true},"anna-thornton":{"h":"@annamt1992","l":"https://www.youtube.com/@annamt1992","l2":"https://www.twitch.tv/annamt1992","b":"TCG and convention vlogger, Dragon Shield sponsored","v":true},"magicstory":{"h":"","l":"https://magic-story.transistor.fm/","l2":"","b":"Official Wizards podcast on Magic lore; hosts are WotC staff","v":true}};
+var DEFAULT_TARGETS = ["zbexx","zabracus","magicstory"];
+
+var STATUSES = ["Not yet","Said hi","Filmed","Clip sent","Posted","Skipped"];
+var BITS = ["","Card that represents you","Guess the win rate","Pick your fighter","Price check","Just said hi"];
+var KEY = "stoken-magiccon-atl-2026-v1";
+
+function tz(day,hm){ return new Date(DAYS[day].date+"T"+hm+":00-05:00"); }
+function fmt(hm){ var p=hm.split(":"),h=+p[0],m=p[1]; return (h%12||12)+":"+m+(h<12?" am":" pm"); }
+
+var creators = [];
+SLOTS.forEach(function(s){
+  s[3].forEach(function(c){
+    creators.push({id:c[0],name:c[1],guests:c[2],day:s[0],start:s[1],end:s[2]});
+  });
+});
+
+var state = load();
+function blankState(){
+  var t={}; DEFAULT_TARGETS.forEach(function(id){t[id]=true;});
+  return {targets:t,records:{},custom:[]};
+}
+function load(){
+  try{
+    var raw = localStorage.getItem(KEY);
+    if(raw){ var s=JSON.parse(raw); if(s&&s.records) { s.targets=s.targets||{}; s.custom=s.custom||[]; return s; } }
+  }catch(e){}
+  return blankState();
+}
+var storageOk = true;
+function save(){
+  try{ localStorage.setItem(KEY, JSON.stringify(state)); storageOk=true; }
+  catch(e){ if(storageOk) toast("Could not save on this browser. Export a backup."); storageOk=false; }
+}
+
+function all(){ return creators.concat(state.custom.map(function(c){ return Object.assign({custom:true},c); })); }
+function rec(id){ return state.records[id] || {}; }
+function statusIdx(id){ return +(rec(id).status||0); }
+
+var view = "targets", query = "";
+var $ = function(id){ return document.getElementById(id); };
+function esc(s){ return String(s==null?"":s).replace(/[&<>"']/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[c];}); }
+
+function matches(c){
+  if(!query) return true;
+  var i=INFO[c.id]||{};
+  var hay=(c.name+" "+(c.guests||[]).join(" ")+" "+(rec(c.id).handle||i.h||"")+" "+(i.b||"")+" "+(rec(c.id).card||"")).toLowerCase();
+  return hay.indexOf(query)>-1;
+}
+
+function cardHtml(c){
+  var r=rec(c.id), si=statusIdx(c.id), isT=!!state.targets[c.id];
+  var i=INFO[c.id]||{};
+  var sub = c.custom ? "Met on the floor" : (i.b || ((c.guests&&c.guests.length&&c.guests.join(", ")!==c.name)? c.guests.join(", ") : fmt(c.start)+" to "+fmt(c.end)));
+  var h = r.handle || i.h;
+  if(h) sub = h + "  ·  " + sub;
+  return '<div class="card'+(isT?' target':'')+'" data-id="'+esc(c.id)+'">'+
+    '<button class="star'+(isT?' on':'')+'" data-star="'+esc(c.id)+'" aria-label="Toggle target">'+(isT?'★':'☆')+'</button>'+
+    '<div class="info"><div class="name">'+esc(c.name)+((INFO[c.id]&&INFO[c.id].v===false)?'<span class="unv">UNVERIFIED</span>':'')+'</div><div class="sub">'+esc(sub)+'</div></div>'+
+    '<span class="pill s'+si+'">'+STATUSES[si]+'</span></div>';
+}
+
+function render(){
+  document.querySelectorAll(".chip").forEach(function(b){ b.classList.toggle("on", b.dataset.v===view); });
+  var list = all().filter(matches);
+  var now = new Date(), html = "";
+
+  if(view==="targets") list = list.filter(function(c){ return state.targets[c.id]; });
+  if(view==="met") list = list.filter(function(c){ var s=statusIdx(c.id); return s>=1 && s<=4; });
+  if(view==="follow") list = list.filter(function(c){ var s=statusIdx(c.id); return s===1 || s===2; });
+
+  if(view==="now"){
+    var sched = list.filter(function(c){ return !c.custom; });
+    var liveEnds = {}, live = sched.filter(function(c){ return now>=tz(c.day,c.start) && now<tz(c.day,c.end); });
+    var upcoming = sched.filter(function(c){ return tz(c.day,c.start)>now; }).sort(function(a,b){ return tz(a.day,a.start)-tz(b.day,b.start); });
+    var nextKey = upcoming.length ? upcoming[0].day+upcoming[0].start : null;
+    var next = upcoming.filter(function(c){ return c.day+c.start===nextKey; });
+    var byT = function(a,b){ return (state.targets[b.id]?1:0)-(state.targets[a.id]?1:0); };
+    if(live.length){ html += '<div class="slot"><span class="live">LIVE</span> '+DAYS[live[0].day].label+', until '+fmt(live[0].end)+'</div>' + live.sort(byT).map(cardHtml).join(""); }
+    if(next.length){ html += '<div class="slot">Up next: '+DAYS[next[0].day].label+', '+fmt(next[0].start)+'</div>' + next.sort(byT).map(cardHtml).join(""); }
+    if(!html) html = '<div class="empty">Nothing live or coming up. MagicCon is over.</div>';
+    $("list").innerHTML = html; stats(); return;
+  }
+
+  var sched = list.filter(function(c){ return !c.custom; });
+  var custom = list.filter(function(c){ return c.custom; });
+  var lastDay=null, lastSlot=null;
+  sched.forEach(function(c){
+    if(c.day!==lastDay){ html += '<div class="day">'+DAYS[c.day].label+'</div>'; lastDay=c.day; lastSlot=null; }
+    var sk=c.day+c.start;
+    if(sk!==lastSlot){
+      var isLive = now>=tz(c.day,c.start) && now<tz(c.day,c.end);
+      html += '<div class="slot">'+(isLive?'<span class="live">LIVE</span> ':'')+fmt(c.start)+' to '+fmt(c.end)+'</div>'; lastSlot=sk;
+    }
+    html += cardHtml(c);
+  });
+  if(custom.length){ html += '<div class="day">Met on the floor</div>' + custom.map(cardHtml).join(""); }
+  if(!html) html = '<div class="empty">'+(view==="targets"?"No targets yet. Tap ☆ on anyone in All.":"Nobody here yet.")+'</div>';
+  $("list").innerHTML = html;
+  stats();
+}
+
+function stats(){
+  var everyone = all(), t = everyone.filter(function(c){ return state.targets[c.id]; });
+  var tMet = t.filter(function(c){ var s=statusIdx(c.id); return s>=1&&s<=4; }).length;
+  var met = everyone.filter(function(c){ var s=statusIdx(c.id); return s>=1&&s<=4; }).length;
+  var sent = everyone.filter(function(c){ return statusIdx(c.id)>=3 && statusIdx(c.id)<=4; }).length;
+  $("stats").innerHTML = "Targets <b>"+tMet+"/"+t.length+"</b> · Met <b>"+met+"</b> · Sent <b>"+sent+"</b>";
+}
+
+function find(id){ return all().filter(function(c){ return c.id===id; })[0]; }
+
+function openDetail(id){
+  var c = find(id); if(!c) return;
+  var r = rec(id);
+  var opts = function(arr,sel){ return arr.map(function(v,i){ return '<option value="'+i+'"'+(+sel===i?' selected':'')+'>'+esc(v||"Choose a bit")+'</option>'; }).join(""); };
+  var when = c.custom ? "Met on the floor" : DAYS[c.day].label+", "+fmt(c.start)+" to "+fmt(c.end)+" · Creator Central";
+  var i = INFO[c.id]||{};
+  var guests = (c.guests&&c.guests.length) ? '<div class="hint">At the table: '+esc(c.guests.join(", "))+'</div>' : '';
+  var safe = function(u){ return /^https?:\/\//i.test(u||"") ? u : ""; };
+  var linkHtml = [r.link||i.l, i.l2].filter(function(u,k,a){ return safe(u) && a.indexOf(u)===k; }).map(function(u){
+    return '<a href="'+esc(u)+'" target="_blank" rel="noopener">'+esc(u.replace(/^https?:\/\/(www\.)?/i,"").replace(/\/$/,""))+'</a>'; }).join("");
+  var about = (i.b ? '<div class="blurb">'+esc(i.b)+'</div>' : '') +
+    (i.v===false ? '<div class="hint" style="color:var(--warn)">Unverified. I cannot verify this.'+(i.n?' '+esc(i.n)+'.':'')+'</div>' : '') +
+    (linkHtml ? '<div class="links">'+linkHtml+'</div>' : '');
+  $("detailForm").innerHTML =
+    (c.custom ? '<label>Name</label><input type="text" id="f_name" value="'+esc(c.name)+'">' : '<h2>'+esc(c.name)+'</h2>')+
+    '<div class="when">'+esc(when)+'</div>'+about+guests+
+    '<label>Status</label><select id="f_status">'+opts(STATUSES,r.status||0)+'</select>'+
+    '<label>Handle(s)</label><input type="text" id="f_handle" placeholder="@handle" value="'+esc(r.handle!=null?r.handle:(i.h||""))+'" autocapitalize="off" autocorrect="off">'+
+    '<label>Profile link</label><input type="url" id="f_link" placeholder="https://" value="'+esc(r.link!=null?r.link:(i.l||""))+'" autocapitalize="off">'+
+    '<label>Bit</label><select id="f_bit">'+opts(BITS,r.bit||0)+'</select>'+
+    '<label>Their card or answer</label><input type="text" id="f_card" value="'+esc(r.card)+'">'+
+    '<label class="check"><input type="checkbox" id="f_consent"'+(r.consent?' checked':'')+'> Said yes to being filmed</label>'+
+    '<div class="row"><div><label>Clip file</label><input type="text" id="f_clip" placeholder="IMG_0412" value="'+esc(r.clip)+'"></div>'+
+    '<div><label>Next touch</label><input type="date" id="f_next" value="'+esc(r.next)+'"></div></div>'+
+    '<div class="row"><div><label>Clip sent</label><input type="date" id="f_sent" value="'+esc(r.sent)+'"></div>'+
+    '<div><label>Posted</label><input type="date" id="f_posted" value="'+esc(r.posted)+'"></div></div>'+
+    '<label>Notes</label><textarea id="f_notes" placeholder="What you talked about. Something to bring up next time.">'+esc(r.notes)+'</textarea>'+
+    '<div class="actions">'+
+      '<button type="button" class="btn" id="copyDm">Copy follow-up</button>'+
+      '<button type="button" class="btn" id="toggleStar">'+(state.targets[id]?'Remove target':'Make target')+'</button>'+
+      (c.custom?'<button type="button" class="btn danger" id="delCustom">Delete</button>':'')+
+      '<button type="button" class="btn primary" id="saveBtn">Save</button>'+
+    '</div>';
+  var d=$("detail");
+  $("saveBtn").onclick = function(){ commit(id,c); d.close(); toast("Saved"); };
+  $("toggleStar").onclick = function(){ commit(id,c); toggleTarget(id); d.close(); };
+  $("copyDm").onclick = function(){ commit(id,c); copy(followUp(id)); };
+  if(c.custom) $("delCustom").onclick = function(){
+    if(!confirm("Delete "+c.name+"? This cannot be undone.")) return;
+    state.custom = state.custom.filter(function(x){ return x.id!==id; });
+    delete state.records[id]; delete state.targets[id]; save(); d.close(); render();
+  };
+  d.showModal();
+}
+
+function commit(id,c){
+  var v = function(k){ return $("f_"+k).value.trim(); };
+  var r = {
+    status:+$("f_status").value, handle:v("handle"), link:v("link"), bit:+$("f_bit").value,
+    card:v("card"), consent:$("f_consent").checked, clip:v("clip"), next:v("next"),
+    sent:v("sent"), posted:v("posted"), notes:$("f_notes").value.trim()
+  };
+  if(r.sent && r.status<3) r.status=3;
+  if(r.posted) r.status=4;
+  r.updated = new Date().toISOString();
+  state.records[id]=r;
+  if(c.custom){ var n=v("name"); if(n){ state.custom.forEach(function(x){ if(x.id===id) x.name=n; }); } }
+  save(); render();
+}
+
+function followUp(id){
+  var c=find(id), r=rec(id), first=(c.guests&&c.guests.length===1?c.guests[0]:c.name);
+  var bit = BITS[r.bit||0] ? ' from the "'+BITS[r.bit].toLowerCase()+'" bit' : '';
+  var cardLine = r.card ? ' Still thinking about your '+r.card+' pick.' : '';
+  return "Hey "+first+", great meeting you at MagicCon Atlanta. Here's your clip"+bit+", yours to use however you want."+cardLine+" I'm posting it on @stokengames soon and will tag you.";
+}
+
+function toggleTarget(id){ if(state.targets[id]) delete state.targets[id]; else state.targets[id]=true; save(); render(); }
+
+function addPerson(){
+  var name = prompt("Who did you meet?");
+  if(!name || !name.trim()) return;
+  var id = "custom-"+Date.now();
+  state.custom.push({id:id,name:name.trim(),guests:[]});
+  state.records[id]={status:1,updated:new Date().toISOString()};
+  save(); if(view==="targets"||view==="now") view="met"; render(); openDetail(id);
+}
+
+function download(name,text,type){
+  var a=document.createElement("a"); a.href=URL.createObjectURL(new Blob([text],{type:type}));
+  a.download=name; document.body.appendChild(a); a.click(); setTimeout(function(){ URL.revokeObjectURL(a.href); a.remove(); },500);
+}
+function stamp(){ return new Date().toISOString().slice(0,16).replace(/[:T]/g,"-"); }
+function exportJson(){ download("magiccon-tracker-"+stamp()+".json", JSON.stringify(state,null,2), "application/json"); }
+function exportCsv(){
+  var cols=["name","day","time","target","status","handle","link","bit","card","consent","clip","sent","posted","next","notes"];
+  var q=function(s){ s=String(s==null?"":s); return /[",\n]/.test(s)?'"'+s.replace(/"/g,'""')+'"':s; };
+  var rows=[cols.join(",")];
+  all().forEach(function(c){
+    var r=rec(c.id), si=statusIdx(c.id);
+    if(si===0 && !state.targets[c.id]) return;
+    rows.push([c.name, c.custom?"":DAYS[c.day].label, c.custom?"":fmt(c.start), state.targets[c.id]?"yes":"", STATUSES[si], r.handle||(INFO[c.id]||{}).h, r.link||(INFO[c.id]||{}).l, BITS[r.bit||0], r.card, r.consent?"yes":"", r.clip, r.sent, r.posted, r.next, r.notes].map(q).join(","));
+  });
+  download("magiccon-tracker-"+stamp()+".csv", rows.join("\n"), "text/csv");
+}
+function importJson(file){
+  var fr=new FileReader();
+  fr.onload=function(){
+    try{
+      var s=JSON.parse(fr.result);
+      if(!s || typeof s.records!=="object") throw 0;
+      if(!confirm("Replace what's on this phone with the backup?")) return;
+      state={targets:s.targets||{},records:s.records,custom:s.custom||[]}; save(); render(); $("backup").close(); toast("Backup restored");
+    }catch(e){ toast("That file isn't a tracker backup"); }
+  };
+  fr.readAsText(file);
+}
+
+function copy(text){
+  var done=function(){ toast("Follow-up copied"); };
+  if(navigator.clipboard && navigator.clipboard.writeText){ navigator.clipboard.writeText(text).then(done,function(){ fallback(); }); }
+  else fallback();
+  function fallback(){ var t=document.createElement("textarea"); t.value=text; document.body.appendChild(t); t.select(); try{document.execCommand("copy"); done();}catch(e){ prompt("Copy this:",text); } t.remove(); }
+}
+
+var tt;
+function toast(msg){ var t=$("toast"); t.textContent=msg; t.classList.add("show"); clearTimeout(tt); tt=setTimeout(function(){ t.classList.remove("show"); },1800); }
+
+$("chips").addEventListener("click",function(e){ var b=e.target.closest(".chip"); if(b){ view=b.dataset.v; render(); window.scrollTo(0,0); } });
+$("q").addEventListener("input",function(){ query=this.value.trim().toLowerCase(); render(); });
+$("list").addEventListener("click",function(e){
+  var s=e.target.closest("[data-star]"); if(s){ e.stopPropagation(); toggleTarget(s.dataset.star); return; }
+  var c=e.target.closest(".card"); if(c) openDetail(c.dataset.id);
+});
+$("addBtn").onclick=addPerson;
+$("backupBtn").onclick=function(){ $("backup").showModal(); };
+$("expJson").onclick=exportJson;
+$("expCsv").onclick=exportCsv;
+$("impJson").onclick=function(){ $("impFile").click(); };
+$("impFile").onchange=function(){ if(this.files[0]) importJson(this.files[0]); this.value=""; };
+
+var t0=new Date();
+if(t0>=tz("fri","08:00") && t0<tz("sun","16:30")) view="now";
+render();
+setInterval(function(){ if(view==="now") render(); },60000);
+})();
+</script>
+</body>
+</html>
