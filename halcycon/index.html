@@ -4,408 +4,423 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="robots" content="noindex, nofollow">
-<meta name="description" content="Bounty File 7-Kreel. First Order Security Bureau, relay 7.">
-<meta name="theme-color" content="#0a0a0c">
-<title>Bounty File 7-Kreel</title>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Rajdhani:wght@400;500;600&family=Share+Tech+Mono&display=swap">
+<meta name="theme-color" content="#08111c">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Halcy-Con">
+<link rel="apple-touch-icon" sizes="180x180" href="icons/halcycon-180.png">
+<link rel="icon" type="image/png" sizes="64x64" href="icons/halcycon-64.png">
+<link rel="icon" type="image/png" sizes="192x192" href="icons/halcycon-192.png">
+<style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>Halcy-Con 3 Planner</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Oxanium:wght@500;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
 <style>
+/* Layout: ship's bridge console. Day tabs on top, category switches as a control panel, a scrollable time grid below. */
 :root{
-  --bg:#0a0a0c; --panel:#141418; --panel2:#1c1c22; --line:#2c2c34;
-  --text:#e2e2e6; --muted:#8a8a96; --acc:#d23b2f; --acc-dim:#6e2119; --acc-soft:rgba(210,59,47,.08);
-  --holo:#5fd3e8; --good:#63d38a; --bad:#e26a5c; --gold:#d9b36e;
-  color-scheme:dark;
+  --bg:#eef2f6; --panel:#ffffff; --panel-2:#e3e9f0; --line:#c9d3de; --fg:#122033; --muted:#55657a;
+  --accent:#0a6f8f; --accent-ink:#ffffff; --star:#b7791f; --now:#c2410c;
+  --c-story:#7c3aed; --c-progA:#0e7490; --c-progB:#1d4ed8; --c-activ:#047857; --c-saber:#be123c;
+  --c-sabacc:#a16207; --c-shows:#c026d3; --c-food:#ea580c; --c-shop:#4b5563; --c-logi:#64748b;
+  --ev-alpha:.14;
+  --f-display:"Oxanium","Eurostile","Bank Gothic",system-ui,sans-serif;
+  --f-body:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,"SFMono-Regular",Menlo,monospace;
+  --ppm:1.5; /* pixels per minute */
 }
-body.resist{--acc:#5fd3e8;--acc-dim:#1f5a66;--acc-soft:rgba(95,211,232,.08);--bg:#070d18;--panel:#0e1a2c;--panel2:#132339;--line:#22344f;--text:#d9e4f2;--muted:#7f92ad;}
-html,body{margin:0;min-height:100%}
-body{background:var(--bg);color:var(--text);font-family:'Rajdhani',system-ui,sans-serif;font-size:17px;line-height:1.5;padding-inline:16px;padding-block:20px 48px;min-height:100%;transition:background .6s;
-  background-image:radial-gradient(ellipse at 50% -10%,rgba(255,255,255,.06) 0%,transparent 55%),repeating-linear-gradient(0deg,transparent 0 3px,rgba(255,255,255,.018) 3px 4px);}
-.wrap{max-width:560px;margin-inline:auto;}
-.mono{font-family:'Share Tech Mono',ui-monospace,monospace;}
-.eyebrow{font-family:'Orbitron',system-ui,sans-serif;font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--acc);}
-h1{font-family:'Orbitron',system-ui,sans-serif;font-size:clamp(20px,5.6vw,28px);letter-spacing:.06em;margin:6px 0 4px;text-wrap:balance;color:#fff;}
-h2{font-family:'Orbitron',system-ui,sans-serif;font-size:14px;letter-spacing:.12em;text-transform:uppercase;margin:0 0 10px;color:var(--acc);}
-p{margin:0 0 12px;max-width:62ch;}
-header{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;border-bottom:1px solid var(--line);padding-bottom:14px;margin-bottom:18px;}
-.badge{border:1px solid var(--acc);color:var(--acc);font-size:11px;padding:3px 8px;letter-spacing:.18em;text-transform:uppercase;white-space:nowrap;margin-top:6px;font-family:'Orbitron',sans-serif;}
-.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:6px;}
-.step{height:6px;background:var(--line);}
-.step.done{background:var(--acc);box-shadow:0 0 10px var(--acc);}
-.step.active{background:var(--text);}
-.stepnames{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:24px;font-family:'Orbitron',sans-serif;}
-.panel{background:var(--panel);border:1px solid var(--line);padding:18px 16px;margin-bottom:18px;position:relative;}
-.panel::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--acc);}
-.transcript{font-family:'Share Tech Mono',monospace;font-size:14px;background:#050507;border:1px solid var(--line);padding:12px;color:#bdbdc6;white-space:pre-wrap;overflow-x:auto;margin-bottom:14px;line-height:1.55;}
-body.resist .transcript{background:#050a12;color:#b9c9de;}
-.transcript b{color:var(--acc);font-weight:normal;}
-.transcript i{color:var(--gold);font-style:normal;}
-.wanted{border:2px solid var(--acc);padding:14px;margin-bottom:14px;background:var(--acc-soft);display:grid;grid-template-columns:96px 1fr;gap:4px 14px;}
-.wanted .mug{grid-row:1/3;width:96px;height:auto;max-width:100%;border:1px solid var(--line);filter:saturate(.75) contrast(1.05);align-self:start;}
-.wanted .big,.wanted dl{grid-column:2;}
-.wanted dl{margin-top:6px;}
-.wanted .big{font-family:'Orbitron',sans-serif;font-size:clamp(18px,5vw,24px);letter-spacing:.14em;color:#fff;}
-.wanted dl{display:grid;grid-template-columns:auto 1fr;gap:4px 14px;margin:10px 0 0;font-size:15px;}
-.wanted dt{font-family:'Orbitron',sans-serif;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);padding-top:3px;}
-.wanted dd{margin:0;font-family:'Share Tech Mono',monospace;font-size:14px;}
-.signal{font-family:'Share Tech Mono',monospace;font-size:clamp(17px,5vw,24px);letter-spacing:.1em;color:var(--acc);display:flex;flex-wrap:wrap;justify-content:center;gap:6px 28px;padding:14px 8px;background:#050507;border:1px dashed var(--line);margin-bottom:14px;word-spacing:.35em;text-shadow:0 0 12px var(--acc-dim);}
-.signal span{white-space:nowrap;}
-table.grid{border-collapse:collapse;margin:0 auto 14px;font-family:'Share Tech Mono',monospace;font-size:15px;}
-table.grid td,table.grid th{border:1px solid var(--line);width:40px;height:40px;text-align:center;}
-table.grid th{color:var(--acc);background:var(--panel2);font-weight:normal;}
-table.dock{border-collapse:collapse;width:100%;font-family:'Share Tech Mono',monospace;font-size:14px;margin-bottom:14px;}
-table.dock th,table.dock td{border:1px solid var(--line);padding:7px 8px;text-align:left;}
-table.dock th{font-family:'Orbitron',sans-serif;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);background:var(--panel2);font-weight:normal;}
-ol.clues{padding-left:20px;margin:0 0 14px;}
-ol.clues li{margin-bottom:6px;}
-.plaque{margin:0 auto 14px;max-width:380px;background:linear-gradient(160deg,#5a4426,#2b1d0e 60%,#4a3620);border:2px solid #8f6a35;box-shadow:inset 0 0 0 3px #1a1108,0 8px 30px rgba(0,0,0,.6);padding:22px 14px;text-align:center;}
-.plaque .pl{font-family:'Orbitron',sans-serif;font-size:clamp(20px,6.5vw,30px);letter-spacing:.2em;color:#d9b36e;text-shadow:0 1px 0 #000;word-spacing:.5em;}
-.plaque .pl .x{color:#1a1108;text-shadow:none;position:relative;}
-.plaque .pl .x::after{content:"";position:absolute;inset:-6px -2px;background:radial-gradient(circle,#0c0804 30%,transparent 72%);}
-.plaque small{display:block;margin-top:10px;font-family:'Share Tech Mono',monospace;font-size:11px;color:#a5834f;letter-spacing:.18em;}
-.ship{display:block;width:100%;height:auto;max-width:100%;border:1px solid var(--line);margin:0 0 14px;}
-.namecard{display:flex;justify-content:center;gap:18px;flex-wrap:wrap;margin:6px 0 14px;}
-.namecard div{text-align:center;}
-.namecard .n{font-family:'Orbitron',sans-serif;font-size:clamp(16px,4.6vw,22px);letter-spacing:.14em;color:#fff;}
-.namecard .l{font-family:'Share Tech Mono',monospace;font-size:11px;color:var(--muted);letter-spacing:.14em;}
-.arrow{align-self:center;color:var(--acc);font-size:22px;}
-.row{display:flex;flex-wrap:wrap;gap:10px;align-items:stretch;}
-.row>*{flex:1 1 140px;}
-label.lbl{display:block;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-bottom:4px;font-family:'Orbitron',sans-serif;}
-input[type=text],select{width:100%;box-sizing:border-box;background:#050507;border:1px solid var(--line);color:var(--text);font-family:'Share Tech Mono',monospace;font-size:17px;padding:10px 12px;letter-spacing:.08em;text-transform:uppercase;}
-body.resist input[type=text],body.resist select{background:#050a12;}
-input[type=text]::placeholder{text-transform:none;color:#5a5a66;letter-spacing:0;}
-select{text-transform:none;letter-spacing:0;}
-input:focus,select:focus,button:focus-visible{outline:2px solid var(--acc);outline-offset:2px;}
-button{cursor:pointer;font-family:'Orbitron',sans-serif;font-size:12px;letter-spacing:.18em;text-transform:uppercase;padding:12px 16px;border:1px solid var(--acc);background:var(--acc);color:#0a0a0c;}
-button.ghost{background:transparent;color:var(--acc);}
-button.quiet{background:transparent;color:var(--muted);border-color:var(--line);font-size:11px;padding:8px 12px;}
-.actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px;}
-.msg{margin-top:12px;font-family:'Share Tech Mono',monospace;font-size:14px;min-height:20px;}
-.msg.bad{color:var(--bad);} .msg.good{color:var(--good);}
-.hint{margin-top:12px;border-left:2px solid var(--acc);padding:8px 12px;color:var(--text);font-size:15px;background:var(--acc-soft);}
-.choice{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px;}
-.choice button{padding:16px 10px;font-size:11px;line-height:1.4;}
-.choice button.fo{background:#d23b2f;border-color:#d23b2f;color:#0a0a0c;}
-.witness{margin-top:22px;padding-top:16px;border-top:1px solid var(--line);}
-.witness .row{align-items:stretch;}
-.witness .row input{flex:1 1 160px;}
-button.close{width:100%;margin-top:12px;padding:16px 10px;font-size:11px;line-height:1.4;background:#d9b36e;border-color:#d9b36e;color:#1a1108;}
-body.resist .card .stamp.gold{border-color:#d9b36e;color:#d9b36e;}
-.choice button.rs{background:transparent;border-color:#5fd3e8;color:#5fd3e8;}
-.card{border:1px solid var(--acc);box-shadow:0 0 0 1px var(--acc-soft),0 0 40px var(--acc-soft);padding:20px 18px;margin:18px 0;position:relative;overflow:hidden;background:linear-gradient(135deg,var(--panel),var(--panel2));}
-.card::after{content:"";position:absolute;right:-30px;top:-30px;width:140px;height:140px;border:1px solid var(--acc-soft);border-radius:50%;}
-.card .k{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);font-family:'Orbitron',sans-serif;}
-.card .v{font-family:'Share Tech Mono',monospace;font-size:18px;color:#fff;margin-bottom:12px;letter-spacing:.06em;word-break:break-word;}
-.card .stamp{display:inline-block;border:2px solid var(--acc);color:var(--acc);padding:4px 10px;font-family:'Orbitron',sans-serif;font-size:12px;letter-spacing:.2em;transform:rotate(-4deg);margin-top:6px;}
-.phrase{font-family:'Orbitron',sans-serif;font-size:clamp(17px,4.8vw,22px);letter-spacing:.12em;color:var(--acc);text-align:center;padding:14px;border:1px solid var(--acc-dim);background:var(--acc-soft);margin:10px 0;}
-.share{display:flex;flex-wrap:wrap;gap:14px;align-items:center;margin:8px 0 14px;}
-.share .code{flex:1 1 180px;margin:0;}
-.qrbox{flex:0 0 auto;background:#fff;padding:8px;display:flex;flex-direction:column;align-items:center;gap:4px;}
-.qrbox .qr{width:120px;height:120px;display:block;}
-.qrbox small{font-family:'Share Tech Mono',monospace;font-size:10px;color:#333;letter-spacing:.06em;}
-.code{font-family:'Share Tech Mono',monospace;font-size:clamp(18px,5.5vw,26px);letter-spacing:.14em;text-align:center;padding:12px;border:1px dashed var(--acc);color:#fff;margin:8px 0 14px;}
-footer{margin-top:28px;font-size:13px;color:var(--muted);text-align:center;letter-spacing:.06em;}
-@media (max-width:420px){table.grid td,table.grid th{width:34px;height:34px;font-size:14px;}}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
+  --bg:#08111c; --panel:#0e1a28; --panel-2:#132235; --line:#22364d; --fg:#dbe7f3; --muted:#8aa0b8;
+  --accent:#38bdf8; --accent-ink:#04121d; --star:#fbbf24; --now:#fb923c;
+  --c-story:#a78bfa; --c-progA:#22d3ee; --c-progB:#60a5fa; --c-activ:#34d399; --c-saber:#fb7185;
+  --c-sabacc:#facc15; --c-shows:#e879f9; --c-food:#fb923c; --c-shop:#9ca3af; --c-logi:#94a3b8;
+  --ev-alpha:.2; color-scheme:dark }}
+:root[data-theme="dark"]{
+  --bg:#08111c; --panel:#0e1a28; --panel-2:#132235; --line:#22364d; --fg:#dbe7f3; --muted:#8aa0b8;
+  --accent:#38bdf8; --accent-ink:#04121d; --star:#fbbf24; --now:#fb923c;
+  --c-story:#a78bfa; --c-progA:#22d3ee; --c-progB:#60a5fa; --c-activ:#34d399; --c-saber:#fb7185;
+  --c-sabacc:#facc15; --c-shows:#e879f9; --c-food:#fb923c; --c-shop:#9ca3af; --c-logi:#94a3b8;
+  --ev-alpha:.2; color-scheme:dark }
+
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font:15px/1.45 var(--f-body);padding-inline:16px;padding-block:0 40px}
+.wrap{max-width:1180px;margin:0 auto}
+header{padding-block:22px 6px;display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:8px 20px}
+h1{font:700 clamp(26px,5vw,38px)/1 var(--f-display);letter-spacing:.02em;margin:0;text-wrap:balance}
+h1 small{display:block;font:500 12px/1 var(--f-mono);letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+.meta{font:400 13px/1.4 var(--f-mono);color:var(--muted);text-align:right}
+@media (max-width:640px){.meta{text-align:left}}
+
+.bar{background:var(--bg);padding-block:10px;display:flex;flex-direction:column;gap:10px;border-bottom:1px solid var(--line)}
+.days{display:flex;gap:6px}
+.day{flex:1;min-width:0;font:600 14px/1.1 var(--f-display);letter-spacing:.04em;padding:10px 8px;border-radius:8px;border:1px solid var(--line);background:var(--panel);color:var(--fg);cursor:pointer;text-align:center}
+.day span{display:block;font:400 11px/1.2 var(--f-mono);color:var(--muted);margin-top:3px;letter-spacing:.06em}
+.day[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.day[aria-pressed="true"] span{color:var(--accent-ink);opacity:.8}
+
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:10px}
+.panel-head{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px;margin-bottom:8px}
+.label{font:500 11px/1 var(--f-mono);letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.mini{display:flex;flex-wrap:wrap;gap:6px}
+.mini button{font:500 12px/1 var(--f-body);padding:7px 10px;border-radius:999px;border:1px solid var(--line);background:var(--panel-2);color:var(--fg);cursor:pointer}
+.mini button[aria-pressed="true"]{background:var(--star);border-color:var(--star);color:var(--accent-ink)}
+.cats{display:flex;flex-wrap:wrap;gap:6px}
+.cat{display:flex;align-items:center;gap:7px;font:500 13px/1 var(--f-body);padding:7px 11px 7px 8px;border-radius:999px;border:1px solid var(--line);background:var(--panel-2);color:var(--fg);cursor:pointer}
+.cat i{width:12px;height:12px;border-radius:3px;background:var(--cc);flex:none;border:2px solid var(--cc)}
+.cat b{font:400 11px/1 var(--f-mono);color:var(--muted)}
+.cat[aria-pressed="false"]{opacity:.55;text-decoration:line-through}
+.cat[aria-pressed="false"] i{background:transparent}
+.collapse{display:none}
+@media (max-width:640px){
+  .collapse{display:inline-block}
+  .panel.closed .cats{display:none}
+}
+
+.note{font-size:13px;color:var(--muted);margin:10px 0 0}
+.grid-outer{margin-top:14px;border:1px solid var(--line);border-radius:10px;background:var(--panel);overflow:auto;max-height:78vh;min-height:360px;position:relative;-webkit-overflow-scrolling:touch}
+.grid{position:relative;display:grid;grid-template-columns:58px 1fr;width:max-content;min-width:100%}
+.hours{position:sticky;left:0;z-index:6;background:var(--panel);border-right:1px solid var(--line)}
+.hour{position:absolute;left:0;right:0;font:500 11px/1 var(--f-mono);color:var(--muted);text-align:right;padding-right:8px;transform:translateY(-6px);font-variant-numeric:tabular-nums}
+.lanes{position:relative}
+.hline{position:absolute;left:0;right:0;border-top:1px solid var(--line)}
+.hline.half{border-top-style:dashed;opacity:.5}
+.ev{position:absolute;display:flex;flex-direction:column;justify-content:flex-start;align-items:stretch;border-radius:7px;padding:5px 7px 5px 9px;overflow:hidden;cursor:pointer;text-align:left;font:inherit;color:var(--fg);
+  background:color-mix(in srgb,var(--cc) calc(var(--ev-alpha)*100%),var(--panel));border:1px solid color-mix(in srgb,var(--cc) 55%,transparent);border-left:4px solid var(--cc)}
+.ev:hover,.ev:focus-visible{z-index:5;outline:2px solid var(--cc);outline-offset:1px}
+.ev .t{font:600 12.5px/1.2 var(--f-body);display:block;overflow:hidden;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical}
+.ev .s{font:400 11px/1.25 var(--f-mono);color:var(--muted);display:block;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ev.short .s{display:none}
+.ev.short .t{-webkit-line-clamp:1}
+.ev .st{position:absolute;top:3px;right:5px;color:var(--star);font-size:13px;line-height:1}
+.ev.starred{box-shadow:inset 0 0 0 1px var(--star)}
+.now{position:absolute;left:0;right:0;border-top:2px solid var(--now);z-index:7;pointer-events:none}
+.now::before{content:"NOW";position:absolute;left:4px;top:-9px;font:700 9px/1 var(--f-mono);background:var(--now);color:var(--accent-ink);padding:2px 4px;border-radius:3px}
+.empty{padding:40px 16px;text-align:center;color:var(--muted)}
+
+.lower{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px}
+@media (max-width:760px){.lower{grid-template-columns:1fr}}
+.lower h2{font:700 15px/1.2 var(--f-display);letter-spacing:.04em;margin:0 0 8px}
+.agenda{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px}
+.agenda li{display:grid;grid-template-columns:72px 1fr auto;gap:10px;align-items:start;padding:8px;border-radius:8px;background:var(--panel-2);min-width:0}
+.agenda .tm{font:500 12px/1.3 var(--f-mono);font-variant-numeric:tabular-nums;color:var(--muted)}
+.agenda .nm{font-weight:600;min-width:0}
+.agenda .nm span{display:block;font:400 12px/1.3 var(--f-body);color:var(--muted)}
+.agenda .sw{width:10px;height:10px;border-radius:3px;background:var(--cc);display:inline-block;margin-right:6px;vertical-align:1px}
+.link{background:none;border:0;color:var(--accent);font:600 12px/1 var(--f-body);cursor:pointer;padding:4px}
+.clash{color:var(--now);font:600 11px/1.3 var(--f-mono)}
+
+dialog{border:1px solid var(--line);border-radius:14px;background:var(--panel);color:var(--fg);padding:0;width:min(460px,calc(100vw - 32px))}
+dialog::backdrop{background:rgba(5,12,20,.55)}
+.sheet{padding:18px;display:flex;flex-direction:column;gap:10px}
+.sheet .tag{font:500 11px/1 var(--f-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--cc)}
+.sheet h3{font:700 21px/1.15 var(--f-display);margin:0;text-wrap:balance}
+.sheet dl{display:grid;grid-template-columns:80px 1fr;gap:6px 10px;margin:0;font-size:14px}
+.sheet dt{font:500 11px/1.6 var(--f-mono);letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.sheet dd{margin:0}
+.sheet .acts{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
+.btn{flex:1 1 auto;font:600 14px/1 var(--f-body);padding:11px 14px;border-radius:9px;border:1px solid var(--line);background:var(--panel-2);color:var(--fg);cursor:pointer}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.btn.star[aria-pressed="true"]{background:var(--star);border-color:var(--star);color:var(--accent-ink)}
+button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+footer{margin-top:22px;font-size:12px;color:var(--muted)}
+footer a{color:var(--accent)}
+@media (prefers-reduced-motion:no-preference){.ev{transition:outline-color .15s}}
+.brand{display:flex;align-items:flex-end;gap:12px}.brand img{width:44px;height:44px;border-radius:10px;box-shadow:0 0 0 1px var(--line)}
 </style>
 </head>
 <body>
 
 
 <div class="wrap">
-<header>
-  <div>
-    <div class="eyebrow" id="hdrEyebrow">First Order Security Bureau // Bounty Terminal</div>
-    <h1 id="hdrTitle">Bounty File 7-Kreel</h1>
-    <div class="mono" style="font-size:12px;color:var(--muted)" id="hdrSub">Outer Rim relay 7 · Hunter access</div>
-  </div>
-  <div class="badge" id="statusBadge">Open</div>
-</header>
+  <header>
+    <div class="brand"><img src="icons/halcycon-64.png" alt="" width="44" height="44"><h1><small>Halcy-Con 3 · Oct 15 to 17, 2026</small>Voyage Planner</h1></div>
+    <div class="meta">DoubleTree by Hilton<br>Entrance to Universal Orlando</div>
+  </header>
 
-<div class="steps"><div class="step" id="s1"></div><div class="step" id="s2"></div><div class="step" id="s3"></div><div class="step" id="s4"></div></div>
-<div class="stepnames"><span>Transmission</span><span>Vessel</span><span>Identity</span><span>Filing</span></div>
-
-<!-- INTRO -->
-<section id="intro" class="panel">
-  <h2>Wanted</h2>
-  <div class="wanted">
-    <img class="mug" src="stoker.jpg" alt="Surveillance capture: a man in a maroon shirt, grey scarf and dark cloak, holding a lit blue lightsaber" width="600" height="1070">
-    <div class="big">BRENNAR STOKE</div>
-    <dl>
-      <dt>Charge</dt><dd>Jedi. Armed. Running supplies for the Resistance.</dd>
-      <dt>Status</dt><dd>Wanted alive. Reward 40,000 credits.</dd>
-      <dt>Last seen</dt><dd>Outer Rim, operating under an unknown alias aboard an unregistered freighter.</dd>
-      <dt>Issued by</dt><dd>Captain Tavor Kreel, FOSB</dd>
-    </dl>
-  </div>
-  <div class="transcript"><b>&gt; KREEL</b> There's a smuggler docked at relay 7 who calls himself Stoker, and I'm fairly sure he's the Jedi I've been chasing for three years.
-<b>&gt; KREEL</b> I can't prove it from here. You're standing next to him.
-<b>&gt; KREEL</b> Everything I have is in this file. If the evidence matches the man, the bounty is yours.</div>
-  <p>This takes about ten minutes, and it goes faster with a second pair of eyes.</p>
-  <label class="lbl" for="qname">Hunter name</label>
-  <input type="text" id="qname" placeholder="Whoever you are today" autocomplete="off" maxlength="28">
-  <div class="actions"><button id="startBtn">Open the file</button></div>
-</section>
-
-<!-- CHECK 1 -->
-<section id="p1" class="panel" hidden>
-  <h2>Evidence 1 · Intercepted transmission</h2>
-  <p>Relay 7 caught the tail end of a call from the smuggler to a Resistance frequency, sent in the old dock tap code Republic crews used before the war. Read each pair as <b>row first, then column</b>. I and J share a cell.</p>
-  <p class="mono" style="font-size:13px;color:var(--muted)">From the file: at the academy, Stoke was known for never saying goodbye. He had his own way of ending a conversation, and the younger students picked it up from him.</p>
-  <div class="signal"><span>52 11 31 25</span><span>31 24 22 23 44</span></div>
-  <table class="grid" aria-label="Tap grid">
-    <tr><th></th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th></tr>
-    <tr><th>1</th><td>A</td><td>B</td><td>C</td><td>D</td><td>E</td></tr>
-    <tr><th>2</th><td>F</td><td>G</td><td>H</td><td>I/J</td><td>K</td></tr>
-    <tr><th>3</th><td>L</td><td>M</td><td>N</td><td>O</td><td>P</td></tr>
-    <tr><th>4</th><td>Q</td><td>R</td><td>S</td><td>T</td><td>U</td></tr>
-    <tr><th>5</th><td>V</td><td>W</td><td>X</td><td>Y</td><td>Z</td></tr>
-  </table>
-  <label class="lbl" for="a1">What did he say?</label>
-  <input type="text" id="a1" placeholder="Two words" autocomplete="off" maxlength="16">
-  <div class="actions"><button id="b1">Log evidence</button><button class="quiet" id="h1">Need a hint</button></div>
-  <div class="msg" id="m1"></div>
-  <div class="hint" id="hint1" hidden>The first pair, 52, is row 5 and column 2, which gives you W. Work through the other eight the same way. With two people it goes quicker if one reads the pairs out loud while the other finds the letters.</div>
-</section>
-
-<!-- CHECK 2 -->
-<section id="p2" class="panel" hidden>
-  <h2>Evidence 2 · The vessel</h2>
-  <p>When Stoke left the academy he took a Consular-class cruiser with him, an old Republic diplomatic hull that nobody has seen since. Four ships are docked at relay 7 tonight, and the dock master's log is too much of a mess to say which is which, but his harbor notes fill in enough to work it out.</p>
-  <table class="dock">
-    <tr><th>Bay</th><th>Ship</th><th>Hull class</th></tr>
-    <tr><td>1</td><td>?</td><td>?</td></tr>
-    <tr><td>2</td><td>?</td><td>?</td></tr>
-    <tr><td>3</td><td>?</td><td>?</td></tr>
-    <tr><td>4</td><td>?</td><td>?</td></tr>
-  </table>
-  <p class="mono" style="font-size:13px;color:var(--muted)">Ships: Ember, Gilded Sow, Tessek's Fortune, Vantage.<br>Hulls: Consular-class cruiser, YT light freighter, Ghtroc freighter, Lambda shuttle.</p>
-  <ol class="clues">
-    <li>The Gilded Sow is a YT light freighter and sits in bay 1.</li>
-    <li>The Lambda shuttle is in bay 4. Its crew paid docking fees in First Order scrip.</li>
-    <li>The Consular-class hull is docked directly beside the Gilded Sow.</li>
-    <li>Vantage is not in bay 2 and not in bay 4.</li>
-    <li>Tessek's Fortune's crew also paid in First Order scrip.</li>
-  </ol>
-  <div class="row">
-    <div><label class="lbl" for="a2s">Which ship is the Consular?</label><select id="a2s"><option value="">Choose</option><option>Ember</option><option>Gilded Sow</option><option>Tessek's Fortune</option><option>Vantage</option></select></div>
-  </div>
-  <div class="actions"><button id="b2">Identify ship</button><button class="quiet" id="h2">Need a hint</button></div>
-  <div class="msg" id="m2"></div>
-  <div class="hint" id="hint2" hidden>The third note puts the Consular in bay 2, so the question is which ships can be ruled out of bay 2 and which one is left.</div>
-
-  <div id="p2b" hidden>
-    <hr style="border:0;border-top:1px solid var(--line);margin:18px 0">
-    <img class="ship" src="ember.jpg" alt="A battered freighter on a rain-soaked landing pad at night" width="1200" height="672">
-    <p>Bay 2 holds a ship with EMBER painted on the hull in letters newer than the scorch marks around them. On a Consular, the name that counts is the one on the maker's plaque behind the pilot's seat, and this one has been through a fire.</p>
-    <div class="plaque">
-      <div class="pl">T<span class="x">H</span>E &nbsp; L<span class="x">A</span>S<span class="x">T</span> &nbsp; <span class="x">L</span>IG<span class="x">H</span>T</div>
-      <small>CONSULAR-CLASS · KEEL LAID CORUSCANT</small>
+  <div class="bar">
+    <div class="days" id="days" role="group" aria-label="Day"></div>
+    <div class="panel" id="catPanel">
+      <div class="panel-head">
+        <span class="label">Show on calendar</span>
+        <div class="mini">
+          <button id="onlyStar" aria-pressed="false">★ Starred only</button>
+          <button id="allOn">All on</button>
+          <button id="allOff">All off</button>
+          <button id="toggleCats" class="collapse" aria-expanded="true">Hide switches</button>
+        </div>
+      </div>
+      <div class="cats" id="cats"></div>
     </div>
-    <p class="mono" style="font-size:13px;color:var(--muted)">From the file: the academy's last transport was never recovered. The few who got out gave it a name that night, and the name stuck.</p>
-    <label class="lbl" for="a2n">Name on the plaque</label>
-    <input type="text" id="a2n" placeholder="Three words" autocomplete="off" maxlength="24">
-    <div class="actions"><button id="b2n">Log evidence</button><button class="quiet" id="h2n">Need a hint</button></div>
-    <div class="msg" id="m2n"></div>
-    <div class="hint" id="hint2n" hidden>Five letters are burned out of twelve, across three words. Think about what you would name the only ship that made it out of a burning temple.</div>
   </div>
-</section>
 
-<!-- CHECK 3 -->
-<section id="p3" class="panel" hidden>
-  <h2>Evidence 3 · Identity</h2>
-  <p>A Jedi on the run rarely invents a new name. The old one gets sanded down instead, the same sounds with fewer of them, so it still turns his head when someone calls it across a cantina.</p>
-  <div class="namecard">
-    <div><div class="n">OBI-WAN KENOBI</div><div class="l">JEDI NAME</div></div>
-    <div class="arrow">&rarr;</div>
-    <div><div class="n">BEN</div><div class="l">ALIAS, 19 YEARS</div></div>
-  </div>
-  <p>Kreel's theory is that the smuggler did the same thing. The sign-off and the ship already line up, which leaves the name.</p>
-  <div class="namecard">
-    <div><div class="n">BRENNAR STOKE</div><div class="l">JEDI NAME</div></div>
-    <div class="arrow">&rarr;</div>
-    <div><div class="n">?</div><div class="l">ALIAS</div></div>
-  </div>
-  <label class="lbl" for="a3">The smuggler's name</label>
-  <input type="text" id="a3" placeholder="One word" autocomplete="off" maxlength="16">
-  <div class="actions"><button id="b3">Confirm match</button><button class="quiet" id="h3">Need a hint</button></div>
-  <div class="msg" id="m3"></div>
-  <div class="hint" id="hint3" hidden>Keep the surname and add the one letter that turns it into a job.</div>
-</section>
+  <div class="grid-outer" id="gridOuter" tabindex="0" aria-label="Schedule grid"></div>
 
-<!-- FILING -->
-<section id="p4" class="panel" hidden>
-  <h2>Filing · Match confirmed</h2>
-  <div class="transcript"><b>&gt; TERMINAL</b> Brennar Stoke. Alias "Stoker." Vessel THE LAST LIGHT, re-registered EMBER.
-<b>&gt; TERMINAL</b> Confidence: high. File ready for disposition.
-<i>&gt; UNKNOWN CHANNEL</i> Before you file that, you should know who you're filing it for. Kreel led the Nadiri raid, and eleven people died there. Three months earlier, the Jedi you just identified had Kreel unarmed and let him walk.
-<i>&gt; UNKNOWN CHANNEL</i> Ask him about it and he'll tell you he'd do it again. He'll also tell you what it cost. Both at once.</div>
-  <p>Decide.</p>
-  <div class="choice">
-    <button class="fo" id="chooseFO">Claim the bounty<br><span class="mono" style="font-size:10px;letter-spacing:.1em">40,000 credits</span></button>
-    <button class="rs" id="chooseRS">Delete the file<br><span class="mono" style="font-size:10px;letter-spacing:.1em">He walks</span></button>
+  <div class="lower">
+    <section class="panel">
+      <h2>Your plan for <span id="planDay"></span></h2>
+      <ul class="agenda" id="plan"></ul>
+    </section>
+    <section class="panel">
+      <h2>Hidden events</h2>
+      <ul class="agenda" id="hiddenList"></ul>
+    </section>
   </div>
-  <div class="witness">
-    <p>You can file on your own. If someone who is already on file gave you their code, enter it here. Two signatures on record can close a file instead of deleting it, and a closed file stays closed.</p>
-    <label class="lbl" for="sponsor">Witness code (optional)</label>
-    <div class="row"><input type="text" id="sponsor" placeholder="A word and two digits" autocomplete="off" maxlength="24"><button class="ghost" id="checkSponsor" style="flex:0 0 auto">Check</button></div>
-    <div class="msg" id="m4"></div>
-    <button class="close" id="chooseCL" hidden>Close the file<br><span class="mono" style="font-size:10px;letter-spacing:.1em">Two signatures · no match</span></button>
-  </div>
-</section>
 
-<!-- RESULT -->
-<section id="done" class="panel" hidden>
-  <h2 id="doneTitle">Filed</h2>
-  <div class="transcript" id="doneScript"></div>
-  <div class="card" id="card">
-    <div class="k" id="cKind">Disposition</div>
-    <div class="v" id="cOutcome">···</div>
-    <div class="k">Hunter</div>
-    <div class="v" id="cName">···</div>
-    <div class="k">Witness</div>
-    <div class="v" id="cSponsor">···</div>
-    <div class="k">Filed</div>
-    <div class="v" id="cTime">···</div>
-    <div class="stamp" id="cStamp">FILED</div>
-  </div>
-  <p>Take a screenshot of the card, then go find the captain and say the line below to him exactly as written. He'll know which way you went.</p>
-  <div class="phrase" id="phrase"></div>
-  <p style="margin-top:16px">Share this code with another investigator to unlock additional options.</p>
-  <div class="share">
-    <div class="code" id="myCode"></div>
-    <div class="qrbox"><svg class="qr" width="31mm" height="31mm" version="1.1" viewBox="0 0 31 31" xmlns="http://www.w3.org/2000/svg"><path d="M1,1H2V2H1zM2,1H3V2H2zM3,1H4V2H3zM4,1H5V2H4zM5,1H6V2H5zM6,1H7V2H6zM7,1H8V2H7zM9,1H10V2H9zM14,1H15V2H14zM15,1H16V2H15zM16,1H17V2H16zM19,1H20V2H19zM20,1H21V2H20zM21,1H22V2H21zM23,1H24V2H23zM24,1H25V2H24zM25,1H26V2H25zM26,1H27V2H26zM27,1H28V2H27zM28,1H29V2H28zM29,1H30V2H29zM1,2H2V3H1zM7,2H8V3H7zM9,2H10V3H9zM12,2H13V3H12zM13,2H14V3H13zM14,2H15V3H14zM17,2H18V3H17zM18,2H19V3H18zM21,2H22V3H21zM23,2H24V3H23zM29,2H30V3H29zM1,3H2V4H1zM3,3H4V4H3zM4,3H5V4H4zM5,3H6V4H5zM7,3H8V4H7zM10,3H11V4H10zM11,3H12V4H11zM13,3H14V4H13zM17,3H18V4H17zM19,3H20V4H19zM20,3H21V4H20zM23,3H24V4H23zM25,3H26V4H25zM26,3H27V4H26zM27,3H28V4H27zM29,3H30V4H29zM1,4H2V5H1zM3,4H4V5H3zM4,4H5V5H4zM5,4H6V5H5zM7,4H8V5H7zM9,4H10V5H9zM12,4H13V5H12zM15,4H16V5H15zM16,4H17V5H16zM18,4H19V5H18zM20,4H21V5H20zM23,4H24V5H23zM25,4H26V5H25zM26,4H27V5H26zM27,4H28V5H27zM29,4H30V5H29zM1,5H2V6H1zM3,5H4V6H3zM4,5H5V6H4zM5,5H6V6H5zM7,5H8V6H7zM10,5H11V6H10zM12,5H13V6H12zM13,5H14V6H13zM15,5H16V6H15zM17,5H18V6H17zM20,5H21V6H20zM23,5H24V6H23zM25,5H26V6H25zM26,5H27V6H26zM27,5H28V6H27zM29,5H30V6H29zM1,6H2V7H1zM7,6H8V7H7zM10,6H11V7H10zM12,6H13V7H12zM14,6H15V7H14zM16,6H17V7H16zM17,6H18V7H17zM19,6H20V7H19zM20,6H21V7H20zM21,6H22V7H21zM23,6H24V7H23zM29,6H30V7H29zM1,7H2V8H1zM2,7H3V8H2zM3,7H4V8H3zM4,7H5V8H4zM5,7H6V8H5zM6,7H7V8H6zM7,7H8V8H7zM9,7H10V8H9zM11,7H12V8H11zM13,7H14V8H13zM15,7H16V8H15zM17,7H18V8H17zM19,7H20V8H19zM21,7H22V8H21zM23,7H24V8H23zM24,7H25V8H24zM25,7H26V8H25zM26,7H27V8H26zM27,7H28V8H27zM28,7H29V8H28zM29,7H30V8H29zM9,8H10V9H9zM11,8H12V9H11zM13,8H14V9H13zM16,8H17V9H16zM17,8H18V9H17zM18,8H19V9H18zM20,8H21V9H20zM1,9H2V10H1zM3,9H4V10H3zM4,9H5V10H4zM6,9H7V10H6zM7,9H8V10H7zM8,9H9V10H8zM12,9H13V10H12zM13,9H14V10H13zM14,9H15V10H14zM16,9H17V10H16zM18,9H19V10H18zM19,9H20V10H19zM23,9H24V10H23zM26,9H27V10H26zM28,9H29V10H28zM29,9H30V10H29zM1,10H2V11H1zM8,10H9V11H8zM10,10H11V11H10zM13,10H14V11H13zM14,10H15V11H14zM15,10H16V11H15zM16,10H17V11H16zM19,10H20V11H19zM20,10H21V11H20zM22,10H23V11H22zM23,10H24V11H23zM24,10H25V11H24zM25,10H26V11H25zM29,10H30V11H29zM2,11H3V12H2zM5,11H6V12H5zM6,11H7V12H6zM7,11H8V12H7zM8,11H9V12H8zM10,11H11V12H10zM11,11H12V12H11zM12,11H13V12H12zM14,11H15V12H14zM17,11H18V12H17zM22,11H23V12H22zM25,11H26V12H25zM27,11H28V12H27zM28,11H29V12H28zM3,12H4V13H3zM4,12H5V13H4zM10,12H11V13H10zM11,12H12V13H11zM17,12H18V13H17zM19,12H20V13H19zM22,12H23V13H22zM23,12H24V13H23zM25,12H26V13H25zM29,12H30V13H29zM1,13H2V14H1zM3,13H4V14H3zM7,13H8V14H7zM9,13H10V14H9zM10,13H11V14H10zM11,13H12V14H11zM12,13H13V14H12zM15,13H16V14H15zM16,13H17V14H16zM18,13H19V14H18zM21,13H22V14H21zM26,13H27V14H26zM27,13H28V14H27zM1,14H2V15H1zM3,14H4V15H3zM5,14H6V15H5zM6,14H7V15H6zM8,14H9V15H8zM9,14H10V15H9zM10,14H11V15H10zM11,14H12V15H11zM15,14H16V15H15zM17,14H18V15H17zM19,14H20V15H19zM20,14H21V15H20zM23,14H24V15H23zM27,14H28V15H27zM28,14H29V15H28zM29,14H30V15H29zM1,15H2V16H1zM4,15H5V16H4zM7,15H8V16H7zM10,15H11V16H10zM11,15H12V16H11zM13,15H14V16H13zM14,15H15V16H14zM16,15H17V16H16zM17,15H18V16H17zM20,15H21V16H20zM21,15H22V16H21zM22,15H23V16H22zM24,15H25V16H24zM25,15H26V16H25zM27,15H28V16H27zM28,15H29V16H28zM29,15H30V16H29zM5,16H6V17H5zM6,16H7V17H6zM9,16H10V17H9zM11,16H12V17H11zM12,16H13V17H12zM15,16H16V17H15zM17,16H18V17H17zM21,16H22V17H21zM22,16H23V17H22zM23,16H24V17H23zM24,16H25V17H24zM28,16H29V17H28zM3,17H4V18H3zM5,17H6V18H5zM7,17H8V18H7zM9,17H10V18H9zM10,17H11V18H10zM12,17H13V18H12zM13,17H14V18H13zM15,17H16V18H15zM16,17H17V18H16zM17,17H18V18H17zM19,17H20V18H19zM21,17H22V18H21zM24,17H25V18H24zM25,17H26V18H25zM26,17H27V18H26zM28,17H29V18H28zM3,18H4V19H3zM4,18H5V19H4zM5,18H6V19H5zM6,18H7V19H6zM13,18H14V19H13zM15,18H16V19H15zM17,18H18V19H17zM21,18H22V19H21zM24,18H25V19H24zM26,18H27V19H26zM27,18H28V19H27zM28,18H29V19H28zM1,19H2V20H1zM3,19H4V20H3zM5,19H6V20H5zM7,19H8V20H7zM8,19H9V20H8zM10,19H11V20H10zM12,19H13V20H12zM14,19H15V20H14zM15,19H16V20H15zM16,19H17V20H16zM17,19H18V20H17zM18,19H19V20H18zM19,19H20V20H19zM21,19H22V20H21zM23,19H24V20H23zM25,19H26V20H25zM27,19H28V20H27zM3,20H4V21H3zM4,20H5V21H4zM10,20H11V21H10zM11,20H12V21H11zM13,20H14V21H13zM14,20H15V21H14zM15,20H16V21H15zM18,20H19V21H18zM19,20H20V21H19zM23,20H24V21H23zM27,20H28V21H27zM2,21H3V22H2zM3,21H4V22H3zM7,21H8V22H7zM9,21H10V22H9zM13,21H14V22H13zM14,21H15V22H14zM15,21H16V22H15zM17,21H18V22H17zM18,21H19V22H18zM19,21H20V22H19zM21,21H22V22H21zM22,21H23V22H22zM23,21H24V22H23zM24,21H25V22H24zM25,21H26V22H25zM26,21H27V22H26zM27,21H28V22H27zM9,22H10V23H9zM13,22H14V23H13zM16,22H17V23H16zM17,22H18V23H17zM18,22H19V23H18zM19,22H20V23H19zM21,22H22V23H21zM25,22H26V23H25zM26,22H27V23H26zM27,22H28V23H27zM28,22H29V23H28zM29,22H30V23H29zM1,23H2V24H1zM2,23H3V24H2zM3,23H4V24H3zM4,23H5V24H4zM5,23H6V24H5zM6,23H7V24H6zM7,23H8V24H7zM9,23H10V24H9zM11,23H12V24H11zM15,23H16V24H15zM16,23H17V24H16zM19,23H20V24H19zM20,23H21V24H20zM21,23H22V24H21zM23,23H24V24H23zM25,23H26V24H25zM26,23H27V24H26zM28,23H29V24H28zM1,24H2V25H1zM7,24H8V25H7zM9,24H10V25H9zM10,24H11V25H10zM12,24H13V25H12zM14,24H15V25H14zM15,24H16V25H15zM16,24H17V25H16zM19,24H20V25H19zM21,24H22V25H21zM25,24H26V25H25zM26,24H27V25H26zM1,25H2V26H1zM3,25H4V26H3zM4,25H5V26H4zM5,25H6V26H5zM7,25H8V26H7zM11,25H12V26H11zM18,25H19V26H18zM21,25H22V26H21zM22,25H23V26H22zM23,25H24V26H23zM24,25H25V26H24zM25,25H26V26H25zM27,25H28V26H27zM29,25H30V26H29zM1,26H2V27H1zM3,26H4V27H3zM4,26H5V27H4zM5,26H6V27H5zM7,26H8V27H7zM9,26H10V27H9zM10,26H11V27H10zM11,26H12V27H11zM12,26H13V27H12zM13,26H14V27H13zM20,26H21V27H20zM21,26H22V27H21zM22,26H23V27H22zM25,26H26V27H25zM26,26H27V27H26zM28,26H29V27H28zM1,27H2V28H1zM3,27H4V28H3zM4,27H5V28H4zM5,27H6V28H5zM7,27H8V28H7zM9,27H10V28H9zM12,27H13V28H12zM13,27H14V28H13zM14,27H15V28H14zM18,27H19V28H18zM19,27H20V28H19zM20,27H21V28H20zM24,27H25V28H24zM27,27H28V28H27zM29,27H30V28H29zM1,28H2V29H1zM7,28H8V29H7zM10,28H11V29H10zM11,28H12V29H11zM12,28H13V29H12zM13,28H14V29H13zM14,28H15V29H14zM17,28H18V29H17zM19,28H20V29H19zM21,28H22V29H21zM24,28H25V29H24zM26,28H27V29H26zM28,28H29V29H28zM1,29H2V30H1zM2,29H3V30H2zM3,29H4V30H3zM4,29H5V30H4zM5,29H6V30H5zM6,29H7V30H6zM7,29H8V30H7zM9,29H10V30H9zM10,29H11V30H10zM12,29H13V30H12zM14,29H15V30H14zM16,29H17V30H16zM20,29H21V30H20zM21,29H22V30H21zM22,29H23V30H22zM23,29H24V30H23zM24,29H25V30H24zM26,29H27V30H26zM28,29H29V30H28z" id="qr-path" fill="#000000" fill-opacity="1" fill-rule="nonzero" stroke="none"/></svg><small>stoken.games/halcycon</small></div>
-  </div>
-  <div class="actions"><button class="ghost" id="copyBtn">Copy my code</button><button class="quiet" id="resetBtn">Run it again for a friend</button></div>
-  <div class="msg" id="mCopy"></div>
-</section>
-
-<footer id="foot">FOSB terminal · relay 7</footer>
+  <footer>
+    Schedule copied from <a href="https://halcy-con.com/attend/event-schedule/" target="_blank" rel="noopener">halcy-con.com</a> on Oct 9, 2026. The con says programming is subject to change, so check the official page before you go. The categories are mine, not the con's. Your switches, stars and hidden events stay in this browser and nowhere else.
+  </footer>
 </div>
+
+<dialog id="dlg"><div class="sheet" id="sheet"></div></dialog>
 
 <script>
 (function(){
-  var $=function(id){return document.getElementById(id);};
-  var norm=function(s){return (s||'').toUpperCase().replace(/[^A-Z]/g,'');};
-  var K1='V0FMS0xJR0hU', K2='VEhFTEFTVExJR0hU', K3='U1RPS0VS';
-  var A=['GHOST','FLARE','KEEL','VECTOR','DRIFT','LANTERN','KESTREL','TINDER','WARDEN','SABLE'];
-  function second(i,d1){return (i+d1*3+7)%10;}
-  function codeFor(name){var h=0;for(var k=0;k<name.length;k++){h=(h*31+name.charCodeAt(k))>>>0;}var i=h%A.length,d1=(h>>>4)%10;return A[i]+' '+d1+second(i,d1);}
-  function validCode(s){
-    var m=(s||'').toUpperCase().replace(/[^A-Z0-9]+/g,' ').trim().split(' ');
-    if(m.length!==2||!/^\d\d$/.test(m[1]))return false;
-    var i=A.indexOf(m[0]); if(i<0)return false;
-    return parseInt(m[1][1],10)===second(i,parseInt(m[1][0],10));
+"use strict";
+var CATS = [
+  ["story","Main story","--c-story"],
+  ["progA","Ship Programs A","--c-progA"],
+  ["progB","Ship Programs B","--c-progB"],
+  ["activ","Ship activities","--c-activ"],
+  ["saber","Lightsaber and Saja","--c-saber"],
+  ["sabacc","Sabacc","--c-sabacc"],
+  ["shows","Shows","--c-shows"],
+  ["food","Meals","--c-food"],
+  ["shop","Marketplace","--c-shop"],
+  ["logi","Arrival","--c-logi"]
+];
+var DAYS = [["thu","Thursday","Oct 15","2026-10-15"],["fri","Friday","Oct 16","2026-10-16"],["sat","Saturday","Oct 17","2026-10-17"]];
+
+// [day, start, end, title, location, category, description, endNotListed]
+var RAW = [
+["thu","16:00","16:30","Badge Pickup","Universal Registration","logi","Pick up your badge. Available regardless of boarding group.",1],
+["thu","17:00","19:00","Boarding Groups","Port of Call","logi","Board in your assigned group."],
+["thu","17:00","20:00","Faction Recruitment","Faction HQs and Shrine of the Whills, Port of Call","story","Meet the factions and get Mission Pins."],
+["thu","17:00","20:00","Merchant Marketplace","Universal D1 to D3","shop","Shopping with merchants. Merchant hours vary."],
+["thu","20:30","23:00","Merchant Marketplace","Universal D1 to D3","shop","Shopping, second block."],
+["thu","18:00","20:00","Training Bridge","Gold Coast I","activ","Simulator voyages for crews."],
+["thu","20:30","22:00","Training Bridge","Gold Coast I","activ","Simulator voyages, second block."],
+["thu","18:00","20:00","Ship Maintenance","Gold Coast II","activ","Engineer-led tours of the maintenance room."],
+["thu","20:30","22:00","Ship Maintenance","Gold Coast II","activ","Maintenance tours, second block."],
+["thu","18:00","20:00","CSL Gallery","Space Coast II","activ","Shrine of the Whills exhibition and guided tours."],
+["thu","20:30","22:00","CSL Gallery","Space Coast II","activ","Exhibition, second block."],
+["thu","19:15","20:00","Sabacc for Charity: Open Gaming","Sabacc Den (Universal C1 to C3)","sabacc","Casual card play for charity."],
+["thu","20:30","22:00","Sabacc for Charity: Open Gaming","Sabacc Den (Universal C1 to C3)","sabacc","Casual card play, second block."],
+["thu","20:00","20:30","Voyage Muster","Atrium (Seminole C)","story","Official opening scene for all passengers."],
+["thu","20:45","21:45","The Wretched Hive","Atrium (Seminole C)","shows","Smuggler crew shanty performance."],
+
+["fri","09:00","09:50","101st Annual Galactic Artisan Faire","Sun and Surf II to III","progA","Makers' fair with crafts, trading and workshops."],
+["fri","09:00","09:50","Encounter at Twin Suns: The Truth Revealed","Sun and Surf IV","progB","HoloNet interview panel on a mysterious transformation."],
+["fri","09:00","12:00","Training Bridge","Gold Coast I","activ","Simulator voyages."],
+["fri","14:00","21:00","Training Bridge","Gold Coast I","activ","Simulator voyages, second block."],
+["fri","09:00","12:00","Ship Maintenance","Gold Coast II","activ","Engineer-led maintenance tours."],
+["fri","14:00","21:00","Ship Maintenance","Gold Coast II","activ","Maintenance tours, second block."],
+["fri","09:00","23:00","Merchant Marketplace","Universal D1 to D3","shop","Shopping with merchants. Merchant hours vary."],
+["fri","09:20","09:50","Faction HQ Experiences","Port of Call (Universal E1 to E3, F2 to F3)","activ","30-minute walk-in sessions at five establishments."],
+["fri","11:05","11:35","Faction HQ Experiences","Port of Call (Universal E1 to E3, F2 to F3)","activ","Second session block."],
+["fri","14:20","14:50","Faction HQ Experiences","Port of Call (Universal E1 to E3, F2 to F3)","activ","Third session block."],
+["fri","16:05","16:35","Faction HQ Experiences","Port of Call (Universal E1 to E3, F2 to F3)","activ","Fourth session block."],
+["fri","09:30","10:00","CSL Gallery Guided Tour","Space Coast II","activ","Guided exhibition tour."],
+["fri","14:30","15:00","CSL Gallery Guided Tour","Space Coast II","activ","Guided exhibition tour."],
+["fri","17:00","17:30","CSL Gallery Guided Tour","Space Coast II","activ","Guided exhibition tour."],
+["fri","10:15","10:30","The Ember Cup","Sun and Surf II to III","progA","Saja tea ritual and reflection."],
+["fri","10:45","11:00","The Ember Cup","Sun and Surf II to III","progA","Second session."],
+["fri","14:00","14:15","The Ember Cup","Sun and Surf II to III","progA","Third session."],
+["fri","14:30","14:45","The Ember Cup","Sun and Surf II to III","progA","Fourth session."],
+["fri","11:30","14:00","Lunch: The N'Orlando Meal","Crown of Cantonica and Crown of Serenno (Seminole B, C, E)","food","Boxed meal, $30, with collector cards. Card payment only."],
+["fri","12:00","17:00","Sabacc for Charity Cantina","Sabacc Den (Universal C1 to C3)","sabacc","Cantina open. Exhibition and tournament registration."],
+["fri","18:00","22:00","Sabacc for Charity Cantina","Sabacc Den (Universal C1 to C3)","sabacc","Cantina, second block."],
+["fri","12:30","13:30","Lunch Show: Starcruiser! The Musical","Crown of Cantonica and Crown of Serenno (Seminole B, C, E)","shows","Musical retelling of the 275th Anniversary cruise."],
+["fri","14:00","14:50","'Til the Spires: Legends, Lore, and History of Batuu","Sun and Surf IV","progB","Talk on the stories behind Black Spire Outpost."],
+["fri","15:00","15:50","On The Way of the Saja and the Dissemination of the Force","Sun and Surf IV","progB","History of Force traditions and accessibility."],
+["fri","16:00","16:50","Galaxy of Creatures","Sun and Surf IV","progB","Interactive talk from the Chandrila Wildlife Preserve."],
+["fri","16:00","16:50","Rally Against the First Order","Sun and Surf II to III","progA","Sign-making and a march through the ship."],
+["fri","16:00","16:45","Sabacc Exhibition Game","Sabacc Den (Universal C1 to C3)","sabacc","Exhibition game. Winner announced about 4:45 pm."],
+["fri","18:00","19:30","Chef Andrew Experience (Add-On)","Atrium Dining Room (Seminole C)","food","Four-course dinner. Sold out. Alcohol not included."],
+["fri","18:00","19:00","The Wretched Hive","Merchant Marketplace Stage (Universal D1 to D3)","shows","Shanty performance."],
+["fri","20:00","20:45","The Wretched Hive","C.S.L. Lounge (Seminole D)","shows","Shanty performance, second show."],
+["fri","19:30","20:20","The Path of Power: The Dark Saja","Sun and Surf IV","progB","Talk on the Force and how to use it."],
+["fri","19:30","20:20","Lightsaber Training: Saja","Lightsaber Training Pod (Seminole A)","saber","Lightsaber basics with the Saja."],
+["fri","20:30","21:20","Force Flow: A Saja Movement and Meditation Session","Lightsaber Training Pod (Seminole A)","saber","Guided meditation and beginner movement."],
+["fri","20:30","21:20","Lightsaber Training: Dark Saja","Gold Coast III to IV","saber","Lightsaber basics with the Dark Saja."],
+["fri","21:00","21:15","Sabacc Run Deadline","Sabacc Den (Universal C1 to C3)","sabacc","Last call for the scavenger hunt. Winner about 9:10 pm.",1],
+
+["sat","09:00","09:50","Embodied Force Centering and Stretching","Sun and Surf II to III","progA","Gentle stretching. No experience required."],
+["sat","09:00","09:50","A Transdisciplinary Dialogue: Rise and Fall of the Empire","Sun and Surf IV","progB","Scholar panel on the Empire and its legacy."],
+["sat","09:00","12:00","Training Bridge","Gold Coast I","activ","Simulator voyages."],
+["sat","14:00","16:00","Training Bridge","Gold Coast I","activ","Simulator voyages, second block."],
+["sat","09:00","12:00","Ship Maintenance","Gold Coast II","activ","Engineer-led maintenance tours."],
+["sat","14:00","16:00","Ship Maintenance","Gold Coast II","activ","Maintenance tours, second block."],
+["sat","09:00","15:00","Merchant Marketplace","Universal D1 to D3","shop","Final day of shopping. Closes at 3 pm."],
+["sat","09:20","09:50","Faction HQ Experiences","Port of Call (Universal E1 to E3, F2 to F3)","activ","Walk-in sessions at five establishments."],
+["sat","11:05","11:35","Faction HQ Experiences","Port of Call (Universal E1 to E3, F2 to F3)","activ","Second session block."],
+["sat","14:20","14:50","Faction HQ Experiences","Port of Call (Universal E1 to E3, F2 to F3)","activ","Third session block."],
+["sat","16:05","16:35","Faction HQ Experiences","Port of Call (Universal E1 to E3, F2 to F3)","activ","Fourth session block."],
+["sat","09:30","10:00","CSL Gallery Guided Tour","Space Coast II","activ","Guided exhibition tour."],
+["sat","14:30","15:00","CSL Gallery Guided Tour","Space Coast II","activ","Guided exhibition tour."],
+["sat","10:00","10:50","Dance Party with Gaya","Sun and Surf II to III","progA","Dance lesson and celebration. Lightsabers encouraged."],
+["sat","10:00","10:50","Seize Your Inner Power!","Sun and Surf IV","progB","Motivational session. Everyone gets a free LEGO gift."],
+["sat","11:30","14:00","Lunch: The N'Orlando Meal","Crown of Cantonica and Crown of Serenno (Seminole B, C, E)","food","Boxed meal, $30, with collector cards. Card payment only."],
+["sat","12:00","13:45","Surprise Lunch Acts","Crown of Cantonica and Crown of Serenno (Seminole B, C, E)","shows","Unannounced performance."],
+["sat","12:00","17:00","Sabacc for Charity Cantina","Sabacc Den (Universal C1 to C3)","sabacc","Cantina open. Tournament registration."],
+["sat","18:15","21:00","Sabacc for Charity Cantina","Sabacc Den (Universal C1 to C3)","sabacc","Cantina, evening block."],
+["sat","14:00","14:50","Aurateran Devotion Ceremony","Sun and Surf II to III","progA","A communal ceremony for love and connection."],
+["sat","14:00","14:50","The Syndicate","Sun and Surf IV","progB","Interactive puzzle adventure with a Grand Prize."],
+["sat","14:30","15:30","Creature Contest","Merchant Marketplace (Universal D1 to D3)","shows","Contest. The schedule gives no other details."],
+["sat","15:00","15:50","The Mustafarian Tip-Yip Challenge","Sun and Surf IV","progB","HoloNet interview game show. Contestants must be 18+."],
+["sat","17:15","17:45","Faction Gatherings","Various","story","Invite-only gatherings for faction Mission participants."],
+["sat","17:45","18:15","Main Finale","Atrium (Seminole C)","story","Closing scene for all passengers."],
+["sat","18:30","20:30","Charity Sabacc Tournament","Sabacc Den (Universal C1 to C3)","sabacc","Charity tournament. Winners announced about 8:30 pm."],
+["sat","19:00","22:00","Starcruiser Celebration","Atrium (Seminole C)","story","Doors at 7 pm, dancing from 7:30 pm."]
+];
+
+function mins(t){ var p=t.split(":"); return +p[0]*60 + +p[1]; }
+function fmt(m){ var h=Math.floor(m/60), mm=m%60; return (h%12||12)+(mm?":"+String(mm).padStart(2,"0"):"")+(h<12?" am":" pm"); }
+function slug(s){ return s.toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,""); }
+
+var EVENTS = RAW.map(function(r){
+  return {id:r[0]+"-"+r[1].replace(":","")+"-"+slug(r[3]), day:r[0], s:mins(r[1]), e:mins(r[2]), title:r[3], loc:r[4], cat:r[5], desc:r[6], openEnd:!!r[7]};
+});
+var CATMAP = {}; CATS.forEach(function(c){ CATMAP[c[0]]={name:c[1],v:c[2]}; });
+
+// ---- state ----
+var KEY="halcycon3-planner-v1";
+var state = {day:null, off:{}, star:{}, hide:{}, onlyStar:false, catsOpen:true};
+try{ var saved=JSON.parse(localStorage.getItem(KEY)||"null"); if(saved&&typeof saved==="object"){ for(var k in state){ if(k in saved) state[k]=saved[k]; } } }catch(e){}
+function save(){ try{ localStorage.setItem(KEY, JSON.stringify(state)); }catch(e){} }
+
+function etNow(){ return new Date(); }
+function dayStartUTC(d){ return new Date(d[3]+"T00:00:00-04:00"); }
+if(!state.day){
+  var n=etNow(), pick="thu";
+  DAYS.forEach(function(d){ var st=dayStartUTC(d); if(n>=st && n<new Date(st.getTime()+864e5)) pick=d[0]; });
+  state.day=pick;
+}
+
+var $=function(id){ return document.getElementById(id); };
+function esc(s){ return String(s).replace(/[&<>"']/g,function(c){ return {"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[c]; }); }
+
+function visible(ev){
+  if(state.hide[ev.id]) return false;
+  if(state.onlyStar) return !!state.star[ev.id];
+  return !state.off[ev.cat];
+}
+
+// ---- controls ----
+function renderDays(){
+  $("days").innerHTML = DAYS.map(function(d){
+    return '<button class="day" data-day="'+d[0]+'" aria-pressed="'+(state.day===d[0])+'">'+d[1]+'<span>'+d[2]+'</span></button>';
+  }).join("");
+}
+function renderCats(){
+  var dayEv = EVENTS.filter(function(e){ return e.day===state.day; });
+  $("cats").innerHTML = CATS.map(function(c){
+    var n = dayEv.filter(function(e){ return e.cat===c[0]; }).length;
+    return '<button class="cat" style="--cc:var('+c[2]+')" data-cat="'+c[0]+'" aria-pressed="'+(!state.off[c[0]])+'"><i></i>'+esc(c[1])+' <b>'+n+'</b></button>';
+  }).join("");
+  $("onlyStar").setAttribute("aria-pressed", String(!!state.onlyStar));
+  var p=$("catPanel"); p.classList.toggle("closed", !state.catsOpen);
+  $("toggleCats").textContent = state.catsOpen ? "Hide switches" : "Show switches";
+  $("toggleCats").setAttribute("aria-expanded", String(!!state.catsOpen));
+}
+
+// ---- grid ----
+function renderGrid(){
+  var outer=$("gridOuter");
+  var list = EVENTS.filter(function(e){ return e.day===state.day && visible(e); }).sort(function(a,b){ return a.s-b.s || (b.e-b.s)-(a.e-a.s); });
+  var all = EVENTS.filter(function(e){ return e.day===state.day; });
+  var start = Math.floor(Math.min.apply(null, all.map(function(e){return e.s;}))/60)*60;
+  var end = Math.ceil(Math.max.apply(null, all.map(function(e){return e.e;}))/60)*60;
+  var ppm = 1.5, PAD=12, H=(end-start)*ppm+PAD;
+
+  // greedy lane assignment
+  var laneEnds=[];
+  list.forEach(function(e){
+    var i=0; while(i<laneEnds.length && laneEnds[i]>e.s) i++;
+    e.lane=i; laneEnds[i]=e.e;
+  });
+  var lanes=Math.max(1,laneEnds.length);
+  var laneW = 150, gap=4;
+  var minW = lanes*(laneW+gap)+gap;
+
+  var hours="", lines="";
+  for(var m=start;m<=end;m+=30){
+    var y=(m-start)*ppm+PAD;
+    if(m%60===0) hours+='<div class="hour" style="top:'+y+'px">'+fmt(m)+'</div>';
+    lines+='<div class="hline'+(m%60?' half':'')+'" style="top:'+y+'px"></div>';
   }
-  function fmtCode(s){return (s||'').toUpperCase().replace(/[^A-Z0-9]+/g,' ').trim();}
-  var ROOT='CINDER SEVEN';
+  var evs = list.map(function(e){
+    var top=(e.s-start)*ppm+PAD+1, h=Math.max(18,(e.e-e.s)*ppm-2);
+    var left=gap+e.lane*(laneW+gap);
+    var c=CATMAP[e.cat].v, st=!!state.star[e.id];
+    return '<button class="ev'+(h<44?' short':'')+(st?' starred':'')+'" data-id="'+e.id+'" style="--cc:var('+c+');top:'+top+'px;height:'+h+'px;left:'+left+'px;width:'+laneW+'px" aria-label="'+esc(e.title+", "+fmt(e.s)+" to "+fmt(e.e))+'">'+
+      (st?'<span class="st" aria-hidden="true">★</span>':'')+
+      '<span class="t">'+esc(e.title)+'</span><span class="s">'+fmt(e.s)+' · '+esc(e.loc)+'</span></button>';
+  }).join("");
 
-  var state={name:'',step:0,sponsor:'',outcome:''};
-  try{var saved=JSON.parse(localStorage.getItem('bountyFile7')||'null');if(saved&&typeof saved.step==='number'){state=saved;}}catch(e){}
-  function save(){try{localStorage.setItem('bountyFile7',JSON.stringify(state));}catch(e){}}
-  var sections=['intro','p1','p2','p3','p4','done'];
-  function render(){
-    sections.forEach(function(id,i){$(id).hidden=(i!==state.step);});
-    for(var i=1;i<=4;i++){var el=$('s'+i);el.className='step'+(state.step>i?' done':(state.step===i?' active':''));}
-    $('statusBadge').textContent=state.step===5?(state.outcome==='RS'?'Deleted':(state.outcome==='CL'?'Closed':'Claimed')):(state.step===0?'Open':'In review');
-    document.body.className=(state.step===5&&state.outcome!=='FO')?'resist':'';
-    if(state.step===0&&state.name){$('qname').value=state.name;}
-    if(state.step===5){fillDone();}
-  }
-  function fillDone(){
-    var n=(state.name||'UNNAMED HUNTER').toUpperCase();
-    var o=state.outcome, rs=o==='RS', cl=o==='CL';
-    $('hdrEyebrow').textContent=(rs||cl)?'Resistance Logistics Net // Encrypted':'First Order Security Bureau // Bounty Terminal';
-    $('hdrTitle').textContent=rs?'File 7-Kreel: Deleted':(cl?'File 7-Kreel: Closed':'Bounty File 7-Kreel');
-    $('doneTitle').textContent=rs?'File deleted':(cl?'File closed':'Bounty claimed');
-    $('doneScript').innerHTML=cl
-      ?'<b>&gt; TERMINAL</b> Counter-filing accepted with two signatures on record. File 7-Kreel is closed as a non-match. Subject cleared by Bureau review.\n<i>&gt; STOKER</i> Deleting it would have bought me a month. The two of you bought me a year, and you got the Bureau to do the paperwork.\n<i>&gt; STOKER</i> I don\'t know how I pay that back. Walk light.'
-      :rs
-      ?'<b>&gt; TERMINAL</b> File 7-Kreel purged. No record retained.\n<i>&gt; STOKER</i> You had forty thousand reasons to file that, and you didn\'t. That buys me a month, maybe, and it\'s more than most people would give me.\n<i>&gt; STOKER</i> Walk light.'
-      :'<b>&gt; TERMINAL</b> Disposition logged. Payment authorized on capture.\n<b>&gt; KREEL</b> Good work. Bring him to me alive and the credits are yours.\n<i>&gt; STOKER</i> So that\'s how it goes. Tell me when.';
-    $('cKind').textContent=rs?'Resistance clearance':(cl?'Bureau counter-filing':'First Order bounty voucher');
-    $('cOutcome').textContent=rs?'FILE DELETED · SUBJECT CLEARED':(cl?'FILE CLOSED · NO MATCH':'MATCH CONFIRMED · 40,000 CR');
-    $('cName').textContent=n;
-    $('cSponsor').textContent=state.sponsor||'···';
-    var d=new Date(state.filedAt||Date.now());
-    $('cTime').textContent=d.toLocaleDateString(undefined,{year:'numeric',month:'short',day:'numeric'})+' · '+d.toLocaleTimeString(undefined,{hour:'2-digit',minute:'2-digit'});
-    $('cStamp').textContent=rs?'CLEARED · RELAY 7':(cl?'CLOSED · FOSB':'BOUNTY · FOSB');
-    $('cStamp').className='stamp'+(cl?' gold':'');
-    $('phrase').textContent=rs?'"I deleted the file."':(cl?'"Kreel\'s looking in the wrong place."':'"Kreel sends his regards."');
-    $('myCode').textContent=codeFor(n);
-    $('foot').textContent=(rs||cl)?'Walk light.':'Every file has two ends.';
-  }
-  function setMsg(id,text,cls){var m=$(id);m.textContent=text;m.className='msg '+(cls||'');}
-  function advance(){state.step++;save();render();window.scrollTo({top:0,behavior:'smooth'});}
+  var now=etNow(), d=DAYS.filter(function(x){return x[0]===state.day;})[0], nowHtml="";
+  var nm=(now-dayStartUTC(d))/60000;
+  if(nm>=start && nm<=end) nowHtml='<div class="now" style="top:'+((nm-start)*ppm+PAD)+'px"></div>';
 
-  $('startBtn').onclick=function(){var v=$('qname').value.trim();if(!v){$('qname').focus();return;}state.name=v;advance();};
-  $('qname').addEventListener('keydown',function(e){if(e.key==='Enter')$('startBtn').click();});
+  outer.innerHTML = list.length ? '<div class="grid" style="height:'+(H+8)+'px"><div class="hours" style="height:'+(H+8)+'px">'+hours+'</div><div class="lanes" style="min-width:'+minW+'px;height:'+(H+8)+'px">'+lines+nowHtml+evs+'</div></div>'
+    : '<div class="empty">Nothing to show. Turn a category back on, or star a few events and use Starred only.</div>';
+}
 
-  var w1=0,wrong1=['That isn\'t what he said.','Row first, then column. Check it again.','Nine pairs, two words. Something in there is off.'];
-  $('b1').onclick=function(){
-    if(btoa(norm($('a1').value))===K1){setMsg('m1','Logged. Same sign-off the academy recorded.','good');setTimeout(advance,700);}
-    else{setMsg('m1',wrong1[w1++%wrong1.length],'bad');}
-  };
-  $('a1').addEventListener('keydown',function(e){if(e.key==='Enter')$('b1').click();});
-  $('h1').onclick=function(){$('hint1').hidden=false;};
+// ---- lists ----
+function renderLists(){
+  var d=DAYS.filter(function(x){return x[0]===state.day;})[0];
+  $("planDay").textContent=d[1];
+  var plan = EVENTS.filter(function(e){ return e.day===state.day && state.star[e.id]; }).sort(function(a,b){return a.s-b.s;});
+  $("plan").innerHTML = plan.length ? plan.map(function(e,i){
+    var clash = plan.some(function(o){ return o!==e && o.s<e.e && e.s<o.e; });
+    return '<li style="--cc:var('+CATMAP[e.cat].v+')"><span class="tm">'+fmt(e.s)+'<br>'+fmt(e.e)+'</span><span class="nm"><i class="sw"></i>'+esc(e.title)+'<span>'+esc(e.loc)+'</span>'+(clash?'<span class="clash">Overlaps another starred event</span>':'')+'</span><button class="link" data-open="'+e.id+'">Open</button></li>';
+  }).join("") : '<li><span class="tm"></span><span class="nm">Nothing starred yet<span>Tap an event on the calendar, then tap Star.</span></span><span></span></li>';
 
-  $('b2').onclick=function(){
-    var s=$('a2s').value;
-    if(!s){setMsg('m2','Pick a ship.','bad');return;}
-    if(s==='Ember'){setMsg('m2','Bay 2. Consular hull under a smuggler\'s name.','good');$('p2b').hidden=false;$('b2').disabled=true;$('a2s').disabled=true;setTimeout(function(){$('p2b').scrollIntoView({behavior:'smooth',block:'start'});},200);}
-    else{setMsg('m2','The dock log doesn\'t support that. Try again.','bad');}
-  };
-  $('h2').onclick=function(){$('hint2').hidden=false;};
-  var w2=0,wrong2=['No plaque at relay 7 says that.','Look at the burned letters again.','You have part of it. It wants all three words.'];
-  $('b2n').onclick=function(){
-    var v=norm($('a2n').value); if(v==='LASTLIGHT'){v='THELASTLIGHT';}
-    if(btoa(v)===K2){setMsg('m2n','Logged. The academy\'s missing transport, found.','good');setTimeout(advance,700);}
-    else{setMsg('m2n',wrong2[w2++%wrong2.length],'bad');}
-  };
-  $('a2n').addEventListener('keydown',function(e){if(e.key==='Enter')$('b2n').click();});
-  $('h2n').onclick=function(){$('hint2n').hidden=false;};
+  var hid = EVENTS.filter(function(e){ return state.hide[e.id]; }).sort(function(a,b){ return DAYS.map(function(x){return x[0];}).indexOf(a.day)-DAYS.map(function(x){return x[0];}).indexOf(b.day) || a.s-b.s; });
+  $("hiddenList").innerHTML = hid.length ? hid.map(function(e){
+    var dn=DAYS.filter(function(x){return x[0]===e.day;})[0][1].slice(0,3);
+    return '<li style="--cc:var('+CATMAP[e.cat].v+')"><span class="tm">'+dn+'<br>'+fmt(e.s)+'</span><span class="nm"><i class="sw"></i>'+esc(e.title)+'<span>'+esc(e.loc)+'</span></span><button class="link" data-unhide="'+e.id+'">Show</button></li>';
+  }).join("") : '<li><span class="tm"></span><span class="nm">No hidden events<span>Open an event and tap Hide to take it off the calendar.</span></span><span></span></li>';
+}
 
-  var w3=0,wrong3=['Nobody at relay 7 answers to that.','Sand it down instead of rebuilding it.','It\'s one word, and it sounds like the old one.'];
-  $('b3').onclick=function(){
-    if(btoa(norm($('a3').value))===K3){setMsg('m3','Match confirmed.','good');setTimeout(advance,700);}
-    else{setMsg('m3',wrong3[w3++%wrong3.length],'bad');}
-  };
-  $('a3').addEventListener('keydown',function(e){if(e.key==='Enter')$('b3').click();});
-  $('h3').onclick=function(){$('hint3').hidden=false;};
+function renderAll(){ renderDays(); renderCats(); renderGrid(); renderLists(); }
 
-  function sponsorOK(){var sp=fmtCode($('sponsor').value);return sp===ROOT||validCode(sp);}
-  function file(outcome){
-    var sp=fmtCode($('sponsor').value);
-    if(outcome==='CL'&&!sponsorOK()){setMsg('m4','That code isn\'t on file.','bad');$('sponsor').focus();return;}
-    state.sponsor=sponsorOK()?sp:'';state.outcome=outcome;state.filedAt=Date.now();advance();
-  }
-  function checkSponsor(){
-    var sp=fmtCode($('sponsor').value);
-    if(!sp){setMsg('m4','Enter a code first.','bad');return;}
-    if(sponsorOK()){setMsg('m4','Witness verified. A third option is open to you.','good');$('chooseCL').hidden=false;}
-    else{setMsg('m4','That code isn\'t on file.','bad');$('chooseCL').hidden=true;}
-  }
-  $('checkSponsor').onclick=checkSponsor;
-  $('sponsor').addEventListener('keydown',function(e){if(e.key==='Enter'){e.preventDefault();checkSponsor();}});
-  $('sponsor').addEventListener('input',function(){if(sponsorOK()){$('chooseCL').hidden=false;setMsg('m4','Witness verified. A third option is open to you.','good');}else{$('chooseCL').hidden=true;}});
-  $('chooseFO').onclick=function(){file('FO');};
-  $('chooseRS').onclick=function(){file('RS');};
-  $('chooseCL').onclick=function(){file('CL');};
+// ---- detail sheet ----
+var current=null;
+function openEv(id){
+  var e=EVENTS.filter(function(x){return x.id===id;})[0]; if(!e) return; current=e;
+  var c=CATMAP[e.cat], d=DAYS.filter(function(x){return x[0]===e.day;})[0];
+  var st=!!state.star[e.id], hd=!!state.hide[e.id];
+  $("sheet").style.setProperty("--cc","var("+c.v+")");
+  $("sheet").innerHTML =
+    '<span class="tag">'+esc(c.name)+'</span><h3>'+esc(e.title)+'</h3>'+
+    '<dl><dt>When</dt><dd>'+d[1]+', '+fmt(e.s)+(e.openEnd?' (end time not listed)':' to '+fmt(e.e))+'</dd>'+
+    '<dt>Where</dt><dd>'+esc(e.loc)+'</dd><dt>About</dt><dd>'+esc(e.desc)+'</dd></dl>'+
+    '<div class="acts"><button class="btn star" id="bStar" aria-pressed="'+st+'">'+(st?'★ Starred':'☆ Star')+'</button>'+
+    '<button class="btn" id="bHide">'+(hd?'Show on calendar':'Hide this event')+'</button>'+
+    '<button class="btn primary" id="bClose">Done</button></div>';
+  $("bStar").onclick=function(){ if(state.star[e.id]) delete state.star[e.id]; else state.star[e.id]=1; save(); renderAll(); openEv(e.id); };
+  $("bHide").onclick=function(){ if(state.hide[e.id]) delete state.hide[e.id]; else state.hide[e.id]=1; save(); renderAll(); $("dlg").close(); };
+  $("bClose").onclick=function(){ $("dlg").close(); };
+  if(!$("dlg").open) $("dlg").showModal();
+}
+$("dlg").addEventListener("click",function(ev){ if(ev.target===this) this.close(); });
 
-  $('copyBtn').onclick=function(){
-    var t=$('myCode').textContent;
-    var ok=function(){setMsg('mCopy','Copied.','good');};
-    var fail=function(){var r=document.createRange();r.selectNodeContents($('myCode'));var s=window.getSelection();s.removeAllRanges();s.addRange(r);setMsg('mCopy','Selected. Copy it by hand.','');};
-    try{navigator.clipboard.writeText(t).then(ok,fail);}catch(e){fail();}
-  };
-  $('resetBtn').onclick=function(){
-    state={name:'',step:0,sponsor:'',outcome:''};save();
-    ['a1','a2n','a3','qname','sponsor'].forEach(function(i){$(i).value='';});
-    $('a2s').value='';$('a2s').disabled=false;$('b2').disabled=false;$('p2b').hidden=true;
-    ['hint1','hint2','hint2n','hint3','chooseCL'].forEach(function(i){$(i).hidden=true;});
-    ['m1','m2','m2n','m3','m4','mCopy'].forEach(function(i){setMsg(i,'','');});
-    $('hdrEyebrow').textContent='First Order Security Bureau // Bounty Terminal';$('hdrTitle').textContent='Bounty File 7-Kreel';$('foot').textContent='FOSB terminal · relay 7';
-    render();
-  };
-  render();
+// ---- events ----
+$("days").addEventListener("click",function(ev){ var b=ev.target.closest("[data-day]"); if(!b) return; state.day=b.dataset.day; save(); renderAll(); $("gridOuter").scrollTop=0; });
+$("cats").addEventListener("click",function(ev){ var b=ev.target.closest("[data-cat]"); if(!b) return; var k=b.dataset.cat; if(state.off[k]) delete state.off[k]; else state.off[k]=1; state.onlyStar=false; save(); renderAll(); });
+$("onlyStar").onclick=function(){ state.onlyStar=!state.onlyStar; save(); renderAll(); };
+$("allOn").onclick=function(){ state.off={}; state.onlyStar=false; save(); renderAll(); };
+$("allOff").onclick=function(){ CATS.forEach(function(c){ state.off[c[0]]=1; }); state.onlyStar=false; save(); renderAll(); };
+$("toggleCats").onclick=function(){ state.catsOpen=!state.catsOpen; save(); renderCats(); };
+$("gridOuter").addEventListener("click",function(ev){ var b=ev.target.closest(".ev"); if(b) openEv(b.dataset.id); });
+document.querySelector(".lower").addEventListener("click",function(ev){
+  var o=ev.target.closest("[data-open]"); if(o){ openEv(o.dataset.open); return; }
+  var u=ev.target.closest("[data-unhide]"); if(u){ delete state.hide[u.dataset.unhide]; save(); renderAll(); }
+});
+
+renderAll();
+setInterval(renderGrid, 60000);
 })();
 </script>
 
