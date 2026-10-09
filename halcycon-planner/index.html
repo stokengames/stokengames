@@ -1,0 +1,428 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#08111c">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Halcy-Con">
+<link rel="apple-touch-icon" sizes="180x180" href="icons/halcycon-180.png">
+<link rel="icon" type="image/png" sizes="64x64" href="icons/halcycon-64.png">
+<link rel="icon" type="image/png" sizes="192x192" href="icons/halcycon-192.png">
+<style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>Halcy-Con 3 Planner</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Oxanium:wght@500;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: ship's bridge console. Day tabs on top, category switches as a control panel, a scrollable time grid below. */
+:root{
+  --bg:#eef2f6; --panel:#ffffff; --panel-2:#e3e9f0; --line:#c9d3de; --fg:#122033; --muted:#55657a;
+  --accent:#0a6f8f; --accent-ink:#ffffff; --star:#b7791f; --now:#c2410c;
+  --c-story:#7c3aed; --c-progA:#0e7490; --c-progB:#1d4ed8; --c-activ:#047857; --c-saber:#be123c;
+  --c-sabacc:#a16207; --c-shows:#c026d3; --c-food:#ea580c; --c-shop:#4b5563; --c-logi:#64748b;
+  --ev-alpha:.14;
+  --f-display:"Oxanium","Eurostile","Bank Gothic",system-ui,sans-serif;
+  --f-body:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,"SFMono-Regular",Menlo,monospace;
+  --ppm:1.5; /* pixels per minute */
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
+  --bg:#08111c; --panel:#0e1a28; --panel-2:#132235; --line:#22364d; --fg:#dbe7f3; --muted:#8aa0b8;
+  --accent:#38bdf8; --accent-ink:#04121d; --star:#fbbf24; --now:#fb923c;
+  --c-story:#a78bfa; --c-progA:#22d3ee; --c-progB:#60a5fa; --c-activ:#34d399; --c-saber:#fb7185;
+  --c-sabacc:#facc15; --c-shows:#e879f9; --c-food:#fb923c; --c-shop:#9ca3af; --c-logi:#94a3b8;
+  --ev-alpha:.2; color-scheme:dark }}
+:root[data-theme="dark"]{
+  --bg:#08111c; --panel:#0e1a28; --panel-2:#132235; --line:#22364d; --fg:#dbe7f3; --muted:#8aa0b8;
+  --accent:#38bdf8; --accent-ink:#04121d; --star:#fbbf24; --now:#fb923c;
+  --c-story:#a78bfa; --c-progA:#22d3ee; --c-progB:#60a5fa; --c-activ:#34d399; --c-saber:#fb7185;
+  --c-sabacc:#facc15; --c-shows:#e879f9; --c-food:#fb923c; --c-shop:#9ca3af; --c-logi:#94a3b8;
+  --ev-alpha:.2; color-scheme:dark }
+
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font:15px/1.45 var(--f-body);padding-inline:16px;padding-block:0 40px}
+.wrap{max-width:1180px;margin:0 auto}
+header{padding-block:22px 6px;display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:8px 20px}
+h1{font:700 clamp(26px,5vw,38px)/1 var(--f-display);letter-spacing:.02em;margin:0;text-wrap:balance}
+h1 small{display:block;font:500 12px/1 var(--f-mono);letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+.meta{font:400 13px/1.4 var(--f-mono);color:var(--muted);text-align:right}
+@media (max-width:640px){.meta{text-align:left}}
+
+.bar{background:var(--bg);padding-block:10px;display:flex;flex-direction:column;gap:10px;border-bottom:1px solid var(--line)}
+.days{display:flex;gap:6px}
+.day{flex:1;min-width:0;font:600 14px/1.1 var(--f-display);letter-spacing:.04em;padding:10px 8px;border-radius:8px;border:1px solid var(--line);background:var(--panel);color:var(--fg);cursor:pointer;text-align:center}
+.day span{display:block;font:400 11px/1.2 var(--f-mono);color:var(--muted);margin-top:3px;letter-spacing:.06em}
+.day[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.day[aria-pressed="true"] span{color:var(--accent-ink);opacity:.8}
+
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:10px}
+.panel-head{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px;margin-bottom:8px}
+.label{font:500 11px/1 var(--f-mono);letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.mini{display:flex;flex-wrap:wrap;gap:6px}
+.mini button{font:500 12px/1 var(--f-body);padding:7px 10px;border-radius:999px;border:1px solid var(--line);background:var(--panel-2);color:var(--fg);cursor:pointer}
+.mini button[aria-pressed="true"]{background:var(--star);border-color:var(--star);color:var(--accent-ink)}
+.cats{display:flex;flex-wrap:wrap;gap:6px}
+.cat{display:flex;align-items:center;gap:7px;font:500 13px/1 var(--f-body);padding:7px 11px 7px 8px;border-radius:999px;border:1px solid var(--line);background:var(--panel-2);color:var(--fg);cursor:pointer}
+.cat i{width:12px;height:12px;border-radius:3px;background:var(--cc);flex:none;border:2px solid var(--cc)}
+.cat b{font:400 11px/1 var(--f-mono);color:var(--muted)}
+.cat[aria-pressed="false"]{opacity:.55;text-decoration:line-through}
+.cat[aria-pressed="false"] i{background:transparent}
+.collapse{display:none}
+@media (max-width:640px){
+  .collapse{display:inline-block}
+  .panel.closed .cats{display:none}
+}
+
+.note{font-size:13px;color:var(--muted);margin:10px 0 0}
+.grid-outer{margin-top:14px;border:1px solid var(--line);border-radius:10px;background:var(--panel);overflow:auto;max-height:78vh;min-height:360px;position:relative;-webkit-overflow-scrolling:touch}
+.grid{position:relative;display:grid;grid-template-columns:58px 1fr;width:max-content;min-width:100%}
+.hours{position:sticky;left:0;z-index:6;background:var(--panel);border-right:1px solid var(--line)}
+.hour{position:absolute;left:0;right:0;font:500 11px/1 var(--f-mono);color:var(--muted);text-align:right;padding-right:8px;transform:translateY(-6px);font-variant-numeric:tabular-nums}
+.lanes{position:relative}
+.hline{position:absolute;left:0;right:0;border-top:1px solid var(--line)}
+.hline.half{border-top-style:dashed;opacity:.5}
+.ev{position:absolute;display:flex;flex-direction:column;justify-content:flex-start;align-items:stretch;border-radius:7px;padding:5px 7px 5px 9px;overflow:hidden;cursor:pointer;text-align:left;font:inherit;color:var(--fg);
+  background:color-mix(in srgb,var(--cc) calc(var(--ev-alpha)*100%),var(--panel));border:1px solid color-mix(in srgb,var(--cc) 55%,transparent);border-left:4px solid var(--cc)}
+.ev:hover,.ev:focus-visible{z-index:5;outline:2px solid var(--cc);outline-offset:1px}
+.ev .t{font:600 12.5px/1.2 var(--f-body);display:block;overflow:hidden;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical}
+.ev .s{font:400 11px/1.25 var(--f-mono);color:var(--muted);display:block;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ev.short .s{display:none}
+.ev.short .t{-webkit-line-clamp:1}
+.ev .st{position:absolute;top:3px;right:5px;color:var(--star);font-size:13px;line-height:1}
+.ev.starred{box-shadow:inset 0 0 0 1px var(--star)}
+.now{position:absolute;left:0;right:0;border-top:2px solid var(--now);z-index:7;pointer-events:none}
+.now::before{content:"NOW";position:absolute;left:4px;top:-9px;font:700 9px/1 var(--f-mono);background:var(--now);color:var(--accent-ink);padding:2px 4px;border-radius:3px}
+.empty{padding:40px 16px;text-align:center;color:var(--muted)}
+
+.lower{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px}
+@media (max-width:760px){.lower{grid-template-columns:1fr}}
+.lower h2{font:700 15px/1.2 var(--f-display);letter-spacing:.04em;margin:0 0 8px}
+.agenda{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px}
+.agenda li{display:grid;grid-template-columns:72px 1fr auto;gap:10px;align-items:start;padding:8px;border-radius:8px;background:var(--panel-2);min-width:0}
+.agenda .tm{font:500 12px/1.3 var(--f-mono);font-variant-numeric:tabular-nums;color:var(--muted)}
+.agenda .nm{font-weight:600;min-width:0}
+.agenda .nm span{display:block;font:400 12px/1.3 var(--f-body);color:var(--muted)}
+.agenda .sw{width:10px;height:10px;border-radius:3px;background:var(--cc);display:inline-block;margin-right:6px;vertical-align:1px}
+.link{background:none;border:0;color:var(--accent);font:600 12px/1 var(--f-body);cursor:pointer;padding:4px}
+.clash{color:var(--now);font:600 11px/1.3 var(--f-mono)}
+
+dialog{border:1px solid var(--line);border-radius:14px;background:var(--panel);color:var(--fg);padding:0;width:min(460px,calc(100vw - 32px))}
+dialog::backdrop{background:rgba(5,12,20,.55)}
+.sheet{padding:18px;display:flex;flex-direction:column;gap:10px}
+.sheet .tag{font:500 11px/1 var(--f-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--cc)}
+.sheet h3{font:700 21px/1.15 var(--f-display);margin:0;text-wrap:balance}
+.sheet dl{display:grid;grid-template-columns:80px 1fr;gap:6px 10px;margin:0;font-size:14px}
+.sheet dt{font:500 11px/1.6 var(--f-mono);letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.sheet dd{margin:0}
+.sheet .acts{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
+.btn{flex:1 1 auto;font:600 14px/1 var(--f-body);padding:11px 14px;border-radius:9px;border:1px solid var(--line);background:var(--panel-2);color:var(--fg);cursor:pointer}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.btn.star[aria-pressed="true"]{background:var(--star);border-color:var(--star);color:var(--accent-ink)}
+button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+footer{margin-top:22px;font-size:12px;color:var(--muted)}
+footer a{color:var(--accent)}
+@media (prefers-reduced-motion:no-preference){.ev{transition:outline-color .15s}}
+.brand{display:flex;align-items:flex-end;gap:12px}.brand img{width:44px;height:44px;border-radius:10px;box-shadow:0 0 0 1px var(--line)}
+</style>
+</head>
+<body>
+
+
+<div class="wrap">
+  <header>
+    <div class="brand"><img src="icons/halcycon-64.png" alt="" width="44" height="44"><h1><small>Halcy-Con 3 · Oct 15 to 17, 2026</small>Voyage Planner</h1></div>
+    <div class="meta">DoubleTree by Hilton<br>Entrance to Universal Orlando</div>
+  </header>
+
+  <div class="bar">
+    <div class="days" id="days" role="group" aria-label="Day"></div>
+    <div class="panel" id="catPanel">
+      <div class="panel-head">
+        <span class="label">Show on calendar</span>
+        <div class="mini">
+          <button id="onlyStar" aria-pressed="false">★ Starred only</button>
+          <button id="allOn">All on</button>
+          <button id="allOff">All off</button>
+          <button id="toggleCats" class="collapse" aria-expanded="true">Hide switches</button>
+        </div>
+      </div>
+      <div class="cats" id="cats"></div>
+    </div>
+  </div>
+
+  <div class="grid-outer" id="gridOuter" tabindex="0" aria-label="Schedule grid"></div>
+
+  <div class="lower">
+    <section class="panel">
+      <h2>Your plan for <span id="planDay"></span></h2>
+      <ul class="agenda" id="plan"></ul>
+    </section>
+    <section class="panel">
+      <h2>Hidden events</h2>
+      <ul class="agenda" id="hiddenList"></ul>
+    </section>
+  </div>
+
+  <footer>
+    Schedule copied from <a href="https://halcy-con.com/attend/event-schedule/" target="_blank" rel="noopener">halcy-con.com</a> on Oct 9, 2026. The con says programming is subject to change, so check the official page before you go. The categories are mine, not the con's. Your switches, stars and hidden events stay in this browser and nowhere else.
+  </footer>
+</div>
+
+<dialog id="dlg"><div class="sheet" id="sheet"></div></dialog>
+
+<script>
+(function(){
+"use strict";
+var CATS = [
+  ["story","Main story","--c-story"],
+  ["progA","Ship Programs A","--c-progA"],
+  ["progB","Ship Programs B","--c-progB"],
+  ["activ","Ship activities","--c-activ"],
+  ["saber","Lightsaber and Saja","--c-saber"],
+  ["sabacc","Sabacc","--c-sabacc"],
+  ["shows","Shows","--c-shows"],
+  ["food","Meals","--c-food"],
+  ["shop","Marketplace","--c-shop"],
+  ["logi","Arrival","--c-logi"]
+];
+var DAYS = [["thu","Thursday","Oct 15","2026-10-15"],["fri","Friday","Oct 16","2026-10-16"],["sat","Saturday","Oct 17","2026-10-17"]];
+
+// [day, start, end, title, location, category, description, endNotListed]
+var RAW = [
+["thu","16:00","16:30","Badge Pickup","Universal Registration","logi","Pick up your badge. Available regardless of boarding group.",1],
+["thu","17:00","19:00","Boarding Groups","Port of Call","logi","Board in your assigned group."],
+["thu","17:00","20:00","Faction Recruitment","Faction HQs and Shrine of the Whills, Port of Call","story","Meet the factions and get Mission Pins."],
+["thu","17:00","20:00","Merchant Marketplace","Universal D1 to D3","shop","Shopping with merchants. Merchant hours vary."],
+["thu","20:30","23:00","Merchant Marketplace","Universal D1 to D3","shop","Shopping, second block."],
+["thu","18:00","20:00","Training Bridge","Gold Coast I","activ","Simulator voyages for crews."],
+["thu","20:30","22:00","Training Bridge","Gold Coast I","activ","Simulator voyages, second block."],
+["thu","18:00","20:00","Ship Maintenance","Gold Coast II","activ","Engineer-led tours of the maintenance room."],
+["thu","20:30","22:00","Ship Maintenance","Gold Coast II","activ","Maintenance tours, second block."],
+["thu","18:00","20:00","CSL Gallery","Space Coast II","activ","Shrine of the Whills exhibition and guided tours."],
+["thu","20:30","22:00","CSL Gallery","Space Coast II","activ","Exhibition, second block."],
+["thu","19:15","20:00","Sabacc for Charity: Open Gaming","Sabacc Den (Universal C1 to C3)","sabacc","Casual card play for charity."],
+["thu","20:30","22:00","Sabacc for Charity: Open Gaming","Sabacc Den (Universal C1 to C3)","sabacc","Casual card play, second block."],
+["thu","20:00","20:30","Voyage Muster","Atrium (Seminole C)","story","Official opening scene for all passengers."],
+["thu","20:45","21:45","The Wretched Hive","Atrium (Seminole C)","shows","Smuggler crew shanty performance."],
+
+["fri","09:00","09:50","101st Annual Galactic Artisan Faire","Sun and Surf II to III","progA","Makers' fair with crafts, trading and workshops."],
+["fri","09:00","09:50","Encounter at Twin Suns: The Truth Revealed","Sun and Surf IV","progB","HoloNet interview panel on a mysterious transformation."],
+["fri","09:00","12:00","Training Bridge","Gold Coast I","activ","Simulator voyages."],
+["fri","14:00","21:00","Training Bridge","Gold Coast I","activ","Simulator voyages, second block."],
+["fri","09:00","12:00","Ship Maintenance","Gold Coast II","activ","Engineer-led maintenance tours."],
+["fri","14:00","21:00","Ship Maintenance","Gold Coast II","activ","Maintenance tours, second block."],
+["fri","09:00","23:00","Merchant Marketplace","Universal D1 to D3","shop","Shopping with merchants. Merchant hours vary."],
+["fri","09:20","09:50","Faction HQ Experiences","Port of Call (Universal E1 to E3, F2 to F3)","activ","30-minute walk-in sessions at five establishments."],
+["fri","11:05","11:35","Faction HQ Experiences","Port of Call (Universal E1 to E3, F2 to F3)","activ","Second session block."],
+["fri","14:20","14:50","Faction HQ Experiences","Port of Call (Universal E1 to E3, F2 to F3)","activ","Third session block."],
+["fri","16:05","16:35","Faction HQ Experiences","Port of Call (Universal E1 to E3, F2 to F3)","activ","Fourth session block."],
+["fri","09:30","10:00","CSL Gallery Guided Tour","Space Coast II","activ","Guided exhibition tour."],
+["fri","14:30","15:00","CSL Gallery Guided Tour","Space Coast II","activ","Guided exhibition tour."],
+["fri","17:00","17:30","CSL Gallery Guided Tour","Space Coast II","activ","Guided exhibition tour."],
+["fri","10:15","10:30","The Ember Cup","Sun and Surf II to III","progA","Saja tea ritual and reflection."],
+["fri","10:45","11:00","The Ember Cup","Sun and Surf II to III","progA","Second session."],
+["fri","14:00","14:15","The Ember Cup","Sun and Surf II to III","progA","Third session."],
+["fri","14:30","14:45","The Ember Cup","Sun and Surf II to III","progA","Fourth session."],
+["fri","11:30","14:00","Lunch: The N'Orlando Meal","Crown of Cantonica and Crown of Serenno (Seminole B, C, E)","food","Boxed meal, $30, with collector cards. Card payment only."],
+["fri","12:00","17:00","Sabacc for Charity Cantina","Sabacc Den (Universal C1 to C3)","sabacc","Cantina open. Exhibition and tournament registration."],
+["fri","18:00","22:00","Sabacc for Charity Cantina","Sabacc Den (Universal C1 to C3)","sabacc","Cantina, second block."],
+["fri","12:30","13:30","Lunch Show: Starcruiser! The Musical","Crown of Cantonica and Crown of Serenno (Seminole B, C, E)","shows","Musical retelling of the 275th Anniversary cruise."],
+["fri","14:00","14:50","'Til the Spires: Legends, Lore, and History of Batuu","Sun and Surf IV","progB","Talk on the stories behind Black Spire Outpost."],
+["fri","15:00","15:50","On The Way of the Saja and the Dissemination of the Force","Sun and Surf IV","progB","History of Force traditions and accessibility."],
+["fri","16:00","16:50","Galaxy of Creatures","Sun and Surf IV","progB","Interactive talk from the Chandrila Wildlife Preserve."],
+["fri","16:00","16:50","Rally Against the First Order","Sun and Surf II to III","progA","Sign-making and a march through the ship."],
+["fri","16:00","16:45","Sabacc Exhibition Game","Sabacc Den (Universal C1 to C3)","sabacc","Exhibition game. Winner announced about 4:45 pm."],
+["fri","18:00","19:30","Chef Andrew Experience (Add-On)","Atrium Dining Room (Seminole C)","food","Four-course dinner. Sold out. Alcohol not included."],
+["fri","18:00","19:00","The Wretched Hive","Merchant Marketplace Stage (Universal D1 to D3)","shows","Shanty performance."],
+["fri","20:00","20:45","The Wretched Hive","C.S.L. Lounge (Seminole D)","shows","Shanty performance, second show."],
+["fri","19:30","20:20","The Path of Power: The Dark Saja","Sun and Surf IV","progB","Talk on the Force and how to use it."],
+["fri","19:30","20:20","Lightsaber Training: Saja","Lightsaber Training Pod (Seminole A)","saber","Lightsaber basics with the Saja."],
+["fri","20:30","21:20","Force Flow: A Saja Movement and Meditation Session","Lightsaber Training Pod (Seminole A)","saber","Guided meditation and beginner movement."],
+["fri","20:30","21:20","Lightsaber Training: Dark Saja","Gold Coast III to IV","saber","Lightsaber basics with the Dark Saja."],
+["fri","21:00","21:15","Sabacc Run Deadline","Sabacc Den (Universal C1 to C3)","sabacc","Last call for the scavenger hunt. Winner about 9:10 pm.",1],
+
+["sat","09:00","09:50","Embodied Force Centering and Stretching","Sun and Surf II to III","progA","Gentle stretching. No experience required."],
+["sat","09:00","09:50","A Transdisciplinary Dialogue: Rise and Fall of the Empire","Sun and Surf IV","progB","Scholar panel on the Empire and its legacy."],
+["sat","09:00","12:00","Training Bridge","Gold Coast I","activ","Simulator voyages."],
+["sat","14:00","16:00","Training Bridge","Gold Coast I","activ","Simulator voyages, second block."],
+["sat","09:00","12:00","Ship Maintenance","Gold Coast II","activ","Engineer-led maintenance tours."],
+["sat","14:00","16:00","Ship Maintenance","Gold Coast II","activ","Maintenance tours, second block."],
+["sat","09:00","15:00","Merchant Marketplace","Universal D1 to D3","shop","Final day of shopping. Closes at 3 pm."],
+["sat","09:20","09:50","Faction HQ Experiences","Port of Call (Universal E1 to E3, F2 to F3)","activ","Walk-in sessions at five establishments."],
+["sat","11:05","11:35","Faction HQ Experiences","Port of Call (Universal E1 to E3, F2 to F3)","activ","Second session block."],
+["sat","14:20","14:50","Faction HQ Experiences","Port of Call (Universal E1 to E3, F2 to F3)","activ","Third session block."],
+["sat","16:05","16:35","Faction HQ Experiences","Port of Call (Universal E1 to E3, F2 to F3)","activ","Fourth session block."],
+["sat","09:30","10:00","CSL Gallery Guided Tour","Space Coast II","activ","Guided exhibition tour."],
+["sat","14:30","15:00","CSL Gallery Guided Tour","Space Coast II","activ","Guided exhibition tour."],
+["sat","10:00","10:50","Dance Party with Gaya","Sun and Surf II to III","progA","Dance lesson and celebration. Lightsabers encouraged."],
+["sat","10:00","10:50","Seize Your Inner Power!","Sun and Surf IV","progB","Motivational session. Everyone gets a free LEGO gift."],
+["sat","11:30","14:00","Lunch: The N'Orlando Meal","Crown of Cantonica and Crown of Serenno (Seminole B, C, E)","food","Boxed meal, $30, with collector cards. Card payment only."],
+["sat","12:00","13:45","Surprise Lunch Acts","Crown of Cantonica and Crown of Serenno (Seminole B, C, E)","shows","Unannounced performance."],
+["sat","12:00","17:00","Sabacc for Charity Cantina","Sabacc Den (Universal C1 to C3)","sabacc","Cantina open. Tournament registration."],
+["sat","18:15","21:00","Sabacc for Charity Cantina","Sabacc Den (Universal C1 to C3)","sabacc","Cantina, evening block."],
+["sat","14:00","14:50","Aurateran Devotion Ceremony","Sun and Surf II to III","progA","A communal ceremony for love and connection."],
+["sat","14:00","14:50","The Syndicate","Sun and Surf IV","progB","Interactive puzzle adventure with a Grand Prize."],
+["sat","14:30","15:30","Creature Contest","Merchant Marketplace (Universal D1 to D3)","shows","Contest. The schedule gives no other details."],
+["sat","15:00","15:50","The Mustafarian Tip-Yip Challenge","Sun and Surf IV","progB","HoloNet interview game show. Contestants must be 18+."],
+["sat","17:15","17:45","Faction Gatherings","Various","story","Invite-only gatherings for faction Mission participants."],
+["sat","17:45","18:15","Main Finale","Atrium (Seminole C)","story","Closing scene for all passengers."],
+["sat","18:30","20:30","Charity Sabacc Tournament","Sabacc Den (Universal C1 to C3)","sabacc","Charity tournament. Winners announced about 8:30 pm."],
+["sat","19:00","22:00","Starcruiser Celebration","Atrium (Seminole C)","story","Doors at 7 pm, dancing from 7:30 pm."]
+];
+
+function mins(t){ var p=t.split(":"); return +p[0]*60 + +p[1]; }
+function fmt(m){ var h=Math.floor(m/60), mm=m%60; return (h%12||12)+(mm?":"+String(mm).padStart(2,"0"):"")+(h<12?" am":" pm"); }
+function slug(s){ return s.toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,""); }
+
+var EVENTS = RAW.map(function(r){
+  return {id:r[0]+"-"+r[1].replace(":","")+"-"+slug(r[3]), day:r[0], s:mins(r[1]), e:mins(r[2]), title:r[3], loc:r[4], cat:r[5], desc:r[6], openEnd:!!r[7]};
+});
+var CATMAP = {}; CATS.forEach(function(c){ CATMAP[c[0]]={name:c[1],v:c[2]}; });
+
+// ---- state ----
+var KEY="halcycon3-planner-v1";
+var state = {day:null, off:{}, star:{}, hide:{}, onlyStar:false, catsOpen:true};
+try{ var saved=JSON.parse(localStorage.getItem(KEY)||"null"); if(saved&&typeof saved==="object"){ for(var k in state){ if(k in saved) state[k]=saved[k]; } } }catch(e){}
+function save(){ try{ localStorage.setItem(KEY, JSON.stringify(state)); }catch(e){} }
+
+function etNow(){ return new Date(); }
+function dayStartUTC(d){ return new Date(d[3]+"T00:00:00-04:00"); }
+if(!state.day){
+  var n=etNow(), pick="thu";
+  DAYS.forEach(function(d){ var st=dayStartUTC(d); if(n>=st && n<new Date(st.getTime()+864e5)) pick=d[0]; });
+  state.day=pick;
+}
+
+var $=function(id){ return document.getElementById(id); };
+function esc(s){ return String(s).replace(/[&<>"']/g,function(c){ return {"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[c]; }); }
+
+function visible(ev){
+  if(state.hide[ev.id]) return false;
+  if(state.onlyStar) return !!state.star[ev.id];
+  return !state.off[ev.cat];
+}
+
+// ---- controls ----
+function renderDays(){
+  $("days").innerHTML = DAYS.map(function(d){
+    return '<button class="day" data-day="'+d[0]+'" aria-pressed="'+(state.day===d[0])+'">'+d[1]+'<span>'+d[2]+'</span></button>';
+  }).join("");
+}
+function renderCats(){
+  var dayEv = EVENTS.filter(function(e){ return e.day===state.day; });
+  $("cats").innerHTML = CATS.map(function(c){
+    var n = dayEv.filter(function(e){ return e.cat===c[0]; }).length;
+    return '<button class="cat" style="--cc:var('+c[2]+')" data-cat="'+c[0]+'" aria-pressed="'+(!state.off[c[0]])+'"><i></i>'+esc(c[1])+' <b>'+n+'</b></button>';
+  }).join("");
+  $("onlyStar").setAttribute("aria-pressed", String(!!state.onlyStar));
+  var p=$("catPanel"); p.classList.toggle("closed", !state.catsOpen);
+  $("toggleCats").textContent = state.catsOpen ? "Hide switches" : "Show switches";
+  $("toggleCats").setAttribute("aria-expanded", String(!!state.catsOpen));
+}
+
+// ---- grid ----
+function renderGrid(){
+  var outer=$("gridOuter");
+  var list = EVENTS.filter(function(e){ return e.day===state.day && visible(e); }).sort(function(a,b){ return a.s-b.s || (b.e-b.s)-(a.e-a.s); });
+  var all = EVENTS.filter(function(e){ return e.day===state.day; });
+  var start = Math.floor(Math.min.apply(null, all.map(function(e){return e.s;}))/60)*60;
+  var end = Math.ceil(Math.max.apply(null, all.map(function(e){return e.e;}))/60)*60;
+  var ppm = 1.5, PAD=12, H=(end-start)*ppm+PAD;
+
+  // greedy lane assignment
+  var laneEnds=[];
+  list.forEach(function(e){
+    var i=0; while(i<laneEnds.length && laneEnds[i]>e.s) i++;
+    e.lane=i; laneEnds[i]=e.e;
+  });
+  var lanes=Math.max(1,laneEnds.length);
+  var laneW = 150, gap=4;
+  var minW = lanes*(laneW+gap)+gap;
+
+  var hours="", lines="";
+  for(var m=start;m<=end;m+=30){
+    var y=(m-start)*ppm+PAD;
+    if(m%60===0) hours+='<div class="hour" style="top:'+y+'px">'+fmt(m)+'</div>';
+    lines+='<div class="hline'+(m%60?' half':'')+'" style="top:'+y+'px"></div>';
+  }
+  var evs = list.map(function(e){
+    var top=(e.s-start)*ppm+PAD+1, h=Math.max(18,(e.e-e.s)*ppm-2);
+    var left=gap+e.lane*(laneW+gap);
+    var c=CATMAP[e.cat].v, st=!!state.star[e.id];
+    return '<button class="ev'+(h<44?' short':'')+(st?' starred':'')+'" data-id="'+e.id+'" style="--cc:var('+c+');top:'+top+'px;height:'+h+'px;left:'+left+'px;width:'+laneW+'px" aria-label="'+esc(e.title+", "+fmt(e.s)+" to "+fmt(e.e))+'">'+
+      (st?'<span class="st" aria-hidden="true">★</span>':'')+
+      '<span class="t">'+esc(e.title)+'</span><span class="s">'+fmt(e.s)+' · '+esc(e.loc)+'</span></button>';
+  }).join("");
+
+  var now=etNow(), d=DAYS.filter(function(x){return x[0]===state.day;})[0], nowHtml="";
+  var nm=(now-dayStartUTC(d))/60000;
+  if(nm>=start && nm<=end) nowHtml='<div class="now" style="top:'+((nm-start)*ppm+PAD)+'px"></div>';
+
+  outer.innerHTML = list.length ? '<div class="grid" style="height:'+(H+8)+'px"><div class="hours" style="height:'+(H+8)+'px">'+hours+'</div><div class="lanes" style="min-width:'+minW+'px;height:'+(H+8)+'px">'+lines+nowHtml+evs+'</div></div>'
+    : '<div class="empty">Nothing to show. Turn a category back on, or star a few events and use Starred only.</div>';
+}
+
+// ---- lists ----
+function renderLists(){
+  var d=DAYS.filter(function(x){return x[0]===state.day;})[0];
+  $("planDay").textContent=d[1];
+  var plan = EVENTS.filter(function(e){ return e.day===state.day && state.star[e.id]; }).sort(function(a,b){return a.s-b.s;});
+  $("plan").innerHTML = plan.length ? plan.map(function(e,i){
+    var clash = plan.some(function(o){ return o!==e && o.s<e.e && e.s<o.e; });
+    return '<li style="--cc:var('+CATMAP[e.cat].v+')"><span class="tm">'+fmt(e.s)+'<br>'+fmt(e.e)+'</span><span class="nm"><i class="sw"></i>'+esc(e.title)+'<span>'+esc(e.loc)+'</span>'+(clash?'<span class="clash">Overlaps another starred event</span>':'')+'</span><button class="link" data-open="'+e.id+'">Open</button></li>';
+  }).join("") : '<li><span class="tm"></span><span class="nm">Nothing starred yet<span>Tap an event on the calendar, then tap Star.</span></span><span></span></li>';
+
+  var hid = EVENTS.filter(function(e){ return state.hide[e.id]; }).sort(function(a,b){ return DAYS.map(function(x){return x[0];}).indexOf(a.day)-DAYS.map(function(x){return x[0];}).indexOf(b.day) || a.s-b.s; });
+  $("hiddenList").innerHTML = hid.length ? hid.map(function(e){
+    var dn=DAYS.filter(function(x){return x[0]===e.day;})[0][1].slice(0,3);
+    return '<li style="--cc:var('+CATMAP[e.cat].v+')"><span class="tm">'+dn+'<br>'+fmt(e.s)+'</span><span class="nm"><i class="sw"></i>'+esc(e.title)+'<span>'+esc(e.loc)+'</span></span><button class="link" data-unhide="'+e.id+'">Show</button></li>';
+  }).join("") : '<li><span class="tm"></span><span class="nm">No hidden events<span>Open an event and tap Hide to take it off the calendar.</span></span><span></span></li>';
+}
+
+function renderAll(){ renderDays(); renderCats(); renderGrid(); renderLists(); }
+
+// ---- detail sheet ----
+var current=null;
+function openEv(id){
+  var e=EVENTS.filter(function(x){return x.id===id;})[0]; if(!e) return; current=e;
+  var c=CATMAP[e.cat], d=DAYS.filter(function(x){return x[0]===e.day;})[0];
+  var st=!!state.star[e.id], hd=!!state.hide[e.id];
+  $("sheet").style.setProperty("--cc","var("+c.v+")");
+  $("sheet").innerHTML =
+    '<span class="tag">'+esc(c.name)+'</span><h3>'+esc(e.title)+'</h3>'+
+    '<dl><dt>When</dt><dd>'+d[1]+', '+fmt(e.s)+(e.openEnd?' (end time not listed)':' to '+fmt(e.e))+'</dd>'+
+    '<dt>Where</dt><dd>'+esc(e.loc)+'</dd><dt>About</dt><dd>'+esc(e.desc)+'</dd></dl>'+
+    '<div class="acts"><button class="btn star" id="bStar" aria-pressed="'+st+'">'+(st?'★ Starred':'☆ Star')+'</button>'+
+    '<button class="btn" id="bHide">'+(hd?'Show on calendar':'Hide this event')+'</button>'+
+    '<button class="btn primary" id="bClose">Done</button></div>';
+  $("bStar").onclick=function(){ if(state.star[e.id]) delete state.star[e.id]; else state.star[e.id]=1; save(); renderAll(); openEv(e.id); };
+  $("bHide").onclick=function(){ if(state.hide[e.id]) delete state.hide[e.id]; else state.hide[e.id]=1; save(); renderAll(); $("dlg").close(); };
+  $("bClose").onclick=function(){ $("dlg").close(); };
+  if(!$("dlg").open) $("dlg").showModal();
+}
+$("dlg").addEventListener("click",function(ev){ if(ev.target===this) this.close(); });
+
+// ---- events ----
+$("days").addEventListener("click",function(ev){ var b=ev.target.closest("[data-day]"); if(!b) return; state.day=b.dataset.day; save(); renderAll(); $("gridOuter").scrollTop=0; });
+$("cats").addEventListener("click",function(ev){ var b=ev.target.closest("[data-cat]"); if(!b) return; var k=b.dataset.cat; if(state.off[k]) delete state.off[k]; else state.off[k]=1; state.onlyStar=false; save(); renderAll(); });
+$("onlyStar").onclick=function(){ state.onlyStar=!state.onlyStar; save(); renderAll(); };
+$("allOn").onclick=function(){ state.off={}; state.onlyStar=false; save(); renderAll(); };
+$("allOff").onclick=function(){ CATS.forEach(function(c){ state.off[c[0]]=1; }); state.onlyStar=false; save(); renderAll(); };
+$("toggleCats").onclick=function(){ state.catsOpen=!state.catsOpen; save(); renderCats(); };
+$("gridOuter").addEventListener("click",function(ev){ var b=ev.target.closest(".ev"); if(b) openEv(b.dataset.id); });
+document.querySelector(".lower").addEventListener("click",function(ev){
+  var o=ev.target.closest("[data-open]"); if(o){ openEv(o.dataset.open); return; }
+  var u=ev.target.closest("[data-unhide]"); if(u){ delete state.hide[u.dataset.unhide]; save(); renderAll(); }
+});
+
+renderAll();
+setInterval(renderGrid, 60000);
+})();
+</script>
+
+</body>
+</html>
