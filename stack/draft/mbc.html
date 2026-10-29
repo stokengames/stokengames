@@ -20,8 +20,8 @@
 #board{position:fixed;left:0;top:0;width:0;height:0;z-index:3;transform-origin:0 0;display:none;cursor:grab}
 #board.on{display:block}#board.drag{cursor:grabbing}
 .fam{position:absolute;border:1px dashed #262626;border-radius:14px}
-.fam .fl{position:absolute;left:14px;top:-13px;background:#0a0a0a;padding:0 8px;font-family:var(--disp);font-weight:700;font-size:18px;letter-spacing:.06em;text-transform:uppercase;color:var(--silver);white-space:nowrap}
-.cbox{position:absolute;background:#101214;border:1px solid #2a2d31;border-radius:8px;padding:10px;box-sizing:border-box;overflow:hidden;transition:opacity .2s}
+.fam .fl{position:absolute;left:14px;top:-13px;background:#0a0a0a;padding:0 8px;font-family:var(--disp);font-weight:700;font-size:18px;letter-spacing:.06em;text-transform:uppercase;color:var(--amber);white-space:nowrap}
+.cbox{position:absolute;background:#101214;border:1px solid #2a2d31;border-left:4px solid #3a3d41;border-radius:8px;padding:10px 10px 10px 9px;box-sizing:border-box;overflow:hidden;transition:opacity .2s}
 .cbox.dim{opacity:.22}.cbox.hot{border-color:var(--cyan);box-shadow:0 0 0 1px rgba(0,229,255,.35)}
 .cbox .ct{display:flex;align-items:baseline;gap:6px;height:20px;font-family:var(--disp);font-weight:700;font-size:13px;letter-spacing:.04em;text-transform:uppercase;color:var(--cyan);white-space:nowrap;overflow:hidden}
 .cbox .ct .pop{margin-left:auto;font-family:var(--body);font-weight:400;font-size:9.5px;color:#8f8f8f;text-transform:none;letter-spacing:0}
@@ -44,6 +44,11 @@
 .brand b{color:var(--cyan);font-weight:700}
 h1{font-family:var(--disp);font-weight:700;text-transform:uppercase;font-size:34px;line-height:.9;margin:6px 0 2px}
 h1 .cy{color:var(--cyan)}
+.logo{display:block;margin:6px 0 4px}.logo img{display:block;width:100%;max-width:268px;height:auto}
+.vh{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+#handle{display:none}
+#keysbtn{position:fixed;left:calc(var(--rail) + 50px);top:12px;z-index:4;width:30px;height:30px;border-radius:6px;background:rgba(10,10,10,.85);border:1px solid var(--line);color:var(--silver);font-family:var(--disp);font-weight:700;font-size:16px;cursor:pointer}
+#keysbtn:hover,#keysbtn.on{border-color:var(--cyan);color:var(--cyan)}
 .sub{font-size:11px;color:var(--silver);margin-bottom:10px;line-height:1.35}
 .lbl{font-family:var(--disp);font-weight:600;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--silver);margin:14px 0 7px;display:flex;align-items:center;gap:8px}
 .lbl small{margin-left:auto;font-family:var(--body);letter-spacing:0;text-transform:none;color:#8f8f8f;font-weight:400}
@@ -52,8 +57,8 @@ h1 .cy{color:var(--cyan)}
 .count small{font-size:11px;color:var(--silver);font-family:var(--body);font-weight:400;margin-left:6px}
 #share{margin-left:auto;background:none;border:1px solid var(--line);border-radius:6px;color:var(--silver);font-size:10.5px;padding:3px 8px;cursor:pointer}
 #share:hover{border-color:var(--cyan);color:var(--cyan)}
-.chips{display:flex;gap:7px;flex-wrap:wrap}
-.chip{width:38px;height:38px;border-radius:50%;border:2px solid #333;cursor:pointer;display:flex;align-items:center;justify-content:center;font-family:var(--disp);font-weight:700;font-size:15px;color:#0a0a0a;opacity:.35;transition:.15s;user-select:none}
+.chips{display:flex;gap:9px;flex-wrap:wrap}
+.chip{width:44px;height:44px;border-radius:50%;border:2px solid #333;cursor:pointer;display:flex;align-items:center;justify-content:center;font-family:var(--disp);font-weight:700;font-size:17px;color:#0a0a0a;opacity:.35;transition:.15s;user-select:none}
 .chip.on{opacity:1;border-color:var(--cyan);box-shadow:0 0 0 2px rgba(0,229,255,.25)}
 .chip:hover{opacity:.8}
 .combo{font-family:var(--disp);font-weight:700;font-size:20px;letter-spacing:.04em;margin-top:8px}
@@ -120,9 +125,9 @@ input[type=text]:focus{outline:none;border-color:var(--cyan)}
 #home:hover{border-color:var(--cyan);color:var(--cyan)}
 #legend{position:fixed;left:calc(var(--rail) + 12px);bottom:12px;z-index:4;font-size:10.5px;color:#8f8f8f;background:rgba(10,10,10,.8);padding:6px 9px;border-radius:6px;border:1px solid var(--line);line-height:1.6}
 #legend i{display:inline-block;width:8px;height:8px;border-radius:50%;margin:0 3px 0 8px;vertical-align:-1px}
-#keys{position:fixed;left:calc(var(--rail) + 50px);top:12px;z-index:4;font-size:10.5px;color:#8f8f8f;background:rgba(10,10,10,.8);padding:5px 9px;border-radius:6px;border:1px solid var(--line);line-height:1.7}
+#keys{display:none;position:fixed;left:calc(var(--rail) + 50px);top:48px;z-index:4;max-width:380px;font-size:10.5px;color:#8f8f8f;background:rgba(10,10,10,.8);padding:5px 9px;border-radius:6px;border:1px solid var(--line);line-height:1.7}
 #keys kbd{font-family:var(--disp);font-weight:600;font-size:11px;color:var(--silver);background:#161616;border:1px solid #2a2a2a;border-radius:3px;padding:0 5px;margin-right:2px}
-#keys span{margin-right:9px;white-space:nowrap}
+#keys span{margin-right:9px;white-space:nowrap}#keys.on{display:block}
 #lensnote{font-size:10.5px;color:#8f8f8f;margin-top:5px;line-height:1.4}
 .ccombo{background:#101010;border:1px solid #1c1c1c;border-radius:6px;padding:6px 8px;margin-bottom:5px;font-size:11.5px}
 .ccombo .res{color:var(--cyan);font-family:var(--disp);letter-spacing:.04em;text-transform:uppercase;font-size:11px}
@@ -138,13 +143,23 @@ input[type=text]:focus{outline:none;border-color:var(--cyan)}
 .mate{display:grid;grid-template-columns:1fr auto;font-size:11.5px;padding:3px 0;border-bottom:1px solid #161616;cursor:pointer}
 .mate:hover{color:var(--cyan)}.mate b{color:#8f8f8f;font-weight:400;font-variant-numeric:tabular-nums}
 #toast{position:fixed;left:50%;bottom:18px;transform:translateX(-50%);background:var(--cyan);color:#04262b;font-family:var(--disp);font-weight:700;letter-spacing:.06em;padding:7px 14px;border-radius:6px;z-index:9;display:none}
-@media (max-width:860px){
+html,body{height:100dvh}
+#map,#lab,#imgs,#board,#rail,#panel{-webkit-tap-highlight-color:transparent;user-select:none;-webkit-user-select:none}
+@media (max-width:860px), (any-pointer:coarse) and (max-width:1100px){
   :root{--rail:100%;--panel:100%}
-  #rail{top:auto;bottom:0;height:46%;border-right:0;border-top:1px solid var(--line);padding:12px 14px}
-  h1{font-size:26px}
-  #home{left:12px}#legend{display:none}#keys{display:none}
-  #panel{top:0;height:54%;bottom:auto;width:100%;border-left:0;border-bottom:1px solid var(--line)}
-  #map,#lab,#imgs{bottom:46%}
+  #rail{top:auto;bottom:0;height:46dvh;border-right:0;border-top:1px solid var(--line);padding:0 14px calc(12px + env(safe-area-inset-bottom,0px));transition:height .25s;border-radius:14px 14px 0 0}
+  #rail.collapsed{height:150px;overflow:hidden}
+  #handle{display:flex;align-items:center;justify-content:center;position:sticky;top:0;z-index:2;width:100%;height:28px;margin:0 0 2px;background:linear-gradient(rgba(10,10,10,1),rgba(10,10,10,.6));border:0;cursor:pointer}
+  #handle span{display:block;width:44px;height:5px;border-radius:3px;background:#3a3a3a}
+  #handle{order:-3}#colorsblk{order:-2}#lensblk{order:-1}#colorsblk .lbl{margin-top:4px}
+  #comboname{font-size:16px;margin-top:4px}
+  #home{left:12px}#legend{display:none}#keysbtn,#keys{display:none}
+  #panel{top:auto;bottom:0;height:62dvh;width:100%;border-left:0;border-top:1px solid var(--line);border-radius:14px 14px 0 0;padding-bottom:calc(20px + env(safe-area-inset-bottom,0px))}
+  body.panelopen #rail{display:none}
+  input[type=text]{font-size:16px}
+  .cardhead{grid-template-columns:72px 1fr}.cardhead img{width:72px}
+  .px{width:36px;height:36px;font-size:18px}
+  .chip{width:46px;height:46px}
 }
 </style>
 </head>
@@ -156,20 +171,27 @@ input[type=text]:focus{outline:none;border-color:var(--cyan)}
 <div id="tip"></div>
 <button id="home" title="home view (0)">⌂</button>
 <div id="legend">white<i style="background:#efe9d2"></i> blue<i style="background:#3fa0ff"></i> black<i style="background:#a98bd9"></i> red<i style="background:#f05a4a"></i> green<i style="background:#3fc46a"></i> multi<i style="background:#C9A54A"></i> colorless<i style="background:#8a8a8a"></i></div>
-<div id="keys"><span><kbd>scroll</kbd>zoom</span><span><kbd>drag</kbd>pan</span><span><kbd>dbl-click</kbd>zoom in</span><span><kbd>alt</kbd>+<kbd>dbl-click</kbd>out</span><span><kbd>+</kbd><kbd>−</kbd>zoom</span><span><kbd>0</kbd>home</span><span><kbd>F</kbd>fit cards</span><span><kbd>click</kbd>card details</span><span><kbd>click box</kbd>zoom to combo</span><span><kbd>esc</kbd>clear</span></div>
+<button id="keysbtn" title="controls">?</button>
+<div id="keys"><span><kbd>scroll</kbd>zoom</span><span><kbd>drag</kbd>pan</span><span><kbd>dbl-click</kbd>zoom in</span><span><kbd>alt</kbd>+<kbd>dbl-click</kbd>out</span><span><kbd>+</kbd><kbd>−</kbd>zoom</span><span><kbd>0</kbd>home</span><span><kbd>F</kbd>fit cards</span><span><kbd>click</kbd>card details</span><span><kbd>click box</kbd>zoom to it</span><span><kbd>esc</kbd>clear</span></div>
 <div id="toast"></div>
 
 <div id="rail">
+  <button id="handle" aria-label="show or hide the controls"><span></span></button>
   <div class="brand">stoken<b>·</b>games</div>
-  <h1 style="font-size:30px">MYSTERY BOOSTER 3<br><span class="cy">COMMANDER DRAFT</span></h1>
+  <a class="logo" href="https://magic.wizards.com/en/products/mystery-booster" target="_blank" rel="noopener"><img src="mb-logo.png" alt="Mystery Booster Commander Edition"></a>
+  <h1 class="vh">Mystery Booster Commander Edition draft map</h1>
   <div class="sub">Every draftable card in the set on one map. Pick your colors to see what the pool supports there, or start from a commander you opened.</div>
   <div class="countrow"><span class="count"><span id="nshown">·</span><small id="nlabel">cards in these colors</small></span><button id="share" title="copy a link to this view">⧉ copy view</button></div>
-  <div class="lbl">Map by</div>
-  <div class="tgl" id="lens"><button data-l="deck" class="on">deckmates</button><button data-l="combo">combos</button></div>
-  <div id="lensnote"></div>
+  <div id="colorsblk">
   <div class="lbl">Your colors</div>
   <div class="chips" id="chips"></div>
   <div class="combo" id="comboname"></div>
+  </div>
+  <div id="lensblk">
+  <div class="lbl">Map by</div>
+  <div class="tgl" id="lens"><button data-l="deck" class="on">deckmates</button><button data-l="combo">combos</button></div>
+  <div id="lensnote"></div>
+  </div>
   <div class="sub" style="margin-top:6px">In MBC draft a commander with one color or none can be treated as having partner, so two mono-color legends can run a two-color deck.</div>
   <div class="lbl">Or start from a commander</div>
   <div class="ac"><input type="text" id="cq" placeholder="type a commander name" autocomplete="off"><div class="dd" id="cdd"></div></div>
@@ -223,11 +245,24 @@ let S={colors:new Set(),arch:null,nb:null,q:'',sel:null,cmdr:null,src:'all',lens
 const map=document.getElementById('map'), lab=document.getElementById('lab'), ctx=map.getContext('2d'), lctx=lab.getContext('2d');
 const imgs=document.getElementById('imgs'), tip=document.getElementById('tip');
 let W=0,H=0,DPR=1, cam={x:0.5,y:0.5,z:1}, railW=300, panelW=0;
-function layout(){ const narrow=innerWidth<=860; railW=narrow?0:300; panelW=(document.getElementById('panel').classList.contains('open')&&!narrow)?340:0;
-  DPR=Math.min(2,devicePixelRatio||1); W=innerWidth; H=narrow?innerHeight*0.54:innerHeight;
+const railEl=document.getElementById('rail'), panelEl=document.getElementById('panel');
+function isNarrow(){ return innerWidth<=860 || (matchMedia('(any-pointer:coarse)').matches && innerWidth<=1100); }
+function layout(){ const narrow=isNarrow(); railW=narrow?0:300; const popen=panelEl.classList.contains('open'); panelW=(popen&&!narrow)?340:0;
+  document.body.classList.toggle('panelopen',popen&&narrow);
+  DPR=Math.min(2,devicePixelRatio||1); W=innerWidth;
+  const bottom=narrow?(popen?panelEl.offsetHeight:railEl.offsetHeight):0; H=innerHeight-bottom;
   for(const cv of [map,lab]){cv.width=W*DPR;cv.height=H*DPR;cv.style.width=W+'px';cv.style.height=H+'px';}
+  for(const el of [imgs,board]){ el.style.height=H+'px'; }
   draw(); }
-addEventListener('resize',layout);
+addEventListener('resize',layout); if(window.visualViewport) visualViewport.addEventListener('resize',layout);
+document.getElementById('handle').onclick=()=>{ railEl.classList.toggle('collapsed'); setTimeout(layout,260); };
+document.getElementById('keysbtn').onclick=e=>{ document.getElementById('keys').classList.toggle('on'); e.currentTarget.classList.toggle('on'); };
+// board: pinch and double-tap on touch devices
+let bpinch=null, lastTap=0;
+board.addEventListener('touchstart',e=>{ if(e.touches.length===2){ bpinch={d:Math.hypot(e.touches[0].clientX-e.touches[1].clientX,e.touches[0].clientY-e.touches[1].clientY),z:cam.z}; drag=null; } },{passive:true});
+board.addEventListener('touchmove',e=>{ if(bpinch&&e.touches.length===2){ const d=Math.hypot(e.touches[0].clientX-e.touches[1].clientX,e.touches[0].clientY-e.touches[1].clientY); const mx=(e.touches[0].clientX+e.touches[1].clientX)/2,my=(e.touches[0].clientY+e.touches[1].clientY)/2; zoomAt(mx,my,(bpinch.z*d/bpinch.d)/cam.z); } },{passive:true});
+board.addEventListener('touchend',()=>{bpinch=null;});
+function doubleTap(e){ if(e.pointerType!=='touch') return false; const now=performance.now(); const dt=now-lastTap; lastTap=now; if(dt<320){ lastTap=0; zoomSmooth(e.clientX,e.clientY,2.6); return true; } return false; }
 // world <-> screen. view box is the free area between rail and panel
 function vw(){ return {x0:railW,x1:W-panelW,y0:0,y1:H}; }
 let nvis=0; function showZ(){ return nvis<=60?1.1:nvis<=160?2.4:8; } function zEff(){ return cam.z*8/showZ(); }
@@ -302,7 +337,7 @@ function layoutBoard(){
   blocks.forEach(bl=>{ const fd=document.createElement('div'); fd.className='fam'; fd.style.cssText=`left:${bl.x}px;top:${bl.y}px;width:${bl.w}px;height:${bl.h}px`;
     const name=FAM[bl.fm.f]||'other'; fd.innerHTML=`<div class="fl">${name} <span style="color:#8f8f8f;font-size:12px;letter-spacing:0">· ${bl.fm.qs.length} combo${bl.fm.qs.length===1?'':'s'}</span></div>`; frag.appendChild(fd);
     famRect[bl.fm.f]=[bl.x,bl.y,bl.w,bl.h];
-    let yy=bl.y+FH; bl.rows.forEach(r=>{ let xx=bl.x+GAP; r.row.forEach(q=>{ const k=BD[q], w=boxW(q); const b=document.createElement('div'); b.className='cbox'; b.dataset.q=q; b.style.cssText=`left:${xx}px;top:${yy}px;width:${w}px;height:${BOXH}px`;
+    let yy=bl.y+FH; bl.rows.forEach(r=>{ let xx=bl.x+GAP; r.row.forEach(q=>{ const k=BD[q], w=boxW(q); const b=document.createElement('div'); b.className='cbox'; b.dataset.q=q; b.style.cssText=`left:${xx}px;top:${yy}px;width:${w}px;height:${BOXH}px;border-left-color:${k.ci.length===1?COL[k.ci]:k.ci.length>1?GOLD:'#3a3d41'}`;
         b.innerHTML=`<div class="ct">${k.ci?`<span class="d">${k.ci.split('').map(ch=>`<i style="background:${COL[ch]}"></i>`).join('')}</span>`:''}<span>${k.res[0]||'combo'}</span>${k.pop?`<span class="pop">${k.pop.toLocaleString()} decks</span>`:''}</div>
           <div class="cc">${k.cards.map(i=>`<div class="cw"><img loading="lazy" src="https://cards.scryfall.io/small/${C[i].img}" alt="" data-i="${i}">${k.cmdr.includes(i)?'<div class="tag">COMMANDER</div>':''}</div>`).join('')}</div>
           <div class="ch">${k.how}${k.res.length>1?` <b>Also: ${k.res.slice(1).join(', ')}.</b>`:''}${k.pre?` <b>Needs: ${k.pre}</b>`:''}</div>`;
@@ -311,7 +346,8 @@ function layoutBoard(){
 }
 function fitBoard(){ const v=vw(); const vwid=v.x1-v.x0, vh=v.y1-v.y0, side=Math.min(vwid,vh); const z=Math.min(vwid/BW, vh/BH)*0.94*(BW/side); cam={x:0.5,y:(BH/BW)/2,z:Math.max(0.3,z)}; draw(); writeHashSoon(); }
 function flyBox(rect,pad,maxPx){ const [x,y,w,h]=rect; const v=vw(); const vwid=v.x1-v.x0, vh=v.y1-v.y0, side=Math.min(vwid,vh); const z=Math.min(vwid/(w+pad), vh/(h+pad), (maxPx||1e9)/w)*(BW/side); cam={x:(x+w/2)/BW,y:(y+h/2)/BW,z:Math.min(z,8)}; draw(); writeHashSoon(); }
-function flyCombo(q){ if(boxRect[q]) flyBox(boxRect[q],120,620); }
+function boxPx(q){ const v=vw(); const side=Math.min(v.x1-v.x0,v.y1-v.y0)*cam.z; return boxRect[q]?boxRect[q][2]*side/BW:0; }
+function flyCombo(q,force){ if(!boxRect[q]) return; if(!force&&boxPx(q)>=420) return; flyBox(boxRect[q],80,780); }
 function drawBoard(){ const v=vw(); const side=Math.min(v.x1-v.x0,v.y1-v.y0)*cam.z; const [sx,sy]=toScreen(0,0); board.style.transform=`translate(${sx}px,${sy}px) scale(${side/BW})`; }
 // ---------- rail
 const NAMES={W:'White',U:'Blue',B:'Black',R:'Red',G:'Green'};
@@ -393,10 +429,10 @@ function renderCard(i){
    ${cms.length?`<div class="lbl">Commanders that run it</div><div style="font-size:11.5px;color:var(--silver);line-height:1.5">${cms.map(([n,d])=>`${n} <span style="color:#8f8f8f">(${d.toLocaleString()} decks)</span>`).join('<br>')}</div>`:''}`;
   const go=j=>{ S.sel=j; const d=C[j]; cam.x=d.x; cam.y=d.y; cam.z=Math.max(cam.z,6); recompute(); };
   pbody.querySelectorAll('[data-j]').forEach(el=>el.onclick=()=>go(+el.dataset.j));
-  pbody.querySelectorAll('.ccombo .res').forEach(el=>el.onclick=()=>{ const q=+el.parentNode.dataset.q; if(S.lens!=='combo'){ S.lens='combo'; syncSrc(); recompute(); } if(!curCombos.includes(q)){ S.colors=new Set(BD[q].ci.split('')); recompute(); } flyCombo(q); });
+  pbody.querySelectorAll('.ccombo .res').forEach(el=>el.onclick=()=>{ const q=+el.parentNode.dataset.q; if(S.lens!=='combo'){ S.lens='combo'; syncSrc(); recompute(); } if(!curCombos.includes(q)){ S.colors=new Set(BD[q].ci.split('')); recompute(); } flyCombo(q,true); });
   document.getElementById('cscry').onclick=()=>open('https://scryfall.com/card/'+c.id,'_blank');
   document.getElementById('cimg').onclick=()=>open('https://scryfall.com/card/'+c.id,'_blank');
-  const cf=document.getElementById('cfit'); if(cf) cf.onclick=()=>{ if(S.lens==='combo'){ const q=qs.find(q=>here.has(q)); if(q!=null) flyCombo(q); return; } const pts=new Set([i]); qs.forEach(q=>CB[q].cards.forEach(j=>pts.add(j))); let x0=1,y0=1,x1=0,y1=0; pts.forEach(j=>{ const d=C[j]; x0=Math.min(x0,d.x);y0=Math.min(y0,d.y);x1=Math.max(x1,d.x);y1=Math.max(y1,d.y); }); cam.x=(x0+x1)/2; cam.y=(y0+y1)/2; cam.z=Math.min(12,0.8/Math.max(x1-x0,y1-y0,0.07)); draw(); writeHashSoon(); };
+  const cf=document.getElementById('cfit'); if(cf) cf.onclick=()=>{ if(S.lens==='combo'){ const q=qs.find(q=>here.has(q)); if(q!=null) flyCombo(q,true); return; } const pts=new Set([i]); qs.forEach(q=>CB[q].cards.forEach(j=>pts.add(j))); let x0=1,y0=1,x1=0,y1=0; pts.forEach(j=>{ const d=C[j]; x0=Math.min(x0,d.x);y0=Math.min(y0,d.y);x1=Math.max(x1,d.x);y1=Math.max(y1,d.y); }); cam.x=(x0+x1)/2; cam.y=(y0+y1)/2; cam.z=Math.min(12,0.8/Math.max(x1-x0,y1-y0,0.07)); draw(); writeHashSoon(); };
 }
 function renderPanel(B,cb){
   if(S.sel!=null){ panel.classList.add('open'); layout(); renderCard(S.sel); return; }
@@ -433,6 +469,10 @@ function draw(){
   if(S.lens==='combo'){ for(const [i,el] of imgEls){ el.remove(); imgEls.delete(i); } drawBoard(); return; }
   const v=vw(); const side=Math.min(v.x1-v.x0,v.y1-v.y0)*cam.z;
   const r=(S.lens==='combo'?2.2:1)*Math.max(2.2,Math.min(5.5,1.6+cam.z*0.55));
+  // soft glow per cluster so the home view reads as regions
+  if(cam.z<4&&!(S.arch||S.nb!=null)){ const cent={}; for(let i=0;i<N;i++){ if(vis[i]!==2) continue; const c=C[i]; if(c.cl<0) continue; (cent[c.cl]??=[0,0,0]); cent[c.cl][0]+=c.x; cent[c.cl][1]+=c.y; cent[c.cl][2]++; }
+    for(const k in cent){ const [sx,sy,n]=cent[k]; if(n<8) continue; let rr=0; const mx=sx/n,my=sy/n; for(let i=0;i<N;i++){ if(vis[i]!==2||C[i].cl!==+k) continue; rr+=Math.hypot(C[i].x-mx,C[i].y-my); } rr/=n; const [px,py]=toScreen(mx,my); const side=Math.min(v.x1-v.x0,v.y1-v.y0)*cam.z; const R=Math.max(30,rr*side*1.6);
+      const g=ctx.createRadialGradient(px,py,0,px,py,R); g.addColorStop(0,'rgba(0,229,255,'+Math.min(.11,.03+n/900)+')'); g.addColorStop(1,'rgba(0,229,255,0)'); ctx.fillStyle=g; ctx.beginPath(); ctx.arc(px,py,R,0,6.283); ctx.fill(); } }
   // dim pass then full pass so highlights sit on top
   for(const pass of [1,2]) for(let i=0;i<N;i++){ if(vis[i]!==pass) continue; const c=C[i]; const [wx,wy]=ep(c); const [px,py]=toScreen(wx,wy);
     if(px<v.x0-10||px>v.x1+10||py<-10||py>H+10) continue;
@@ -473,10 +513,10 @@ let drag=null, moved=false;
 map.addEventListener('pointerdown',e=>{ drag={x:e.clientX,y:e.clientY,cx:cam.x,cy:cam.y}; moved=false; map.classList.add('drag'); map.setPointerCapture(e.pointerId); });
 map.addEventListener('pointermove',e=>{ if(drag){ const v=vw(); const side=Math.min(v.x1-v.x0,v.y1-v.y0)*cam.z; const dx=e.clientX-drag.x, dy=e.clientY-drag.y; if(Math.abs(dx)+Math.abs(dy)>3) moved=true; cam.x=drag.cx-dx/side; cam.y=drag.cy-dy/side; draw(); }
   else { const i=pick(e.clientX,e.clientY); if(i>=0){ showTip(C[i],e); map.style.cursor='pointer'; } else { tip.style.display='none'; map.style.cursor='grab'; } } });
-map.addEventListener('pointerup',e=>{ map.classList.remove('drag'); if(drag&&!moved){ const i=pick(e.clientX,e.clientY); if(i>=0){ S.sel=i; recompute(); } else if(S.sel!=null){ S.sel=null; recompute(); } } drag=null; });
+map.addEventListener('pointerup',e=>{ map.classList.remove('drag'); if(drag&&!moved){ if(doubleTap(e)){ drag=null; return; } const i=pick(e.clientX,e.clientY); if(i>=0){ S.sel=i; recompute(); } else if(S.sel!=null){ S.sel=null; recompute(); } } drag=null; });
 board.addEventListener('pointerdown',e=>{ drag={x:e.clientX,y:e.clientY,cx:cam.x,cy:cam.y}; moved=false; board.classList.add('drag'); board.setPointerCapture(e.pointerId); });
 board.addEventListener('pointermove',e=>{ if(drag){ const v=vw(); const side=Math.min(v.x1-v.x0,v.y1-v.y0)*cam.z; const dx=e.clientX-drag.x, dy=e.clientY-drag.y; if(Math.abs(dx)+Math.abs(dy)>3) moved=true; cam.x=drag.cx-dx/side; cam.y=drag.cy-dy/side; draw(); } });
-board.addEventListener('pointerup',e=>{ board.classList.remove('drag'); if(drag&&!moved){ const im=e.target.closest('img[data-i]'); const bx=e.target.closest('.cbox'); if(im){ S.sel=+im.dataset.i; recompute(); } else if(bx){ flyCombo(+bx.dataset.q); } else if(S.sel!=null){ S.sel=null; recompute(); } } drag=null; });
+board.addEventListener('pointerup',e=>{ board.classList.remove('drag'); if(drag&&!moved){ if(e.pointerType==='touch'&&!e.target.closest('img[data-i]')&&!e.target.closest('.cbox')&&doubleTap(e)){ drag=null; return; } const im=e.target.closest('img[data-i]'); const bx=e.target.closest('.cbox'); if(im){ S.sel=+im.dataset.i; recompute(); } else if(bx){ flyCombo(+bx.dataset.q); } else if(S.sel!=null){ S.sel=null; recompute(); } } drag=null; });
 board.addEventListener('wheel',e=>{ e.preventDefault(); zoomAt(e.clientX,e.clientY,Math.exp(-e.deltaY*0.0036)); },{passive:false});
 board.addEventListener('dblclick',e=>{ zoomSmooth(e.clientX,e.clientY,e.altKey?0.28:3.6); });
 board.addEventListener('pointerover',e=>{ const im=e.target.closest('img[data-i]'); if(im) showTip(C[+im.dataset.i],e); else tip.style.display='none'; });
@@ -488,7 +528,7 @@ let pinch=null; map.addEventListener('touchstart',e=>{ if(e.touches.length===2){
 map.addEventListener('touchmove',e=>{ if(pinch&&e.touches.length===2){ const d=Math.hypot(e.touches[0].clientX-e.touches[1].clientX,e.touches[0].clientY-e.touches[1].clientY); const mx=(e.touches[0].clientX+e.touches[1].clientX)/2,my=(e.touches[0].clientY+e.touches[1].clientY)/2; const f=(pinch.z*d/pinch.d)/cam.z; zoomAt(mx,my,f); } },{passive:true});
 map.addEventListener('touchend',()=>{pinch=null;});
 function zoomAt(px,py,f){ const [wx,wy]=toWorld(px,py); cam.z=Math.max(0.6,Math.min(40,cam.z*f)); const [nx,ny]=toWorld(px,py); cam.x+=wx-nx; cam.y+=wy-ny; draw(); writeHashSoon(); }
-function pick(px,py){ if(S.lens==='combo') return -1; let best=-1,bd=81; for(let i=0;i<N;i++){ if(!vis[i]) continue; const c=C[i]; const [wx,wy]=ep(c); const [sx,sy]=toScreen(wx,wy); const d=(sx-px)**2+(sy-py)**2; if(d<bd){bd=d;best=i;} } return best; }
+function pick(px,py){ if(S.lens==='combo') return -1; let best=-1,bd=matchMedia('(any-pointer:coarse)').matches?400:81; for(let i=0;i<N;i++){ if(!vis[i]) continue; const c=C[i]; const [wx,wy]=ep(c); const [sx,sy]=toScreen(wx,wy); const d=(sx-px)**2+(sy-py)**2; if(d<bd){bd=d;best=i;} } return best; }
 document.getElementById('home').onclick=home;
 addEventListener('keydown',e=>{ if(e.target.tagName==='INPUT') return; const cx=(vw().x0+vw().x1)/2; if(e.key==='0'||e.key==='h') home(); if(e.key==='+'||e.key==='=') zoomSmooth(cx,H/2,2.4); if(e.key==='-'||e.key==='_') zoomSmooth(cx,H/2,1/2.4); if(e.key==='f'||e.key==='F') fitVisible(); if(e.key==='Escape'){ if(S.sel!=null){ S.sel=null; recompute(); } else if(S.nb!=null||S.arch){ S.nb=null; S.arch=null; recompute(); } } });
 document.querySelectorAll('#src button').forEach(b=>b.onclick=()=>{ S.src=b.dataset.s; syncSrc(); recompute(); });
