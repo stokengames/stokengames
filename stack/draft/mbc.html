@@ -76,6 +76,15 @@ h1 .cy{color:var(--cyan)}
 .nb{font-size:11px;color:var(--silver);padding:4px 0;border-bottom:1px solid #161616;cursor:pointer;display:flex;gap:6px}
 .nb:hover{color:var(--white)}.nb.on{color:var(--cyan)}
 .nb b{color:#8f8f8f;font-weight:400;margin-left:auto;font-variant-numeric:tabular-nums}
+.hub{display:grid;grid-template-columns:26px 1fr auto;gap:7px;align-items:center;font-size:11.5px;padding:3px 0;border-bottom:1px solid #161616;cursor:pointer}
+.hub img{width:26px;height:36px;object-fit:cover;border-radius:2px;background:#151515}
+.hub:hover{color:var(--white)}.hub.on{color:var(--cyan)}
+.hub b{color:var(--cyan);font-family:var(--disp);font-size:14px;font-variant-numeric:tabular-nums}
+.hub .bar{grid-column:2/-1;height:2px;background:#1c1c1c}.hub .bar i{display:block;height:100%;background:#1f6b76}
+#focusbar:empty{display:none}#focusbar{display:flex;align-items:center;gap:8px;background:#0d1517;border:1px solid var(--cyan);border-radius:6px;padding:6px 8px;margin-bottom:6px;font-size:11.5px}
+#focusbar b{color:var(--cyan)}#focusbar button{margin-left:auto;background:none;border:1px solid var(--line);border-radius:4px;color:var(--silver);font-size:10px;padding:2px 6px;cursor:pointer}
+.cbox .cc .cnt{position:absolute;left:0;top:0;background:rgba(10,10,10,.85);color:var(--silver);font-family:var(--disp);font-size:9px;padding:1px 4px;border-radius:3px 0 3px 0}
+.cbox .cc .cw.focus img{outline:2px solid var(--amber)}
 #cmdrbox{margin-top:8px}
 .ac{position:relative}
 .dd{position:absolute;left:0;right:0;top:100%;z-index:8;background:#111;border:1px solid var(--line);border-radius:0 0 6px 6px;max-height:220px;overflow-y:auto;display:none}
@@ -192,6 +201,13 @@ html,body{height:100dvh}
   <div class="tgl" id="lens"><button data-l="deck" class="on">deckmates</button><button data-l="combo">combos</button></div>
   <div id="lensnote"></div>
   </div>
+  <div id="piecesblk" style="display:none">
+  <div class="lbl">Pieces</div>
+  <div class="tgl" id="pieces"><button data-p="all" class="on">all</button><button data-p="2">2 cards</button><button data-p="3">3 cards</button><button data-p="4">4 cards</button></div>
+  <div class="lbl">Combo pieces <small id="hubsub">combos each card enables</small></div>
+  <div id="focusbar"></div>
+  <div id="hubs"></div>
+  </div>
   <div class="sub" style="margin-top:6px">In MBC draft a commander with one color or none can be treated as having partner, so two mono-color legends can run a two-color deck.</div>
   <div class="lbl">Or start from a commander</div>
   <div class="ac"><input type="text" id="cq" placeholder="type a commander name" autocomplete="off"><div class="dd" id="cdd"></div></div>
@@ -241,7 +257,7 @@ function applyLayout(key,instant){
 }
 
 // ---------- state
-let S={colors:new Set(),arch:null,nb:null,q:'',sel:null,cmdr:null,src:'all',lens:'deck'};
+let S={colors:new Set(),arch:null,nb:null,q:'',sel:null,cmdr:null,src:'all',lens:'deck',pieces:'all',focus:null};
 const map=document.getElementById('map'), lab=document.getElementById('lab'), ctx=map.getContext('2d'), lctx=lab.getContext('2d');
 const imgs=document.getElementById('imgs'), tip=document.getElementById('tip');
 let W=0,H=0,DPR=1, cam={x:0.5,y:0.5,z:1}, railW=300, panelW=0;
@@ -300,13 +316,17 @@ function recompute(){
     ln.innerHTML=`Each island is one Commander Spellbook combo you can finish with cards in this pool. Families group the combos that share pieces. ${curCombos.length} combo${curCombos.length===1?'':'s'} fit ${cb?comboName(cb):'the full pool'}. Zoom in to read an island, or click a card for its details.`; }
   else { board.classList.remove('on'); document.getElementById('nshown').textContent=n.toLocaleString(); document.getElementById('nlabel').textContent='cards in these colors';
     ln.innerHTML=`This map puts each card next to the cards and commanders it shares decks with on EDHREC. Neighbors here end up in the same decks.${nh?` ${nh} card${nh===1?' has':'s have'} too little data and ${nh===1?'is':'are'} hidden.`:''}`; }
-  renderRail(B,cb); renderPanel(B,cb); draw(); writeHash();
+  renderRail(B,cb); renderHubs(); renderPanel(B,cb); draw(); writeHash();
 }
 // ---------- combo board: each combo is a boxed island with its cards and a short how-it-works; families group combos that share pieces
-function comboFits(k){ if(S.colors.size){ for(const ch of k.ci) if(!S.colors.has(ch)) return false; if(!k.cards.every(i=>inColors(C[i]))) return false; }
-  if(S.src==='new'&&!k.cards.some(i=>C[i].new)) return false; if(S.src==='reprint'&&k.cards.some(i=>C[i].new)) return false; return true; }
+function comboFitsBase(k){ if(S.colors.size){ for(const ch of k.ci) if(!S.colors.has(ch)) return false; if(!k.cards.every(i=>inColors(C[i]))) return false; }
+  if(S.src==='new'&&!k.cards.some(i=>C[i].new)) return false; if(S.src==='reprint'&&k.cards.some(i=>C[i].new)) return false;
+  if(S.pieces!=='all'&&String(Math.min(4,k.cards.length))!==S.pieces) return false; return true; }
+function comboFits(k){ return comboFitsBase(k)&&(S.focus==null||k.cards.includes(S.focus)); }
+let hubCount={};
 function buildBoard(cb){
-  const key=cb+'|'+S.src; curCombos=[]; for(let q=0;q<BD.length;q++) if(comboFits(BD[q])) curCombos.push(q);
+  const key=cb+'|'+S.src+'|'+S.pieces+'|'+S.focus; hubCount={}; for(let q=0;q<BD.length;q++) if(comboFitsBase(BD[q])) for(const i of BD[q].cards) hubCount[i]=(hubCount[i]||0)+1;
+  curCombos=[]; for(let q=0;q<BD.length;q++) if(comboFits(BD[q])) curCombos.push(q);
   if(key!==boardKey){ boardKey=key; layoutBoard(); if(S.sel==null&&!camFromHash) fitBoard(); camFromHash=false; }
   // highlight state: archetype, neighborhood (family), search
   const qs=S.q; board.querySelectorAll('.cbox').forEach(b=>{ const k=BD[+b.dataset.q]; let dim=false, hot=false;
@@ -339,7 +359,7 @@ function layoutBoard(){
     famRect[bl.fm.f]=[bl.x,bl.y,bl.w,bl.h];
     let yy=bl.y+FH; bl.rows.forEach(r=>{ let xx=bl.x+GAP; r.row.forEach(q=>{ const k=BD[q], w=boxW(q); const b=document.createElement('div'); b.className='cbox'; b.dataset.q=q; b.style.cssText=`left:${xx}px;top:${yy}px;width:${w}px;height:${BOXH}px;border-left-color:${k.ci.length===1?COL[k.ci]:k.ci.length>1?GOLD:'#3a3d41'}`;
         b.innerHTML=`<div class="ct">${k.ci?`<span class="d">${k.ci.split('').map(ch=>`<i style="background:${COL[ch]}"></i>`).join('')}</span>`:''}<span>${k.res[0]||'combo'}</span>${k.pop?`<span class="pop">${k.pop.toLocaleString()} decks</span>`:''}</div>
-          <div class="cc">${k.cards.map(i=>`<div class="cw"><img loading="lazy" src="https://cards.scryfall.io/small/${C[i].img}" alt="" data-i="${i}">${k.cmdr.includes(i)?'<div class="tag">COMMANDER</div>':''}</div>`).join('')}</div>
+          <div class="cc">${k.cards.map(i=>`<div class="cw${i===S.focus?' focus':''}"><img loading="lazy" src="https://cards.scryfall.io/small/${C[i].img}" alt="" data-i="${i}">${(hubCount[i]||0)>1?`<div class="cnt">×${hubCount[i]}</div>`:''}${k.cmdr.includes(i)?'<div class="tag">COMMANDER</div>':''}</div>`).join('')}</div>
           <div class="ch">${k.how}${k.res.length>1?` <b>Also: ${k.res.slice(1).join(', ')}.</b>`:''}${k.pre?` <b>Needs: ${k.pre}</b>`:''}</div>`;
         boxRect[q]=[xx,yy,w,BOXH]; frag.appendChild(b); xx+=w+GAP; }); yy+=BOXH+GAP; }); });
   board.appendChild(frag);
@@ -347,7 +367,7 @@ function layoutBoard(){
 function fitBoard(){ const v=vw(); const vwid=v.x1-v.x0, vh=v.y1-v.y0, side=Math.min(vwid,vh); const z=Math.min(vwid/BW, vh/BH)*0.94*(BW/side); cam={x:0.5,y:(BH/BW)/2,z:Math.max(0.3,z)}; draw(); writeHashSoon(); }
 function flyBox(rect,pad,maxPx){ const [x,y,w,h]=rect; const v=vw(); const vwid=v.x1-v.x0, vh=v.y1-v.y0, side=Math.min(vwid,vh); const z=Math.min(vwid/(w+pad), vh/(h+pad), (maxPx||1e9)/w)*(BW/side); cam={x:(x+w/2)/BW,y:(y+h/2)/BW,z:Math.min(z,8)}; draw(); writeHashSoon(); }
 function boxPx(q){ const v=vw(); const side=Math.min(v.x1-v.x0,v.y1-v.y0)*cam.z; return boxRect[q]?boxRect[q][2]*side/BW:0; }
-function flyCombo(q,force){ if(!boxRect[q]) return; if(!force&&boxPx(q)>=420) return; flyBox(boxRect[q],80,780); }
+function flyCombo(q,force){ if(!boxRect[q]) return; if(!force&&boxPx(q)>=260) return; flyBox(boxRect[q],80,640); }
 function drawBoard(){ const v=vw(); const side=Math.min(v.x1-v.x0,v.y1-v.y0)*cam.z; const [sx,sy]=toScreen(0,0); board.style.transform=`translate(${sx}px,${sy}px) scale(${side/BW})`; }
 // ---------- rail
 const NAMES={W:'White',U:'Blue',B:'Black',R:'Red',G:'Green'};
@@ -355,7 +375,7 @@ const GUILD={WU:'Azorius',UB:'Dimir',BR:'Rakdos',RG:'Gruul',WG:'Selesnya',WB:'Or
 function comboName(cb){ if(!cb) return 'All colors'; if(cb.length===1) return 'Mono-'+NAMES[cb].toLowerCase(); return GUILD[cb]||cb; }
 const chips=document.getElementById('chips');
 'WUBRG'.split('').forEach(k=>{ const d=document.createElement('div'); d.className='chip'; d.style.background=COL[k]; d.textContent=k; d.title=NAMES[k];
-  d.onclick=()=>{ if(S.colors.has(k)) S.colors.delete(k); else S.colors.add(k); S.arch=null; S.nb=null; S.cmdr=null; document.getElementById('cq').value=''; recompute(); }; chips.appendChild(d); });
+  d.onclick=()=>{ if(S.colors.has(k)) S.colors.delete(k); else S.colors.add(k); S.arch=null; S.nb=null; S.cmdr=null; S.focus=null; document.getElementById('cq').value=''; recompute(); }; chips.appendChild(d); });
 function renderRail(B,cb){
   [...chips.children].forEach(d=>d.classList.toggle('on',S.colors.has(d.textContent)));
   const cn=document.getElementById('comboname'); cn.innerHTML=comboName(cb)+(cb?`<span>${cb.split('').map(k=>NAMES[k]).join(' · ')}</span>`:'<span>pick one to three colors</span>');
@@ -387,6 +407,14 @@ function renderRail(B,cb){
     const d=document.createElement('div'); d.className='nb'+(S.nb===nb.cluster?' on':''); d.innerHTML=`<span>${nb.label}</span><b>${nb.n}</b>`;
     d.onclick=()=>{ S.nb=(S.nb===nb.cluster)?null:nb.cluster; S.arch=null; recompute(); if(S.nb!=null){ flyTo(nb.cluster); } }; NB.appendChild(d); });
 }
+function renderHubs(){ const blk=document.getElementById('piecesblk'); blk.style.display=S.lens==='combo'?'':'none'; if(S.lens!=='combo') return;
+  document.querySelectorAll('#pieces button').forEach(b=>b.classList.toggle('on',b.dataset.p===S.pieces));
+  const fb=document.getElementById('focusbar'); fb.innerHTML=S.focus==null?'':`<span>Only combos with <b>${C[S.focus].n.split(' // ')[0]}</b> (${curCombos.length})</span><button id="focusclear">show all</button>`;
+  if(S.focus!=null) document.getElementById('focusclear').onclick=()=>{ S.focus=null; recompute(); };
+  const list=Object.entries(hubCount).map(([i,n])=>({i:+i,n})).sort((a,b)=>b.n-a.n||rank(C[a.i])-rank(C[b.i])).slice(0,24); const mx=list.length?list[0].n:1;
+  const H=document.getElementById('hubs'); H.innerHTML='';
+  list.forEach(o=>{ const d=document.createElement('div'); d.className='hub'+(S.focus===o.i?' on':''); d.innerHTML=`<img loading="lazy" src="https://cards.scryfall.io/small/${C[o.i].img}" alt=""><span>${C[o.i].n.split(' // ')[0]}</span><b>${o.n}</b><span class="bar"><i style="width:${Math.round(100*o.n/mx)}%"></i></span>`;
+    d.onclick=()=>{ S.focus=(S.focus===o.i)?null:o.i; S.nb=null; recompute(); }; H.appendChild(d); }); }
 function fitVisible(){ if(S.lens==='combo'){ fitBoard(); return; } let x0=1,y0=1,x1=0,y1=0,n=0; for(let i=0;i<N;i++){ if(vis[i]!==2) continue; const c=C[i]; x0=Math.min(x0,c.x);y0=Math.min(y0,c.y);x1=Math.max(x1,c.x);y1=Math.max(y1,c.y); n++; } if(!n) return; cam.x=(x0+x1)/2; cam.y=(y0+y1)/2; cam.z=Math.min(14,0.9/Math.max(x1-x0,y1-y0,0.06)); draw(); writeHashSoon(); }
 function flyTo(cl){ if(S.lens==='combo'){ if(famRect[cl]) flyBox(famRect[cl],60); return; } let x0=1,y0=1,x1=0,y1=0,n=0; C.forEach(c=>{ if(c.cl===cl && vis[c.i]){x0=Math.min(x0,c.x);y0=Math.min(y0,c.y);x1=Math.max(x1,c.x);y1=Math.max(y1,c.y);n++;} }); if(n){ cam.x=(x0+x1)/2; cam.y=(y0+y1)/2; cam.z=Math.min(12,Math.max(2.4,0.7/Math.max(x1-x0,y1-y0,0.05))); draw(); writeHashSoon(); } }
 // ---------- commander picker
@@ -423,7 +451,7 @@ function renderCard(i){
   if(qs.length){ combosHtml=`<div class="lbl">In-pool combos <small>${qs.length}</small></div>`+qs.map(q=>{ const k=CB[q]; const off=!here.has(q);
     return `<div class="ccombo" data-q="${q}"${off?' style="opacity:.55"':''}><div class="res" style="cursor:pointer" title="show on the map">${k.produces.join(' · ')||'combo'}${off?' <span style="color:#8f8f8f">(needs '+k.identity.split('').map(x=>NAMES[x]).join('+')+')</span>':''}</div><div class="pc">${[...new Set(k.cards)].map(j=>`<span class="${j===i?'me':''}" data-j="${j}">${C[j].n.split(' // ')[0]}${k.cmdr.includes(j)?' (commander)':''}</span>`).join('')}</div>${k.steps?`<div class="st">${k.steps.replace(/\n/g,' ').slice(0,260)}${k.steps.length>260?'…':''}</div>`:''}</div>`; }).join(''); }
   pbody.innerHTML=`<div class="cardhead"><img src="https://cards.scryfall.io/normal/${c.img}" alt="" id="cimg" title="open on Scryfall"><div><h2 style="font-size:20px">${c.n}${c.new?' <span class="new">NEW</span>':''}</h2><div class="t">${c.t} · ${c.m||''}${c.e?` · EDHREC #${c.e.toLocaleString()}`:''}</div>${tg?`<div class="tg">${tg}</div>`:''}</div></div>
-   <div class="ptools"><button id="cscry">open on Scryfall</button>${qs.length?'<button id="cfit">fit map to its combos</button>':''}</div>
+   <div class="ptools"><button id="cscry">open on Scryfall</button>${qs.length?`<button id="cfocus">${S.focus===i?'show all combos':'only its combos'}</button>`:''}</div>
    ${combosHtml||(S.lens==='combo'?'<div class="note">None of this card\'s Spellbook combos can be built from cards in this pool.</div>':'')}
    ${mates.length?`<div class="lbl">Deckmates in this pool <small>EDHREC lift</small></div>${mates.map(([j,l])=>`<div class="mate" data-j="${j}"><span>${C[j].n.split(' // ')[0]}</span><b>×${l.toFixed(2)}</b></div>`).join('')}`:''}
    ${cms.length?`<div class="lbl">Commanders that run it</div><div style="font-size:11.5px;color:var(--silver);line-height:1.5">${cms.map(([n,d])=>`${n} <span style="color:#8f8f8f">(${d.toLocaleString()} decks)</span>`).join('<br>')}</div>`:''}`;
@@ -432,7 +460,8 @@ function renderCard(i){
   pbody.querySelectorAll('.ccombo .res').forEach(el=>el.onclick=()=>{ const q=+el.parentNode.dataset.q; if(S.lens!=='combo'){ S.lens='combo'; syncSrc(); recompute(); } if(!curCombos.includes(q)){ S.colors=new Set(BD[q].ci.split('')); recompute(); } flyCombo(q,true); });
   document.getElementById('cscry').onclick=()=>open('https://scryfall.com/card/'+c.id,'_blank');
   document.getElementById('cimg').onclick=()=>open('https://scryfall.com/card/'+c.id,'_blank');
-  const cf=document.getElementById('cfit'); if(cf) cf.onclick=()=>{ if(S.lens==='combo'){ const q=qs.find(q=>here.has(q)); if(q!=null) flyCombo(q,true); return; } const pts=new Set([i]); qs.forEach(q=>CB[q].cards.forEach(j=>pts.add(j))); let x0=1,y0=1,x1=0,y1=0; pts.forEach(j=>{ const d=C[j]; x0=Math.min(x0,d.x);y0=Math.min(y0,d.y);x1=Math.max(x1,d.x);y1=Math.max(y1,d.y); }); cam.x=(x0+x1)/2; cam.y=(y0+y1)/2; cam.z=Math.min(12,0.8/Math.max(x1-x0,y1-y0,0.07)); draw(); writeHashSoon(); };
+  const cfo=document.getElementById('cfocus'); if(cfo) cfo.onclick=()=>{ S.focus=(S.focus===i)?null:i; if(S.lens!=='combo'){ S.lens='combo'; syncSrc(); } S.nb=null; recompute(); };
+  const cf=null; if(cf) cf.onclick=()=>{ if(S.lens==='combo'){ const q=qs.find(q=>here.has(q)); if(q!=null) flyCombo(q,true); return; } const pts=new Set([i]); qs.forEach(q=>CB[q].cards.forEach(j=>pts.add(j))); let x0=1,y0=1,x1=0,y1=0; pts.forEach(j=>{ const d=C[j]; x0=Math.min(x0,d.x);y0=Math.min(y0,d.y);x1=Math.max(x1,d.x);y1=Math.max(y1,d.y); }); cam.x=(x0+x1)/2; cam.y=(y0+y1)/2; cam.z=Math.min(12,0.8/Math.max(x1-x0,y1-y0,0.07)); draw(); writeHashSoon(); };
 }
 function renderPanel(B,cb){
   if(S.sel!=null){ panel.classList.add('open'); layout(); renderCard(S.sel); return; }
@@ -517,7 +546,7 @@ map.addEventListener('pointerup',e=>{ map.classList.remove('drag'); if(drag&&!mo
 let downTarget=null;
 board.addEventListener('pointerdown',e=>{ downTarget=e.target; drag={x:e.clientX,y:e.clientY,cx:cam.x,cy:cam.y}; moved=false; board.classList.add('drag'); board.setPointerCapture(e.pointerId); });
 board.addEventListener('pointermove',e=>{ if(drag){ const v=vw(); const side=Math.min(v.x1-v.x0,v.y1-v.y0)*cam.z; const dx=e.clientX-drag.x, dy=e.clientY-drag.y; if(Math.abs(dx)+Math.abs(dy)>3) moved=true; cam.x=drag.cx-dx/side; cam.y=drag.cy-dy/side; draw(); } });
-board.addEventListener('pointerup',e=>{ board.classList.remove('drag'); const tg=downTarget||e.target; downTarget=null; if(drag&&!moved){ if(e.pointerType==='touch'&&!tg.closest('img[data-i]')&&!tg.closest('.cbox')&&doubleTap(e)){ drag=null; return; } const im=tg.closest('img[data-i]'); const bx=tg.closest('.cbox'); if(bx&&boxPx(+bx.dataset.q)<420){ flyCombo(+bx.dataset.q); } else if(im){ S.sel=+im.dataset.i; recompute(); } else if(S.sel!=null){ S.sel=null; recompute(); } } drag=null; });
+board.addEventListener('pointerup',e=>{ board.classList.remove('drag'); const tg=downTarget||e.target; downTarget=null; if(drag&&!moved){ if(e.pointerType==='touch'&&!tg.closest('img[data-i]')&&!tg.closest('.cbox')&&doubleTap(e)){ drag=null; return; } const im=tg.closest('img[data-i]'); const bx=tg.closest('.cbox'); if(bx&&boxPx(+bx.dataset.q)<260){ flyCombo(+bx.dataset.q); } else if(im){ S.sel=+im.dataset.i; recompute(); } else if(S.sel!=null){ S.sel=null; recompute(); } } drag=null; });
 board.addEventListener('wheel',e=>{ e.preventDefault(); zoomAt(e.clientX,e.clientY,Math.exp(-e.deltaY*0.0036)); },{passive:false});
 board.addEventListener('dblclick',e=>{ zoomSmooth(e.clientX,e.clientY,e.altKey?0.28:3.6); });
 board.addEventListener('pointerover',e=>{ const im=e.target.closest('img[data-i]'); if(im) showTip(C[+im.dataset.i],e); else tip.style.display='none'; });
@@ -533,15 +562,16 @@ function pick(px,py){ if(S.lens==='combo') return -1; let best=-1,bd=matchMedia(
 document.getElementById('home').onclick=home;
 addEventListener('keydown',e=>{ if(e.target.tagName==='INPUT') return; const cx=(vw().x0+vw().x1)/2; if(e.key==='0'||e.key==='h') home(); if(e.key==='+'||e.key==='=') zoomSmooth(cx,H/2,2.4); if(e.key==='-'||e.key==='_') zoomSmooth(cx,H/2,1/2.4); if(e.key==='f'||e.key==='F') fitVisible(); if(e.key==='Escape'){ if(S.sel!=null){ S.sel=null; recompute(); } else if(S.nb!=null||S.arch){ S.nb=null; S.arch=null; recompute(); } } });
 document.querySelectorAll('#src button').forEach(b=>b.onclick=()=>{ S.src=b.dataset.s; syncSrc(); recompute(); });
+document.querySelectorAll('#pieces button').forEach(b=>b.onclick=()=>{ S.pieces=b.dataset.p; S.nb=null; recompute(); });
 document.querySelectorAll('#lens button').forEach(b=>b.onclick=()=>{ S.lens=b.dataset.l; S.nb=null; boardKey=''; syncSrc(); recompute(); if(S.lens==='deck') home(); });
 function syncSrc(){ document.querySelectorAll('#src button').forEach(b=>b.classList.toggle('on',b.dataset.s===S.src)); document.querySelectorAll('#lens button').forEach(b=>b.classList.toggle('on',b.dataset.l===S.lens)); }
 document.getElementById('q').addEventListener('input',e=>{ S.q=e.target.value.trim().toLowerCase(); recompute(); });
-document.getElementById('reset').onclick=()=>{ S={colors:new Set(),arch:null,nb:null,q:'',sel:null,cmdr:null,src:'all',lens:S.lens}; cq.value=''; syncSrc(); document.getElementById('q').value=''; panel.classList.remove('open'); layout(); recompute(); home(); };
+document.getElementById('reset').onclick=()=>{ S={colors:new Set(),arch:null,nb:null,q:'',sel:null,cmdr:null,src:'all',lens:S.lens,pieces:'all',focus:null}; cq.value=''; syncSrc(); document.getElementById('q').value=''; panel.classList.remove('open'); layout(); recompute(); home(); };
 document.getElementById('share').onclick=()=>{ writeHash(); navigator.clipboard.writeText(location.href).then(()=>toast('link copied')).catch(()=>toast('copy failed')); };
 // ---------- hash state  c=colors a=arch n=cluster q=search v=x,y,z
 let hashT=null, camFromHash=false; function writeHashSoon(){ clearTimeout(hashT); hashT=setTimeout(writeHash,250); }
-function writeHash(){ const p=[]; if(S.lens!=='deck') p.push('l='+S.lens); if(S.colors.size) p.push('c='+combo()); if(S.arch) p.push('a='+S.arch); if(S.nb!=null) p.push('n='+S.nb); if(S.cmdr!=null) p.push('k='+S.cmdr); if(S.sel!=null) p.push('i='+S.sel); if(S.src!=='all') p.push('s='+S.src); if(S.q) p.push('q='+encodeURIComponent(S.q)); p.push('v='+cam.x.toFixed(4)+','+cam.y.toFixed(4)+','+cam.z.toFixed(2)); history.replaceState(null,'','#'+p.join('&')); }
-function readHash(){ const h=location.hash.slice(1); if(!h) return; for(const kv of h.split('&')){ const [k,v]=kv.split('='); if(k==='l'&&(v==='combo'||v==='deck')){ S.lens=v; syncSrc(); } if(k==='c') S.colors=new Set(v.split('')); if(k==='a') S.arch=v; if(k==='n') S.nb=+v; if(k==='i'&&isFinite(+v)) S.sel=+v; if(k==='s'&&(v==='new'||v==='reprint')){ S.src=v; syncSrc(); } if(k==='k'){ S.cmdr=+v; const o=CM.find(x=>x.i===S.cmdr); if(o){ cq.value=o.c.n; } } if(k==='q'){ S.q=decodeURIComponent(v); document.getElementById('q').value=S.q; } if(k==='v'){ const [x,y,z]=v.split(',').map(Number); if(isFinite(x)&&isFinite(y)&&isFinite(z)){ cam={x,y,z}; camFromHash=true; } } } if(S.arch) panel.classList.add('open'); }
+function writeHash(){ const p=[]; if(S.lens!=='deck') p.push('l='+S.lens); if(S.colors.size) p.push('c='+combo()); if(S.arch) p.push('a='+S.arch); if(S.nb!=null) p.push('n='+S.nb); if(S.cmdr!=null) p.push('k='+S.cmdr); if(S.sel!=null) p.push('i='+S.sel); if(S.pieces!=='all') p.push('p='+S.pieces); if(S.focus!=null) p.push('f='+S.focus); if(S.src!=='all') p.push('s='+S.src); if(S.q) p.push('q='+encodeURIComponent(S.q)); p.push('v='+cam.x.toFixed(4)+','+cam.y.toFixed(4)+','+cam.z.toFixed(2)); history.replaceState(null,'','#'+p.join('&')); }
+function readHash(){ const h=location.hash.slice(1); if(!h) return; for(const kv of h.split('&')){ const [k,v]=kv.split('='); if(k==='l'&&(v==='combo'||v==='deck')){ S.lens=v; syncSrc(); } if(k==='c') S.colors=new Set(v.split('')); if(k==='a') S.arch=v; if(k==='n') S.nb=+v; if(k==='i'&&isFinite(+v)) S.sel=+v; if(k==='p'&&['2','3','4'].includes(v)) S.pieces=v; if(k==='f'&&isFinite(+v)) S.focus=+v; if(k==='s'&&(v==='new'||v==='reprint')){ S.src=v; syncSrc(); } if(k==='k'){ S.cmdr=+v; const o=CM.find(x=>x.i===S.cmdr); if(o){ cq.value=o.c.n; } } if(k==='q'){ S.q=decodeURIComponent(v); document.getElementById('q').value=S.q; } if(k==='v'){ const [x,y,z]=v.split(',').map(Number); if(isFinite(x)&&isFinite(y)&&isFinite(z)){ cam={x,y,z}; camFromHash=true; } } } if(S.arch) panel.classList.add('open'); }
 readHash(); applyLayout('deck:WUBRG',true); layout(); if(!location.hash) home(); recompute();
 </script>
 </body>
