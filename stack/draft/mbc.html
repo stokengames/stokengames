@@ -355,7 +355,9 @@ function layoutBoard(){
   BW=Math.max(maxW,1)+8; BH=y+shelfH+8;
   const frag=document.createDocumentFragment();
   blocks.forEach(bl=>{ const fd=document.createElement('div'); fd.className='fam'; fd.style.cssText=`left:${bl.x}px;top:${bl.y}px;width:${bl.w}px;height:${bl.h}px`;
-    const name=FAM[bl.fm.f]||'other'; fd.innerHTML=`<div class="fl">${name} <span style="color:#8f8f8f;font-size:12px;letter-spacing:0">· ${bl.fm.qs.length} combo${bl.fm.qs.length===1?'':'s'}</span></div>`; frag.appendChild(fd);
+    const hc={}, rc={}; bl.fm.qs.forEach(q=>{ BD[q].cards.forEach(i=>{ hc[i]=(hc[i]||0)+1; }); const r=BD[q].res[0]||'combo'; rc[r]=(rc[r]||0)+1; });
+    const hub=Object.entries(hc).sort((x,y)=>y[1]-x[1]||rank(C[+x[0]])-rank(C[+y[0]]))[0], res=Object.entries(rc).sort((x,y)=>y[1]-x[1])[0];
+    const name=hub?`${C[+hub[0]].n.split(',')[0].split(' // ')[0]} · ${res[0]}`:(FAM[bl.fm.f]||'other'); fd.innerHTML=`<div class="fl">${name} <span style="color:#8f8f8f;font-size:12px;letter-spacing:0">· ${bl.fm.qs.length} combo${bl.fm.qs.length===1?'':'s'}</span></div>`; frag.appendChild(fd);
     famRect[bl.fm.f]=[bl.x,bl.y,bl.w,bl.h];
     let yy=bl.y+FH; bl.rows.forEach(r=>{ let xx=bl.x+GAP; r.row.forEach(q=>{ const k=BD[q], w=boxW(q); const b=document.createElement('div'); b.className='cbox'; b.dataset.q=q; b.style.cssText=`left:${xx}px;top:${yy}px;width:${w}px;height:${BOXH}px;border-left-color:${k.ci.length===1?COL[k.ci]:k.ci.length>1?GOLD:'#3a3d41'}`;
         b.innerHTML=`<div class="ct">${k.ci?`<span class="d">${k.ci.split('').map(ch=>`<i style="background:${COL[ch]}"></i>`).join('')}</span>`:''}<span>${k.res[0]||'combo'}</span>${k.pop?`<span class="pop">${k.pop.toLocaleString()} decks</span>`:''}</div>
